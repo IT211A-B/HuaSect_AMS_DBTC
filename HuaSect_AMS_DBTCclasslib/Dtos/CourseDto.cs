@@ -1,6 +1,11 @@
 ﻿namespace HuaSect_AMS_DBTCclasslib;
 
-public class Teachers
+public class CreateCourseDto
+{
+
+}
+
+public class UpdateCourseDto
 {
     public int ID { get; set; }
 }
