@@ -5,6 +5,10 @@ VisualStudioVersion = 17.0.31903.59
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HuaSect_AMS_DBTCwebapi", "HuaSect_AMS_DBTCwebapi\HuaSect_AMS_DBTCwebapi.csproj", "{D6909A7A-8BA3-462B-90A3-8687C4DE1EB9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HuaSect_AMS_DBTCclasslib", "HuaSect_AMS_DBTCclasslib\HuaSect_AMS_DBTCclasslib.csproj", "{BF8B629C-9C69-424E-B676-340C575AC24E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HuaSect_AMS_DBTCtests", "HuaSect_AMS_DBTCtests\HuaSect_AMS_DBTCtests.csproj", "{F6698824-4ABD-459B-86FA-5F069CB1009F}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -27,6 +31,30 @@ Global
 		{D6909A7A-8BA3-462B-90A3-8687C4DE1EB9}.Release|x64.Build.0 = Release|Any CPU
 		{D6909A7A-8BA3-462B-90A3-8687C4DE1EB9}.Release|x86.ActiveCfg = Release|Any CPU
 		{D6909A7A-8BA3-462B-90A3-8687C4DE1EB9}.Release|x86.Build.0 = Release|Any CPU
+		{BF8B629C-9C69-424E-B676-340C575AC24E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BF8B629C-9C69-424E-B676-340C575AC24E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BF8B629C-9C69-424E-B676-340C575AC24E}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{BF8B629C-9C69-424E-B676-340C575AC24E}.Debug|x64.Build.0 = Debug|Any CPU
+		{BF8B629C-9C69-424E-B676-340C575AC24E}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{BF8B629C-9C69-424E-B676-340C575AC24E}.Debug|x86.Build.0 = Debug|Any CPU
+		{BF8B629C-9C69-424E-B676-340C575AC24E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BF8B629C-9C69-424E-B676-340C575AC24E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BF8B629C-9C69-424E-B676-340C575AC24E}.Release|x64.ActiveCfg = Release|Any CPU
+		{BF8B629C-9C69-424E-B676-340C575AC24E}.Release|x64.Build.0 = Release|Any CPU
+		{BF8B629C-9C69-424E-B676-340C575AC24E}.Release|x86.ActiveCfg = Release|Any CPU
+		{BF8B629C-9C69-424E-B676-340C575AC24E}.Release|x86.Build.0 = Release|Any CPU
+		{F6698824-4ABD-459B-86FA-5F069CB1009F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F6698824-4ABD-459B-86FA-5F069CB1009F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F6698824-4ABD-459B-86FA-5F069CB1009F}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{F6698824-4ABD-459B-86FA-5F069CB1009F}.Debug|x64.Build.0 = Debug|Any CPU
+		{F6698824-4ABD-459B-86FA-5F069CB1009F}.Debug|x86.ActiveCfg = Debug|Any CPU
+		{F6698824-4ABD-459B-86FA-5F069CB1009F}.Debug|x86.Build.0 = Debug|Any CPU
+		{F6698824-4ABD-459B-86FA-5F069CB1009F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F6698824-4ABD-459B-86FA-5F069CB1009F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F6698824-4ABD-459B-86FA-5F069CB1009F}.Release|x64.ActiveCfg = Release|Any CPU
+		{F6698824-4ABD-459B-86FA-5F069CB1009F}.Release|x64.Build.0 = Release|Any CPU
+		{F6698824-4ABD-459B-86FA-5F069CB1009F}.Release|x86.ActiveCfg = Release|Any CPU
+		{F6698824-4ABD-459B-86FA-5F069CB1009F}.Release|x86.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
