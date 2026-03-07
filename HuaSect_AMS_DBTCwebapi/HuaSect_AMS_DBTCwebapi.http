@@ -1,0 +1,6 @@
+@HuaSect_AMS_DBTCwebapi_HostAddress = http://localhost:5216
+
+GET {{HuaSect_AMS_DBTCwebapi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
