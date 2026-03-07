@@ -16,4 +16,8 @@
     <Using Include="Microsoft.VisualStudio.TestTools.UnitTesting" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\HuaSect_AMS_DBTCclasslib\HuaSect_AMS_DBTCclasslib.csproj" />
+  </ItemGroup>
+
 </Project>
