@@ -6,7 +6,7 @@ namespace HuaSect_AMS_DBTCclasslib.DbCtx;
 public class DatabaseCtx: DbContext
 {
     public DbSet<Student> Student { get; set; }
-    public DbSet<Student> Teacher { get; set; }
-    public DbSet<Student> Course { get; set; }
+    public DbSet<Teacher> Teacher { get; set; }
+    public DbSet<Course> Course { get; set; }
     public DatabaseCtx(DbContextOptions<DatabaseCtx> options): base(options) {}
 }

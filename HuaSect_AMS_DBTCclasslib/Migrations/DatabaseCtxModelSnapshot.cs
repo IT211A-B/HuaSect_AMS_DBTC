@@ -21,6 +21,19 @@ namespace HuaSect_AMS_DBTCclasslib.Migrations
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
 
+            modelBuilder.Entity("HuaSect_AMS_DBTCclasslib.Course", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ID"));
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Course");
+                });
+
             modelBuilder.Entity("HuaSect_AMS_DBTCclasslib.Models.Student", b =>
                 {
                     b.Property<int>("ID")
@@ -32,6 +45,19 @@ namespace HuaSect_AMS_DBTCclasslib.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Student");
+                });
+
+            modelBuilder.Entity("HuaSect_AMS_DBTCclasslib.Teacher", b =>
+                {
+                    b.Property<int>("ID")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("integer");
+
+                    NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ID"));
+
+                    b.HasKey("ID");
+
+                    b.ToTable("Teacher");
                 });
 #pragma warning restore 612, 618
         }

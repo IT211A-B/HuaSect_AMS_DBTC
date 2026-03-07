@@ -1,5 +1,6 @@
 using HuaSect_AMS_DBTCclasslib;
 using HuaSect_AMS_DBTCclasslib.DbCtx;
+using HuaSect_AMS_DBTCclasslib.Helpers;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
@@ -23,6 +24,27 @@ namespace MyApp.Namespace
             return Ok(await _context.Teacher.ToListAsync());
         }
 
+        [HttpGet("paginated")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetTeachersPaginated([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
+        {
+            var totalRecords = await _context.Teacher.CountAsync();
+
+            var data = await _context.Teacher
+                .OrderBy(s => s.ID)
+                .Skip((pageNumber - 1) * pageSize)
+                .Take(pageSize)
+                .ToListAsync();
+
+            return Ok(new PagedResult<Teacher>
+            {
+                Data = data,
+                PageNumber = pageNumber,
+                PageSize = pageSize,
+                TotalRecords = totalRecords,
+            });
+        }
+
         [HttpGet("{id:int}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
@@ -36,7 +58,7 @@ namespace MyApp.Namespace
             return Ok(teacher);
         }
 
-        [HttpPost]
+        [HttpPost("create")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> CreateTeacher(CreateTeacherDto teacher)
         {
@@ -49,7 +71,7 @@ namespace MyApp.Namespace
             }, newlyAddedTeacher);
         }
 
-        [HttpPut("{id:int}")]
+        [HttpPut("update/{id:int}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -71,7 +93,7 @@ namespace MyApp.Namespace
             return NoContent();
         }
 
-        [HttpPatch("{id:int}")]
+        [HttpPatch("update-selectively/{id:int}")]
         public async Task<IActionResult> UpdateTeacherSelectively(int id, [FromBody] JsonPatchDocument<UpdateTeacherDto> patchDoc)
         {
             if (patchDoc == null) return BadRequest();
@@ -95,18 +117,18 @@ namespace MyApp.Namespace
             return NoContent();
         }
 
-        [HttpDelete("{id:int}")]
+        [HttpDelete("delete/{id:int}")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> DeleteStudent(int id)
         {
-            var studentToDelete = await _context.Teacher.FirstOrDefaultAsync(dbStudent => dbStudent.ID == id);
-            if (studentToDelete == null)
+            var teacherToDelete = await _context.Teacher.FirstOrDefaultAsync(dbStudent => dbStudent.ID == id);
+            if (teacherToDelete == null)
             {
                 return NotFound($"Student with id = {id} not found");
             }
 
-            _context.Student.Remove(studentToDelete);
+            _context.Teacher.Remove(teacherToDelete);
             await _context.SaveChangesAsync();
 
             return NoContent();
