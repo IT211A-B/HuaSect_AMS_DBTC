@@ -60,12 +60,20 @@ namespace MyApp.Namespace
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> CreateCourse(CreateCourseDto course)
         {
-            var newCourse = new Course { };
+            var newCourse = new Course
+            {
+                Name = course.Name,
+                Schedule = course.Schedule,
+                Units = course.Units
+            };
             var newlyAddedCourse = (await _context.AddAsync(newCourse)).Entity;
             await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(CreateCourse), new
+            return CreatedAtAction(nameof(CreateCourse), new NewlyCreateCourseDto
             {
-                id = newlyAddedCourse.ID
+                ID = newlyAddedCourse.ID,
+                Name = newlyAddedCourse.Name,
+                Schedule = newlyAddedCourse.Schedule,
+                Units = newlyAddedCourse.Units
             }, newlyAddedCourse);
         }
 
@@ -86,7 +94,11 @@ namespace MyApp.Namespace
                 return NotFound($"Course with id = {id} not found");
             }
 
-            _context.Entry(course).State = EntityState.Modified;
+            courseToUpdate.ID = course.ID;
+            courseToUpdate.Name = course.Name;
+            courseToUpdate.Schedule = course.Schedule;
+            courseToUpdate.Units = course.Units;
+            _context.Entry(courseToUpdate).State = EntityState.Modified;
             await _context.SaveChangesAsync();
             return NoContent();
         }
@@ -110,6 +122,9 @@ namespace MyApp.Namespace
             }
 
             course.ID = mapCourseDto.ID;
+            course.Name = mapCourseDto.Name;
+            course.Schedule = mapCourseDto.Schedule;
+            course.Units = mapCourseDto.Units;
             await _context.SaveChangesAsync();
 
             return NoContent();

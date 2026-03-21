@@ -62,12 +62,28 @@ namespace MyApp.Namespace
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> CreateTeacher(CreateTeacherDto teacher)
         {
-            var newTeacher = new Teacher { };
+            var newTeacher = new Teacher
+            {
+                Department = teacher.Department,
+                Email = teacher.Email,
+                FirstName = teacher.FirstName,
+                LastName = teacher.LastName,
+                MiddleName = teacher.MiddleName,
+                PhoneNumber = teacher.PhoneNumber,
+                Suffix = teacher.Suffix
+            };
             var newlyAddedTeacher = (await _context.AddAsync(newTeacher)).Entity;
             await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(CreateTeacher), new
+            return CreatedAtAction(nameof(CreateTeacher), new NewlyCreateTeacherDto
             {
-                id = newlyAddedTeacher.ID
+                ID = newlyAddedTeacher.ID,
+                Department = newlyAddedTeacher.Department,
+                Email = newlyAddedTeacher.Email,
+                FirstName = newlyAddedTeacher.FirstName,
+                LastName = newlyAddedTeacher.LastName,
+                MiddleName = newlyAddedTeacher.MiddleName,
+                PhoneNumber = newlyAddedTeacher.PhoneNumber,
+                Suffix = newlyAddedTeacher.Suffix
             }, newlyAddedTeacher);
         }
 
@@ -87,8 +103,16 @@ namespace MyApp.Namespace
             {
                 return NotFound($"Teacher with id = {id} not found");
             }
+            teacherToUpdate.Department = teacher.Department;
+            teacherToUpdate.Email = teacher.Email;
+            teacherToUpdate.FirstName = teacher.FirstName;
+            teacherToUpdate.LastName = teacher.LastName;
+            teacherToUpdate.MiddleName = teacher.MiddleName;
+            teacherToUpdate.Suffix = teacher.Suffix;
+            teacherToUpdate.Department = teacher.Department;
+            teacherToUpdate.PhoneNumber = teacher.PhoneNumber;
 
-            _context.Entry(teacher).State = EntityState.Modified;
+            _context.Entry(teacherToUpdate).State = EntityState.Modified;
             await _context.SaveChangesAsync();
             return NoContent();
         }
@@ -111,7 +135,13 @@ namespace MyApp.Namespace
                 return ValidationProblem(ModelState);
             }
 
-            teacher.ID = mapTeacherDto.ID;
+            teacher.FirstName = mapTeacherDto.FirstName;
+            teacher.MiddleName = mapTeacherDto.MiddleName;
+            teacher.LastName = mapTeacherDto.LastName;
+            teacher.Suffix = mapTeacherDto.Suffix;
+            teacher.Email = mapTeacherDto.Email;
+            teacher.PhoneNumber = mapTeacherDto.PhoneNumber;
+            teacher.Department = mapTeacherDto.Department;
             await _context.SaveChangesAsync();
 
             return NoContent();
