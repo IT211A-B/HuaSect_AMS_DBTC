@@ -62,12 +62,19 @@ namespace MyApp.Namespace
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> CreateTeacher(CreateTeacherDto teacher)
         {
-            var newTeacher = new Teacher { };
+            var newTeacher = new Teacher(teacher.FirstName, teacher.LastName, teacher.MiddleName, teacher.Suffix, teacher.Email, teacher.PhoneNumber, teacher.Department);
             var newlyAddedTeacher = (await _context.AddAsync(newTeacher)).Entity;
             await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(CreateTeacher), new
+            return CreatedAtAction(nameof(CreateTeacher), new NewlyCreateTeacherDto
             {
-                id = newlyAddedTeacher.ID
+                ID = newlyAddedTeacher.ID,
+                Department = newlyAddedTeacher.Department,
+                Email = newlyAddedTeacher.Email,
+                FirstName = newlyAddedTeacher.FirstName,
+                LastName = newlyAddedTeacher.LastName,
+                MiddleName = newlyAddedTeacher.MiddleName,
+                PhoneNumber = newlyAddedTeacher.PhoneNumber,
+                Suffix = newlyAddedTeacher.Suffix
             }, newlyAddedTeacher);
         }
 
@@ -87,8 +94,8 @@ namespace MyApp.Namespace
             {
                 return NotFound($"Teacher with id = {id} not found");
             }
-
-            _context.Entry(teacher).State = EntityState.Modified;
+            teacherToUpdate.Update(teacher.ID, teacher.Department, teacher.Email, teacher.FirstName, teacher.LastName, teacher.MiddleName, teacher.Suffix, teacher.PhoneNumber);
+            _context.Entry(teacherToUpdate).State = EntityState.Modified;
             await _context.SaveChangesAsync();
             return NoContent();
         }
@@ -111,7 +118,7 @@ namespace MyApp.Namespace
                 return ValidationProblem(ModelState);
             }
 
-            teacher.ID = mapTeacherDto.ID;
+            teacher.Update(mapTeacherDto.ID, mapTeacherDto.Department, mapTeacherDto.Email, mapTeacherDto.FirstName, mapTeacherDto.LastName, mapTeacherDto.MiddleName, mapTeacherDto.Suffix, mapTeacherDto.PhoneNumber);
             await _context.SaveChangesAsync();
 
             return NoContent();

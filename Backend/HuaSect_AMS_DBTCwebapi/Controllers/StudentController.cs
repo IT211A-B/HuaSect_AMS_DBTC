@@ -64,12 +64,19 @@ namespace MyApp.Namespace
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> CreateStudent(CreateStudentDto student)
         {
-            var newStudent = new Student { };
+            var newStudent = new Student(student.Email, student.FirstName, student.LastName, student.MiddleName, student.Suffix, student.YearLevel);
             var newlyAddedStudent = (await _context.AddAsync(newStudent)).Entity;
             await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(CreateStudent), new
+            return CreatedAtAction(nameof(CreateStudent), new NewlyCreateStudentDto
             {
-                id = newlyAddedStudent.ID
+                ID = newlyAddedStudent.ID,
+                Email = newlyAddedStudent.Email,
+                FirstName = newlyAddedStudent.FirstName,
+                LastName = newlyAddedStudent.LastName,
+                MiddleName = newlyAddedStudent.MiddleName,
+                Suffix = newlyAddedStudent.Suffix,
+                FullName = newlyAddedStudent.FullName,
+                YearLevel = newlyAddedStudent.YearLevel
             }, newlyAddedStudent);
         }
 
@@ -90,7 +97,8 @@ namespace MyApp.Namespace
                 return NotFound($"Student with id = {id} not found");
             }
 
-            _context.Entry(student).State = EntityState.Modified;
+            studentToUpdate.Update(student.ID, student.Email, student.FirstName, student.LastName, student.MiddleName, student.Suffix, student.YearLevel);
+            _context.Entry(studentToUpdate).State = EntityState.Modified;
             await _context.SaveChangesAsync();
             return NoContent();
         }
@@ -113,7 +121,7 @@ namespace MyApp.Namespace
                 return ValidationProblem(ModelState);
             }
 
-            student.ID = mapStudentDto.ID;
+            student.Update(mapStudentDto.ID, mapStudentDto.Email, mapStudentDto.FirstName, mapStudentDto.LastName, mapStudentDto.MiddleName, mapStudentDto.Suffix, mapStudentDto.YearLevel);
             await _context.SaveChangesAsync();
 
             return NoContent();

@@ -2,6 +2,7 @@
 using HuaSect_AMS_DBTCclasslib.DbCtx;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -10,9 +11,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace HuaSect_AMS_DBTCclasslib.Migrations
 {
     [DbContext(typeof(DatabaseCtx))]
-    partial class DatabaseCtxModelSnapshot : ModelSnapshot
+    [Migration("20260321042248_AddedAttributesToTeacherEntity")]
+    partial class AddedAttributesToTeacherEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,23 +32,7 @@ namespace HuaSect_AMS_DBTCclasslib.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ID"));
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Schedule")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("TeacherID")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Units")
-                        .HasColumnType("integer");
-
                     b.HasKey("ID");
-
-                    b.HasIndex("TeacherID");
 
                     b.ToTable("Course");
                 });
@@ -58,35 +45,7 @@ namespace HuaSect_AMS_DBTCclasslib.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ID"));
 
-                    b.Property<int>("CourseID")
-                        .HasColumnType("integer");
-
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("FirstName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("LastName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("MiddleName")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Suffix")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("YearLevel")
-                        .HasColumnType("integer");
-
                     b.HasKey("ID");
-
-                    b.HasIndex("CourseID");
 
                     b.ToTable("Student");
                 });
@@ -130,28 +89,6 @@ namespace HuaSect_AMS_DBTCclasslib.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Teacher");
-                });
-
-            modelBuilder.Entity("HuaSect_AMS_DBTCclasslib.Course", b =>
-                {
-                    b.HasOne("HuaSect_AMS_DBTCclasslib.Teacher", "Teacher")
-                        .WithMany()
-                        .HasForeignKey("TeacherID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Teacher");
-                });
-
-            modelBuilder.Entity("HuaSect_AMS_DBTCclasslib.Models.Student", b =>
-                {
-                    b.HasOne("HuaSect_AMS_DBTCclasslib.Course", "Course")
-                        .WithMany()
-                        .HasForeignKey("CourseID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Course");
                 });
 #pragma warning restore 612, 618
         }

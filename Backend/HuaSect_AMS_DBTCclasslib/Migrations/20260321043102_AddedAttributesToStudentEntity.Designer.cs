@@ -2,6 +2,7 @@
 using HuaSect_AMS_DBTCclasslib.DbCtx;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
@@ -10,9 +11,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace HuaSect_AMS_DBTCclasslib.Migrations
 {
     [DbContext(typeof(DatabaseCtx))]
-    partial class DatabaseCtxModelSnapshot : ModelSnapshot
+    [Migration("20260321043102_AddedAttributesToStudentEntity")]
+    partial class AddedAttributesToStudentEntity
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -29,23 +32,7 @@ namespace HuaSect_AMS_DBTCclasslib.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("ID"));
 
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<string>("Schedule")
-                        .IsRequired()
-                        .HasColumnType("text");
-
-                    b.Property<int>("TeacherID")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("Units")
-                        .HasColumnType("integer");
-
                     b.HasKey("ID");
-
-                    b.HasIndex("TeacherID");
 
                     b.ToTable("Course");
                 });
@@ -130,17 +117,6 @@ namespace HuaSect_AMS_DBTCclasslib.Migrations
                     b.HasKey("ID");
 
                     b.ToTable("Teacher");
-                });
-
-            modelBuilder.Entity("HuaSect_AMS_DBTCclasslib.Course", b =>
-                {
-                    b.HasOne("HuaSect_AMS_DBTCclasslib.Teacher", "Teacher")
-                        .WithMany()
-                        .HasForeignKey("TeacherID")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("Teacher");
                 });
 
             modelBuilder.Entity("HuaSect_AMS_DBTCclasslib.Models.Student", b =>
