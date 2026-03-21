@@ -60,12 +60,7 @@ namespace MyApp.Namespace
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> CreateCourse(CreateCourseDto course)
         {
-            var newCourse = new Course
-            {
-                Name = course.Name,
-                Schedule = course.Schedule,
-                Units = course.Units
-            };
+            var newCourse = new Course(course.Name, course.Units, course.Schedule);
             var newlyAddedCourse = (await _context.AddAsync(newCourse)).Entity;
             await _context.SaveChangesAsync();
             return CreatedAtAction(nameof(CreateCourse), new NewlyCreateCourseDto
@@ -94,10 +89,7 @@ namespace MyApp.Namespace
                 return NotFound($"Course with id = {id} not found");
             }
 
-            courseToUpdate.ID = course.ID;
-            courseToUpdate.Name = course.Name;
-            courseToUpdate.Schedule = course.Schedule;
-            courseToUpdate.Units = course.Units;
+            courseToUpdate.Update(course.ID, course.Name, course.Schedule, course.Units);
             _context.Entry(courseToUpdate).State = EntityState.Modified;
             await _context.SaveChangesAsync();
             return NoContent();
@@ -121,10 +113,7 @@ namespace MyApp.Namespace
                 return ValidationProblem(ModelState);
             }
 
-            course.ID = mapCourseDto.ID;
-            course.Name = mapCourseDto.Name;
-            course.Schedule = mapCourseDto.Schedule;
-            course.Units = mapCourseDto.Units;
+            course.Update(mapCourseDto.ID, mapCourseDto.Name, mapCourseDto.Schedule, mapCourseDto.Units);
             await _context.SaveChangesAsync();
 
             return NoContent();

@@ -27,5 +27,26 @@ public class Student
 
     public int YearLevel { get; set; }
 
-    public Course Course { get; set; } = new Course {};
+    public Course Course { get; set; } = new Course("", 0, "");
+
+    public Student(string email, string firstName, string lastName, string middleName, string suffix, int yearLevel)
+    {
+        Email = email;
+        FirstName = firstName;
+        LastName = lastName;
+        MiddleName = middleName;
+        Suffix = suffix;
+        YearLevel = yearLevel;
+    }
+
+    public void Update(int id, string email, string firstName, string lastName, string middleName, string suffix, int yearLevel)
+    {
+        ID = id;
+        Email = email;
+        FirstName = firstName;
+        LastName = lastName;
+        MiddleName = middleName;
+        Suffix = suffix;
+        YearLevel = yearLevel;
+    }
 }

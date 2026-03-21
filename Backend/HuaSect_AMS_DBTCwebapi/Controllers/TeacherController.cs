@@ -62,16 +62,7 @@ namespace MyApp.Namespace
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> CreateTeacher(CreateTeacherDto teacher)
         {
-            var newTeacher = new Teacher
-            {
-                Department = teacher.Department,
-                Email = teacher.Email,
-                FirstName = teacher.FirstName,
-                LastName = teacher.LastName,
-                MiddleName = teacher.MiddleName,
-                PhoneNumber = teacher.PhoneNumber,
-                Suffix = teacher.Suffix
-            };
+            var newTeacher = new Teacher(teacher.FirstName, teacher.LastName, teacher.MiddleName, teacher.Suffix, teacher.Email, teacher.PhoneNumber, teacher.Department);
             var newlyAddedTeacher = (await _context.AddAsync(newTeacher)).Entity;
             await _context.SaveChangesAsync();
             return CreatedAtAction(nameof(CreateTeacher), new NewlyCreateTeacherDto
@@ -103,15 +94,7 @@ namespace MyApp.Namespace
             {
                 return NotFound($"Teacher with id = {id} not found");
             }
-            teacherToUpdate.Department = teacher.Department;
-            teacherToUpdate.Email = teacher.Email;
-            teacherToUpdate.FirstName = teacher.FirstName;
-            teacherToUpdate.LastName = teacher.LastName;
-            teacherToUpdate.MiddleName = teacher.MiddleName;
-            teacherToUpdate.Suffix = teacher.Suffix;
-            teacherToUpdate.Department = teacher.Department;
-            teacherToUpdate.PhoneNumber = teacher.PhoneNumber;
-
+            teacherToUpdate.Update(teacher.ID, teacher.Department, teacher.Email, teacher.FirstName, teacher.LastName, teacher.MiddleName, teacher.Suffix, teacher.PhoneNumber);
             _context.Entry(teacherToUpdate).State = EntityState.Modified;
             await _context.SaveChangesAsync();
             return NoContent();
@@ -135,13 +118,7 @@ namespace MyApp.Namespace
                 return ValidationProblem(ModelState);
             }
 
-            teacher.FirstName = mapTeacherDto.FirstName;
-            teacher.MiddleName = mapTeacherDto.MiddleName;
-            teacher.LastName = mapTeacherDto.LastName;
-            teacher.Suffix = mapTeacherDto.Suffix;
-            teacher.Email = mapTeacherDto.Email;
-            teacher.PhoneNumber = mapTeacherDto.PhoneNumber;
-            teacher.Department = mapTeacherDto.Department;
+            teacher.Update(mapTeacherDto.ID, mapTeacherDto.Department, mapTeacherDto.Email, mapTeacherDto.FirstName, mapTeacherDto.LastName, mapTeacherDto.MiddleName, mapTeacherDto.Suffix, mapTeacherDto.PhoneNumber);
             await _context.SaveChangesAsync();
 
             return NoContent();

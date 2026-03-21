@@ -64,15 +64,7 @@ namespace MyApp.Namespace
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> CreateStudent(CreateStudentDto student)
         {
-            var newStudent = new Student
-            {
-                Email = student.Email,
-                FirstName = student.FirstName,
-                LastName = student.LastName,
-                MiddleName = student.MiddleName,
-                Suffix = student.Suffix,
-                YearLevel = student.YearLevel,
-            };
+            var newStudent = new Student(student.Email, student.FirstName, student.LastName, student.MiddleName, student.Suffix, student.YearLevel);
             var newlyAddedStudent = (await _context.AddAsync(newStudent)).Entity;
             await _context.SaveChangesAsync();
             return CreatedAtAction(nameof(CreateStudent), new NewlyCreateStudentDto
@@ -105,13 +97,7 @@ namespace MyApp.Namespace
                 return NotFound($"Student with id = {id} not found");
             }
 
-            studentToUpdate.ID = student.ID;
-            studentToUpdate.Email = student.Email;
-            studentToUpdate.FirstName = student.FirstName;
-            studentToUpdate.LastName = student.LastName;
-            studentToUpdate.MiddleName = student.MiddleName;
-            studentToUpdate.Suffix = student.Suffix;
-            studentToUpdate.YearLevel = student.YearLevel;
+            studentToUpdate.Update(student.ID, student.Email, student.FirstName, student.LastName, student.MiddleName, student.Suffix, student.YearLevel);
             _context.Entry(studentToUpdate).State = EntityState.Modified;
             await _context.SaveChangesAsync();
             return NoContent();
@@ -135,12 +121,7 @@ namespace MyApp.Namespace
                 return ValidationProblem(ModelState);
             }
 
-            student.ID = mapStudentDto.ID;
-            student.Email = mapStudentDto.Email;
-            student.FirstName = mapStudentDto.FirstName;
-            student.MiddleName = mapStudentDto.MiddleName;
-            student.Suffix = mapStudentDto.Suffix;
-            student.YearLevel = mapStudentDto.YearLevel;
+            student.Update(mapStudentDto.ID, mapStudentDto.Email, mapStudentDto.FirstName, mapStudentDto.LastName, mapStudentDto.MiddleName, mapStudentDto.Suffix, mapStudentDto.YearLevel);
             await _context.SaveChangesAsync();
 
             return NoContent();
