@@ -1,144 +1,84 @@
-using HuaSect_AMS_DBTCclasslib;
-using HuaSect_AMS_DBTCclasslib.DbCtx;
 using HuaSect_AMS_DBTCclasslib.Helpers;
-using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.JsonPatch;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using HuaSect_AMS_DBTC.Repository;
+using HuaSect_AMS_DBTC.Service;
+using HuaSect_AMS_DBTCclasslib;
 
-namespace MyApp.Namespace
+namespace HuaSect_AMS_DBTC.Services
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class TeacherController : ControllerBase
+    public class TeacherService : ITeacherService
     {
-        private readonly ApplicationDatabaseCtx _context;
-        public TeacherController(ApplicationDatabaseCtx context)
+        private readonly ITeacherRepository _repository;
+
+        public TeacherService(ITeacherRepository repository) => _repository = repository;
+
+        public async Task<List<Teacher>> GetAllTeachersAsync() => await _repository.GetAllAsync();
+
+        public async Task<PagedResult<Teacher>> GetPaginatedTeachersAsync(int pageNumber, int pageSize)
         {
-            _context = context;
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> GetTeachers()
-        {
-            return Ok(await _context.Teacher.ToListAsync());
-        }
-
-        [HttpGet("paginated")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        public async Task<IActionResult> GetTeachersPaginated([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
-        {
-            var totalRecords = await _context.Teacher.CountAsync();
-
-            var data = await _context.Teacher
-                .OrderBy(s => s.ID)
-                .Skip((pageNumber - 1) * pageSize)
-                .Take(pageSize)
-                .ToListAsync();
-
-            return Ok(new PagedResult<Teacher>
+            var (total, data) = await _repository.GetPaginatedAsync(pageNumber, pageSize);
+            return new PagedResult<Teacher>
             {
                 Data = data,
                 PageNumber = pageNumber,
                 PageSize = pageSize,
-                TotalRecords = totalRecords,
-            });
+                TotalRecords = total
+            };
         }
 
-        [HttpGet("{id:int}")]
-        [ProducesResponseType(StatusCodes.Status200OK)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> GetTeacher(int id)
+        public async Task<Teacher?> GetTeacherByIdAsync(int id) => await _repository.GetByIdAsync(id);
+
+        public async Task<NewlyCreateTeacherDto> CreateTeacherAsync(CreateTeacherDto dto)
         {
-            var teacher = await _context.Teacher.FirstOrDefaultAsync(s => s.ID == id);
+            var newTeacher = new Teacher(dto.FirstName, dto.LastName, dto.MiddleName, dto.Suffix, dto.Email, dto.PhoneNumber, dto.Department);
+            await _repository.AddAsync(newTeacher);
+            await _repository.SaveChangesAsync();
+
+            return new NewlyCreateTeacherDto
+            {
+                ID = newTeacher.ID,
+                Department = newTeacher.Department,
+                Email = newTeacher.Email,
+                FirstName = newTeacher.FirstName,
+                LastName = newTeacher.LastName,
+                MiddleName = newTeacher.MiddleName,
+                PhoneNumber = newTeacher.PhoneNumber,
+                Suffix = newTeacher.Suffix
+            };
+        }
+
+        public async Task UpdateTeacherAsync(int id, UpdateTeacherDto dto)
+        {
+            if (id != dto.ID)
+                throw new ArgumentException("Teacher ID mismatch", nameof(id));
+
+            var teacher = await _repository.GetByIdAsync(id);
             if (teacher == null)
-            {
-                return NotFound("Teacher with id = {id} not found");
-            }
-            return Ok(teacher);
+                throw new KeyNotFoundException($"Teacher with id = {id} not found");
+
+            teacher.Update(dto.ID, dto.Department, dto.Email, dto.FirstName, dto.LastName, dto.MiddleName, dto.Suffix, dto.PhoneNumber);
+            await _repository.SaveChangesAsync();
         }
 
-        [HttpPost("create")]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<IActionResult> CreateTeacher(CreateTeacherDto teacher)
+        // Assumes validation & patch application happened in the controller
+        public async Task UpdateTeacherSelectivelyAsync(int id, UpdateTeacherDto patchedDto)
         {
-            var newTeacher = new Teacher(teacher.FirstName, teacher.LastName, teacher.MiddleName, teacher.Suffix, teacher.Email, teacher.PhoneNumber, teacher.Department);
-            var newlyAddedTeacher = (await _context.AddAsync(newTeacher)).Entity;
-            await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(CreateTeacher), new NewlyCreateTeacherDto
-            {
-                ID = newlyAddedTeacher.ID,
-                Department = newlyAddedTeacher.Department,
-                Email = newlyAddedTeacher.Email,
-                FirstName = newlyAddedTeacher.FirstName,
-                LastName = newlyAddedTeacher.LastName,
-                MiddleName = newlyAddedTeacher.MiddleName,
-                PhoneNumber = newlyAddedTeacher.PhoneNumber,
-                Suffix = newlyAddedTeacher.Suffix
-            }, newlyAddedTeacher);
-        }
-
-        [HttpPut("update/{id:int}")]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> UpdateTeacher(int id, UpdateTeacherDto teacher)
-        {
-            if (id != teacher.ID)
-            {
-                return BadRequest("Teacher ID mismatch");
-            }
-
-            var teacherToUpdate = await _context.Teacher.FirstOrDefaultAsync(dbTeacher => dbTeacher.ID == id);
-            if (teacherToUpdate == null)
-            {
-                return NotFound($"Teacher with id = {id} not found");
-            }
-            teacherToUpdate.Update(teacher.ID, teacher.Department, teacher.Email, teacher.FirstName, teacher.LastName, teacher.MiddleName, teacher.Suffix, teacher.PhoneNumber);
-            _context.Entry(teacherToUpdate).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
-            return NoContent();
-        }
-
-        [HttpPatch("update-selectively/{id:int}")]
-        public async Task<IActionResult> UpdateTeacherSelectively(int id, [FromBody] JsonPatchDocument<UpdateTeacherDto> patchDoc)
-        {
-            if (patchDoc == null) return BadRequest();
-
-            var teacher = await _context.Teacher.FirstOrDefaultAsync(s => s.ID == id);
+            var teacher = await _repository.GetByIdAsync(id);
             if (teacher == null)
-            {
-                return NotFound($"Teacher with id = {id} not found");
-            }
+                throw new KeyNotFoundException($"Teacher with id = {id} not found");
 
-            var mapTeacherDto = new UpdateTeacherDto { ID = teacher.ID };
-            patchDoc.ApplyTo(mapTeacherDto, ModelState);
-            if (!TryValidateModel(mapTeacherDto))
-            {
-                return ValidationProblem(ModelState);
-            }
-
-            teacher.Update(mapTeacherDto.ID, mapTeacherDto.Department, mapTeacherDto.Email, mapTeacherDto.FirstName, mapTeacherDto.LastName, mapTeacherDto.MiddleName, mapTeacherDto.Suffix, mapTeacherDto.PhoneNumber);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            teacher.Update(patchedDto.ID, patchedDto.Department, patchedDto.Email, patchedDto.FirstName, patchedDto.LastName, patchedDto.MiddleName, patchedDto.Suffix, patchedDto.PhoneNumber);
+            await _repository.SaveChangesAsync();
         }
 
-        [HttpDelete("delete/{id:int}")]
-        [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<IActionResult> DeleteStudent(int id)
+        public async Task<bool> DeleteTeacherAsync(int id)
         {
-            var teacherToDelete = await _context.Teacher.FirstOrDefaultAsync(dbStudent => dbStudent.ID == id);
-            if (teacherToDelete == null)
-            {
-                return NotFound($"Student with id = {id} not found");
-            }
+            var teacher = await _repository.GetByIdAsync(id);
+            if (teacher == null)
+                throw new KeyNotFoundException($"Teacher with id = {id} not found");
 
-            _context.Teacher.Remove(teacherToDelete);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            await _repository.DeleteAsync(teacher);
+            await _repository.SaveChangesAsync();
+            return true;
         }
     }
 }

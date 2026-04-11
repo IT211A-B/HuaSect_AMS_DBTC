@@ -6,7 +6,8 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Scalar.AspNetCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
-using HuaSect_AMS_DBTC.Services;
+using HuaSect_AMS_DBTC.Service;
+using HuaSect_AMS_DBTC.Repository;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -52,6 +53,14 @@ builder.Services.AddControllers().AddNewtonsoftJson();
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddOpenApi();
+
+builder.Services.AddScoped<ICourseRepository, CourseRepository>();
+builder.Services.AddScoped<IStudentRepository, StudentRepository>();
+builder.Services.AddScoped<ITeacherRepository, TeacherRepository>();
+
+builder.Services.AddScoped<ICourseService, CourseService>();
+builder.Services.AddScoped<IStudentService, StudentService>();
+builder.Services.AddScoped<ITeacherService, TeacherService>();
 builder.Services.AddTransient<IEmailSender<IdentityUser>, NoOpEmailSender>();
 
 var app = builder.Build();

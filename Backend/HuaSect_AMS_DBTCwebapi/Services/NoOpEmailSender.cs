@@ -1,6 +1,6 @@
 using Microsoft.AspNetCore.Identity;
 
-namespace HuaSect_AMS_DBTC.Services;
+namespace HuaSect_AMS_DBTC.Service;
 
 public class NoOpEmailSender : IEmailSender<IdentityUser>
 {

@@ -1,46 +1,31 @@
+using HuaSect_AMS_DBTC.Service;
 using HuaSect_AMS_DBTCclasslib;
-using HuaSect_AMS_DBTCclasslib.DbCtx;
-using HuaSect_AMS_DBTCclasslib.Helpers;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
 
-namespace MyApp.Namespace
+namespace HuaSect_AMS_DBTC.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
     public class CourseController : ControllerBase
     {
-        private readonly ApplicationDatabaseCtx _context;
-        public CourseController(ApplicationDatabaseCtx context)
-        {
-            _context = context;
-        }
+        private readonly ICourseService _courseService;
+
+        public CourseController(ICourseService courseService) => _courseService = courseService;
+
         [HttpGet]
         public async Task<IActionResult> GetCourses()
         {
-            return Ok(await _context.Course.ToListAsync());
+            var courses = await _courseService.GetAllCoursesAsync();
+            return Ok(courses);
         }
 
         [HttpGet("paginated")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetCoursesPaginated([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
         {
-            var totalRecords = await _context.Course.CountAsync();
-
-            var data = await _context.Course
-                .OrderBy(s => s.ID)
-                .Skip((pageNumber - 1) * pageSize)
-                .Take(pageSize)
-                .ToListAsync();
-
-            return Ok(new PagedResult<Course>
-            {
-                Data = data,
-                PageNumber = pageNumber,
-                PageSize = pageSize,
-                TotalRecords = totalRecords,
-            });
+            var result = await _courseService.GetPaginatedCoursesAsync(pageNumber, pageSize);
+            return Ok(result);
         }
 
         [HttpGet("{id:int}")]
@@ -48,75 +33,66 @@ namespace MyApp.Namespace
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetCourse(int id)
         {
-            var course = await _context.Course.FirstOrDefaultAsync(c => c.ID == id);
-            if (course == null)
-            {
-                return NotFound("Course with id = {id} not found");
-            }
-            return Ok(course);
+            var course = await _courseService.GetCourseByIdAsync(id);
+            return course == null ? NotFound($"Course with id = {id} not found") : Ok(course);
         }
 
         [HttpPost("create")]
         [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<IActionResult> CreateCourse(CreateCourseDto course)
+        public async Task<IActionResult> CreateCourse(CreateCourseDto courseDto)
         {
-            var newCourse = new Course(course.Name, course.Units, course.Schedule);
-            var newlyAddedCourse = (await _context.AddAsync(newCourse)).Entity;
-            await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(CreateCourse), new NewlyCreateCourseDto
-            {
-                ID = newlyAddedCourse.ID,
-                Name = newlyAddedCourse.Name,
-                Schedule = newlyAddedCourse.Schedule,
-                Units = newlyAddedCourse.Units
-            }, newlyAddedCourse);
+            var createdDto = await _courseService.CreateCourseAsync(courseDto);
+            // Note: Changed to nameof(GetCourse) to return a valid Location header
+            return CreatedAtAction(nameof(GetCourse), new { id = createdDto.ID }, createdDto);
         }
 
         [HttpPut("update/{id:int}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> UpdateCourse(int id, UpdateCourseDto course)
+        public async Task<IActionResult> UpdateCourse(int id, UpdateCourseDto courseDto)
         {
-            if (id != course.ID)
-            {
+            if (id != courseDto.ID)
                 return BadRequest("Course ID mismatch");
-            }
 
-            var courseToUpdate = await _context.Course.FirstOrDefaultAsync(dbCourse => dbCourse.ID == id);
-            if (courseToUpdate == null)
+            try
             {
-                return NotFound($"Course with id = {id} not found");
+                await _courseService.UpdateCourseAsync(id, courseDto);
+                return NoContent();
             }
-
-            courseToUpdate.Update(course.ID, course.Name, course.Schedule, course.Units);
-            _context.Entry(courseToUpdate).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
-            return NoContent();
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
 
         [HttpPatch("update-selectively/{id:int}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> UpdateCourseSelectively(int id, [FromBody] JsonPatchDocument<UpdateCourseDto> patchDoc)
         {
-            if (patchDoc == null) return BadRequest();
+            if (patchDoc == null) return BadRequest("Patch document cannot be null");
 
-            var course = await _context.Course.FirstOrDefaultAsync(c => c.ID == id);
-            if (course == null)
-            {
+            var existingCourse = await _courseService.GetCourseByIdAsync(id);
+            if (existingCourse == null)
                 return NotFound($"Course with id = {id} not found");
-            }
 
-            var mapCourseDto = new UpdateCourseDto { ID = course.ID };
-            patchDoc.ApplyTo(mapCourseDto, ModelState);
-            if (!TryValidateModel(mapCourseDto))
-            {
+            var dtoToPatch = new UpdateCourseDto { ID = existingCourse.ID };
+            patchDoc.ApplyTo(dtoToPatch, ModelState);
+
+            if (!TryValidateModel(dtoToPatch))
                 return ValidationProblem(ModelState);
+
+            try
+            {
+                await _courseService.UpdateCourseSelectivelyAsync(id, dtoToPatch);
+                return NoContent();
             }
-
-            course.Update(mapCourseDto.ID, mapCourseDto.Name, mapCourseDto.Schedule, mapCourseDto.Units);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
 
         [HttpDelete("delete/{id:int}")]
@@ -124,16 +100,15 @@ namespace MyApp.Namespace
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> DeleteCourse(int id)
         {
-            var courseToDelete = await _context.Course.FirstOrDefaultAsync(dbCourse => dbCourse.ID == id);
-            if (courseToDelete == null)
+            try
             {
-                return NotFound($"Course with id = {id} not found");
+                await _courseService.DeleteCourseAsync(id);
+                return NoContent();
             }
-
-            _context.Course.Remove(courseToDelete);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
     }
 }
