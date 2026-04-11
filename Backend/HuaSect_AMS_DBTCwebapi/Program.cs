@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Scalar.AspNetCore;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using HuaSect_AMS_DBTC.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -46,14 +47,12 @@ builder.Services.AddAuthentication(options =>
 
 builder.Services.AddAuthorization();
 
-builder.Services.AddIdentityApiEndpoints<IdentityUser>()
-    .AddEntityFrameworkStores<ApplicationDatabaseCtx>();
-
 builder.Services.AddControllers().AddNewtonsoftJson();
 
 builder.Services.AddEndpointsApiExplorer();
 
 builder.Services.AddOpenApi();
+builder.Services.AddTransient<IEmailSender<IdentityUser>, NoOpEmailSender>();
 
 var app = builder.Build();
 
@@ -65,6 +64,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+app.MapGet("/health", () => Results.Ok(new { status = "healthy", timestamp = DateTime.UtcNow }))
+   .AllowAnonymous();
 app.UseAuthentication();
 app.UseAuthorization();
 app.MapControllers();

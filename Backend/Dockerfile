@@ -5,6 +5,7 @@ WORKDIR /src
 # Copy solution + project files first for layer caching
 COPY ["*.sln", "./"]
 COPY ["HuaSect_AMS_DBTCwebapi/*.csproj", "HuaSect_AMS_DBTCwebapi/"]
+COPY ["HuaSect_AMS_DBTCtests/*.csproj", "HuaSect_AMS_DBTCtests/"]
 COPY ["HuaSect_AMS_DBTCclasslib/*.csproj", "HuaSect_AMS_DBTCclasslib/"]
 
 # Restore dependencies (cached unless .csproj changes)
