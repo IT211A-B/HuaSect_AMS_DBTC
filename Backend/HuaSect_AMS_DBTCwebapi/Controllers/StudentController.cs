@@ -13,8 +13,8 @@ namespace MyApp.Namespace
     [ApiController]
     public class StudentController : ControllerBase
     {
-        private readonly DatabaseCtx _context;
-        public StudentController(DatabaseCtx context)
+        private readonly ApplicationDatabaseCtx _context;
+        public StudentController(ApplicationDatabaseCtx context)
         {
             _context = context;
         }

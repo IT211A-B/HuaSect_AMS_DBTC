@@ -12,8 +12,8 @@ namespace MyApp.Namespace
     [ApiController]
     public class TeacherController : ControllerBase
     {
-        private readonly DatabaseCtx _context;
-        public TeacherController(DatabaseCtx context)
+        private readonly ApplicationDatabaseCtx _context;
+        public TeacherController(ApplicationDatabaseCtx context)
         {
             _context = context;
         }
