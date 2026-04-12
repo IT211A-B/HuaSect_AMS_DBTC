@@ -29,7 +29,7 @@ namespace HuaSect_AMS_DBTC.Service
 
         public async Task<NewlyCreateTeacherDto> CreateTeacherAsync(CreateTeacherDto dto)
         {
-            var newTeacher = new Teacher(dto.FirstName, dto.LastName, dto.MiddleName, dto.Suffix, dto.Email, dto.PhoneNumber, dto.Department);
+            var newTeacher = new Teacher(dto.FirstName, dto.LastName, dto.Email, dto.Department, dto.PhoneNumber);
             await _repository.AddAsync(newTeacher);
             await _repository.SaveChangesAsync();
 
@@ -40,9 +40,7 @@ namespace HuaSect_AMS_DBTC.Service
                 Email = newTeacher.Email,
                 FirstName = newTeacher.FirstName,
                 LastName = newTeacher.LastName,
-                MiddleName = newTeacher.MiddleName,
                 PhoneNumber = newTeacher.PhoneNumber,
-                Suffix = newTeacher.Suffix
             };
         }
 
@@ -55,7 +53,7 @@ namespace HuaSect_AMS_DBTC.Service
             if (teacher == null)
                 throw new KeyNotFoundException($"Teacher with id = {id} not found");
 
-            teacher.Update(dto.ID, dto.Department, dto.Email, dto.FirstName, dto.LastName, dto.MiddleName, dto.Suffix, dto.PhoneNumber);
+            teacher.Update(dto.ID, dto.FirstName, dto.LastName, dto.Email, dto.Department, dto.PhoneNumber);
             await _repository.SaveChangesAsync();
         }
 
@@ -66,7 +64,7 @@ namespace HuaSect_AMS_DBTC.Service
             if (teacher == null)
                 throw new KeyNotFoundException($"Teacher with id = {id} not found");
 
-            teacher.Update(patchedDto.ID, patchedDto.Department, patchedDto.Email, patchedDto.FirstName, patchedDto.LastName, patchedDto.MiddleName, patchedDto.Suffix, patchedDto.PhoneNumber);
+            teacher.Update(patchedDto.ID, patchedDto.FirstName, patchedDto.LastName, patchedDto.Email, patchedDto.Department, patchedDto.PhoneNumber);
             await _repository.SaveChangesAsync();
         }
 

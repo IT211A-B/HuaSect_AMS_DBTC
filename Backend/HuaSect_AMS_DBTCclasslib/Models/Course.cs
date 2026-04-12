@@ -4,26 +4,30 @@ public class Course
 {
     public int ID { get; set; }
 
+    public string Code { get; set; } = "";
+
     public string Name { get; set; } = "";
+
+    public string Description { get; set; } = "";
 
     public int Units { get; set; }
 
-    public Teacher Teacher { get; set; } = new Teacher("", "", "", "", "", "", "");
+    public Teacher Teacher { get; set; } = new Teacher("", "", "", "", "");
 
-    public string Schedule { get; set; } = "";
-
-    public Course(string name, int units, string schedule)
+    public Course(string code, string name, string description, int units)
     {
+        Code = code;
         Name = name;
+        Description = description;
         Units = units;
-        Schedule = schedule;
     }
 
-    public void Update(int id, string name, string schedule, int units)
+    public void Update(int id, string code, string name, string description, int units)
     {
         ID = id;
+        Code = code;
         Name = name;
-        Schedule = schedule;
+        Description = description;
         Units = units;
     }
 }

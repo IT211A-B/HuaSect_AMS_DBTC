@@ -29,15 +29,16 @@ namespace HuaSect_AMS_DBTC.Service
 
         public async Task<NewlyCreateCourseDto> CreateCourseAsync(CreateCourseDto dto)
         {
-            var newCourse = new Course(dto.Name, dto.Units, dto.Schedule);
+            var newCourse = new Course(dto.Code, dto.Name, dto.Description, dto.Units);
             await _repository.AddAsync(newCourse);
             await _repository.SaveChangesAsync();
 
             return new NewlyCreateCourseDto
             {
                 ID = newCourse.ID,
+                Code = newCourse.Code,
                 Name = newCourse.Name,
-                Schedule = newCourse.Schedule,
+                Description = newCourse.Description,
                 Units = newCourse.Units
             };
         }
@@ -51,7 +52,7 @@ namespace HuaSect_AMS_DBTC.Service
             if (course == null)
                 throw new KeyNotFoundException($"Course with id = {id} not found");
 
-            course.Update(dto.ID, dto.Name, dto.Schedule, dto.Units);
+            course.Update(dto.ID, dto.Code, dto.Name, dto.Description, dto.Units);
             await _repository.SaveChangesAsync();
         }
 
@@ -62,7 +63,7 @@ namespace HuaSect_AMS_DBTC.Service
             if (course == null)
                 throw new KeyNotFoundException($"Course with id = {id} not found");
 
-            course.Update(patchedDto.ID, patchedDto.Name, patchedDto.Schedule, patchedDto.Units);
+            course.Update(patchedDto.ID, patchedDto.Code, patchedDto.Name, patchedDto.Description, patchedDto.Units);
             await _repository.SaveChangesAsync();
         }
 
