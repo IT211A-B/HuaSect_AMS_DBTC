@@ -57,10 +57,12 @@ builder.Services.AddOpenApi();
 builder.Services.AddScoped<ICourseRepository, CourseRepository>();
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
 builder.Services.AddScoped<ITeacherRepository, TeacherRepository>();
+builder.Services.AddScoped<IAttendanceRepository, AttendanceRepository>();
 
 builder.Services.AddScoped<ICourseService, CourseService>();
 builder.Services.AddScoped<IStudentService, StudentService>();
 builder.Services.AddScoped<ITeacherService, TeacherService>();
+builder.Services.AddScoped<IAttendanceService, AttendanceService>();
 builder.Services.AddTransient<IEmailSender<IdentityUser>, NoOpEmailSender>();
 
 var app = builder.Build();

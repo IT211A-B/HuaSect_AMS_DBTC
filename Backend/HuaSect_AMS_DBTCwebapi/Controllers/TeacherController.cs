@@ -1,82 +1,116 @@
-using HuaSect_AMS_DBTCclasslib.Helpers;
-using HuaSect_AMS_DBTC.Repository;
+using HuaSect_AMS_DBTCclasslib.Dtos;
+using Microsoft.AspNetCore.JsonPatch;
+using Microsoft.AspNetCore.Mvc;
 using HuaSect_AMS_DBTC.Service;
 using HuaSect_AMS_DBTCclasslib;
 
-namespace HuaSect_AMS_DBTC.Services
+namespace HuaSect_AMS_DBTC.Controllers
 {
-    public class TeacherService : ITeacherService
+    [Route("api/[controller]")]
+    [ApiController]
+    public class TeacherController : ControllerBase
     {
-        private readonly ITeacherRepository _repository;
+        private readonly ITeacherService _teacherService;
 
-        public TeacherService(ITeacherRepository repository) => _repository = repository;
+        public TeacherController(ITeacherService teacherService) => _teacherService = teacherService;
 
-        public async Task<List<Teacher>> GetAllTeachersAsync() => await _repository.GetAllAsync();
-
-        public async Task<PagedResult<Teacher>> GetPaginatedTeachersAsync(int pageNumber, int pageSize)
+        [HttpGet]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetTeachers()
         {
-            var (total, data) = await _repository.GetPaginatedAsync(pageNumber, pageSize);
-            return new PagedResult<Teacher>
+            var students = await _teacherService.GetAllTeachersAsync();
+            return Ok(students);
+        }
+
+        [HttpGet("paginated")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        public async Task<IActionResult> GetTeachersPaginated([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
+        {
+            var result = await _teacherService.GetPaginatedTeachersAsync(pageNumber, pageSize);
+            return Ok(result);
+        }
+
+        [HttpGet("{id:int}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<IActionResult> GetStudent(int id)
+        {
+            var student = await _teacherService.GetTeacherByIdAsync(id);
+            return student == null ? NotFound($"Teacher with id = {id} not found") : Ok(student);
+        }
+
+        [HttpPost("create")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        public async Task<IActionResult> CreateTeacher(CreateTeacherDto teacherDto)
+        {
+            var createdDto = await _teacherService.CreateTeacherAsync(teacherDto);
+            // Fixed: Location header should point to a GET endpoint
+            return CreatedAtAction(nameof(CreateTeacher), new { id = createdDto.ID }, createdDto);
+        }
+
+        [HttpPut("update/{id:int}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> UpdateTeacher(int id, UpdateTeacherDto teacherDto)
+        {
+            if (id != teacherDto.ID)
+                return BadRequest("Teacher ID mismatch");
+
+            try
             {
-                Data = data,
-                PageNumber = pageNumber,
-                PageSize = pageSize,
-                TotalRecords = total
-            };
-        }
-
-        public async Task<Teacher?> GetTeacherByIdAsync(int id) => await _repository.GetByIdAsync(id);
-
-        public async Task<NewlyCreateTeacherDto> CreateTeacherAsync(CreateTeacherDto dto)
-        {
-            var newTeacher = new Teacher(dto.FirstName, dto.LastName, dto.Email, dto.Department, dto.PhoneNumber);
-            await _repository.AddAsync(newTeacher);
-            await _repository.SaveChangesAsync();
-
-            return new NewlyCreateTeacherDto
+                await _teacherService.UpdateTeacherAsync(id, teacherDto);
+                return NoContent();
+            }
+            catch (KeyNotFoundException ex)
             {
-                ID = newTeacher.ID,
-                Department = newTeacher.Department,
-                Email = newTeacher.Email,
-                FirstName = newTeacher.FirstName,
-                LastName = newTeacher.LastName,
-                PhoneNumber = newTeacher.PhoneNumber,
-            };
+                return NotFound(ex.Message);
+            }
         }
 
-        public async Task UpdateTeacherAsync(int id, UpdateTeacherDto dto)
+        [HttpPatch("update-selective/{id:int}")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<IActionResult> UpdateTeacherSelectively(int id, [FromBody] JsonPatchDocument<UpdateTeacherDto> patchDoc)
         {
-            if (id != dto.ID)
-                throw new ArgumentException("Teacher ID mismatch", nameof(id));
+            if (patchDoc == null) return BadRequest("Patch document cannot be null");
 
-            var teacher = await _repository.GetByIdAsync(id);
-            if (teacher == null)
-                throw new KeyNotFoundException($"Teacher with id = {id} not found");
+            var existingTeacher = await _teacherService.GetTeacherByIdAsync(id);
+            if (existingTeacher == null)
+                return NotFound($"Teacher with id = {id} not found");
 
-            teacher.Update(dto.ID, dto.FirstName, dto.LastName, dto.Email, dto.Department, dto.PhoneNumber);
-            await _repository.SaveChangesAsync();
+            var dtoToPatch = new UpdateTeacherDto { ID = existingTeacher.ID };
+            patchDoc.ApplyTo(dtoToPatch, ModelState);
+
+            if (!TryValidateModel(dtoToPatch))
+                return ValidationProblem(ModelState);
+
+            try
+            {
+                await _teacherService.UpdateTeacherSelectivelyAsync(id, dtoToPatch);
+                return NoContent();
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
 
-        // Assumes validation & patch application happened in the controller
-        public async Task UpdateTeacherSelectivelyAsync(int id, UpdateTeacherDto patchedDto)
+        [HttpDelete("delete/{id:int}")]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        public async Task<IActionResult> DeleteTeacher(int id)
         {
-            var teacher = await _repository.GetByIdAsync(id);
-            if (teacher == null)
-                throw new KeyNotFoundException($"Teacher with id = {id} not found");
-
-            teacher.Update(patchedDto.ID, patchedDto.FirstName, patchedDto.LastName, patchedDto.Email, patchedDto.Department, patchedDto.PhoneNumber);
-            await _repository.SaveChangesAsync();
-        }
-
-        public async Task<bool> DeleteTeacherAsync(int id)
-        {
-            var teacher = await _repository.GetByIdAsync(id);
-            if (teacher == null)
-                throw new KeyNotFoundException($"Teacher with id = {id} not found");
-
-            await _repository.DeleteAsync(teacher);
-            await _repository.SaveChangesAsync();
-            return true;
+            try
+            {
+                await _teacherService.DeleteTeacherAsync(id);
+                return NoContent();
+            }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
     }
 }
