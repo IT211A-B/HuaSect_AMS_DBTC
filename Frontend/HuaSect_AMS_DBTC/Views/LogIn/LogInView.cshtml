@@ -1,0 +1,50 @@
+﻿@model HuaSect_AMS_DBTC.Models.LogInModel
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="login-wrapper">
+    <div class="login-container">
+        <div class="logo-wrapper">
+            <img src="~/images/graduation-cap.png" alt="Logo" class="logo-img" />
+        </div>
+
+        <h2 class="title">ATTENDANCE CHECKING</h2>
+
+        <div class="role-switcher">
+            <button type="button" id="btnStudent" class="role-btn active" onclick="switchRole('student')">STUDENT</button>
+            <button type="button" id="btnTeacher" class="role-btn" onclick="switchRole('teacher')">TEACHER</button>
+        </div>
+
+        <form asp-controller="LogIn" asp-action="Login" method="post">
+            @Html.AntiForgeryToken()
+
+            @* This hidden field stores the role from the switcher *@
+            <input type="hidden" id="SelectedRole" asp-for="Role" value="student" />
+
+            <div class="input-group">
+                <input asp-for="Username" class="form-control" placeholder="email / username" required />
+                <span asp-validation-for="Username" class="text-danger"></span>
+            </div>
+
+            <div class="input-group">
+                <input asp-for="Password" type="password" class="form-control" placeholder="password" required />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="btn-login">LOGIN</button>
+        </form>
+
+        <p class="register-text">Don't have any account? <a href="#">Register</a></p>
+
+        <div class="divider">
+            <span>OR LOGIN WITH</span>
+        </div>
+
+        <button type="button" class="btn-google">
+            <img src="~/images/google-icon.png" alt="G" /> Google
+        </button>
+    </div>
+</div>

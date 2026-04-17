@@ -1,0 +1,48 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Student Management System — Academic Dashboard" />
+    <title>@ViewData["Title"] — Student Management</title>
+
+    <!-- Preconnect to Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <!-- Favicon (SVG inline via data URI) -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'><rect width='32' height='32' rx='8' fill='%231A2B4A'/><path d='M16 6L28 12L16 18L4 12L16 6Z' stroke='white' stroke-width='1.5' fill='none'/><path d='M8 15V21C8 21 11 24 16 24C21 24 24 21 24 21V15' stroke='white' stroke-width='1.5' fill='none'/></svg>" type="image/svg+xml" />
+
+    <!-- Student Stylesheet -->
+    <link rel="stylesheet" href="~/css/Student.css" asp-append-version="true" />
+
+    @await RenderSectionAsync("Styles", required: false)
+</head>
+<body>
+
+    <!-- Page content injected here -->
+    @RenderBody()
+
+    <!-- TempData notification rendering -->
+    @if (TempData["Success"] is string successMsg)
+    {
+        <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    Notify.success('@Html.Raw(successMsg)');
+                });
+        </script>
+    }
+    @if (TempData["Error"] is string errorMsg)
+    {
+        <script>
+                document.addEventListener('DOMContentLoaded', function () {
+                    Notify.error('@Html.Raw(errorMsg)');
+                });
+        </script>
+    }
+
+    <!-- Scripts injected by child views -->
+    @await RenderSectionAsync("Scripts", required: false)
+
+</body>
+</html>

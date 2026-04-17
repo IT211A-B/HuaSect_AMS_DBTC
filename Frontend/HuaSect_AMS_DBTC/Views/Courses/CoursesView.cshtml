@@ -1,0 +1,160 @@
+﻿@model AttendanceSystem.Models.CourseListViewModel
+@{
+    ViewData["Title"] = "Course List";
+    Layout = "~/Views/Shared/CoursesLayout.cshtml";
+}
+
+@* ── Anti-Forgery Token (used by Courses.js POST) ─── *@
+@Html.AntiForgeryToken()
+
+@* ════════════════════════════════════════════════════════
+   Filter Bar
+   ════════════════════════════════════════════════════════ *@
+<div class="filter-bar">
+
+    @* CLASS combo box *@
+    <div class="filter-group" style="position:relative;">
+        <label class="filter-label" for="courseCombo">Class</label>
+        <div class="combo-wrapper">
+            <select id="courseCombo" class="combo-input" name="courseId">
+                <option value="">All Courses</option>
+                @foreach (var course in Model.AvailableCourses)
+                {
+                    <option value="@course.Id"
+                            @(course.Id == Model.SelectedCourseId ? "selected" : "")>
+                        @course.Name
+                    </option>
+                }
+            </select>
+            <svg class="combo-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                <path d="M7 10l5 5 5-5H7z"/>
+            </svg>
+
+            @* Searchable dropdown panel *@
+            <div id="courseSearchBox" class="combo-search">
+                <input id="courseSearchInput"
+                       class="combo-search-input"
+                       type="text"
+                       placeholder="Search courses…"
+                       autocomplete="off" />
+                <div id="courseOptions" class="combo-options"></div>
+            </div>
+        </div>
+    </div>
+
+    @* DATE picker *@
+    <div class="filter-group">
+        <label class="filter-label" for="datePicker">Date</label>
+        <div class="combo-wrapper">
+            <input id="datePicker"
+                   class="date-input"
+                   type="date"
+                   name="date"
+                   value="@Model.SelectedDate.ToString("yyyy-MM-dd")"
+                   max="@DateTime.Today.ToString("yyyy-MM-dd")" />
+        </div>
+    </div>
+
+    @* Back button *@
+    <div class="filter-group" style="justify-content:flex-end; margin-left:auto; align-self:flex-end;">
+        <button id="backBtn" class="btn btn-navy" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+                <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z"/>
+            </svg>
+            Back
+        </button>
+    </div>
+
+</div>
+
+@* ════════════════════════════════════════════════════════
+   Attendance Panel
+   ════════════════════════════════════════════════════════ *@
+<div class="attendance-panel">
+
+    @* Table Header *@
+    <div class="table-head">
+        <div class="th">Roll</div>
+        <div class="th">Student's Name</div>
+        <div class="th">Course</div>
+        <div class="th">Records</div>
+    </div>
+
+    <div class="table-divider"></div>
+
+    @* Table Body *@
+    <div class="table-body">
+        <div id="studentTableBody">
+            @if (Model.Students != null && Model.Students.Any())
+            {
+                @foreach (var student in Model.Students.OrderByDescending(s => s.RollNumber))
+                {
+                    var currentStatus = Model.AttendanceRecords.TryGetValue(student.Id, out var status)
+                        ? status.ToString().ToLower()
+                        : null;
+
+                    <div class="student-row"
+                         data-student-id="@student.Id"
+                         data-course="@student.CourseId">
+
+                        <div class="roll-num">@student.RollNumber</div>
+                        <div class="student-name">@student.FullName</div>
+                        <div class="student-course">@student.Course</div>
+
+                        <div class="attendance-btns">
+                            <button class="att-btn present @(currentStatus == "present" ? "active" : "")"
+                                    data-type="present"
+                                    type="button"
+                                    aria-label="Mark Present">
+                                Present
+                            </button>
+                            <button class="att-btn late @(currentStatus == "late" ? "active" : "")"
+                                    data-type="late"
+                                    type="button"
+                                    aria-label="Mark Late">
+                                Late
+                            </button>
+                            <button class="att-btn absent @(currentStatus == "absent" ? "active" : "")"
+                                    data-type="absent"
+                                    type="button"
+                                    aria-label="Mark Absent">
+                                Absent
+                            </button>
+                        </div>
+
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="empty-state">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8zm-1-13h2v6h-2zm0 8h2v2h-2z"/>
+                    </svg>
+                    No students found. Please select a course.
+                </div>
+            }
+        </div>
+    </div>
+
+    @* Footer: Save Button *@
+    <div class="table-footer">
+        <button id="saveBtn" class="btn btn-navy" type="button">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" width="16" height="16">
+                <path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/>
+            </svg>
+            Save
+        </button>
+    </div>
+
+</div>
+
+@* ════════════════════════════════════════════════════════
+   Toast Notification
+   ════════════════════════════════════════════════════════ *@
+<div id="toast" class="toast" role="alert" aria-live="polite"></div>
+
+@section Scripts {
+    @* Additional page-level scripts if needed *@
+}
+

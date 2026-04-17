@@ -1,0 +1,106 @@
+﻿:root {
+    --bg: #0b0f1a;
+    --sidebar-bg: #0d1117;
+    --accent: #3b6ef8;
+    --text: #e5e7eb;
+    --muted: #9ca3af;
+    --card: #111827;
+    --blue: #1e3a8a;
+    --blue-light: #2b4bb3;
+    --yellow: #f59e0b;
+    --red: #ef4444;
+    --radius: 16px;
+}
+
+body {
+    margin: 0;
+    font-family: 'DM Sans', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    display: flex;
+}
+
+/* Sidebar */
+.sidebar {
+    width: 70px;
+    background: var(--sidebar-bg);
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 20px;
+}
+
+/* Main */
+.main {
+    flex: 1;
+    padding: 30px;
+}
+
+/* Header */
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.back-btn {
+    background: transparent;
+    border: 1px solid var(--accent);
+    color: white;
+    padding: 6px 12px;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* Course Card */
+.course-card {
+    background: #0f172a;
+    padding: 20px;
+    border-radius: var(--radius);
+    margin-top: 20px;
+    box-shadow: 0 0 20px rgba(59,110,248,0.2);
+}
+
+/* Stats */
+.stats {
+    display: flex;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.stat {
+    flex: 1;
+    padding: 15px;
+    border-radius: var(--radius);
+    text-align: center;
+    background: #1f2937;
+}
+
+/* History */
+.history {
+    margin-top: 25px;
+    background: var(--blue-light);
+    padding: 20px;
+    border-radius: var(--radius);
+}
+
+.history-item {
+    padding: 12px;
+    border-radius: 10px;
+    margin-bottom: 10px;
+    background: #1e293b;
+}
+
+.present {
+    background: #1e3a8a;
+}
+
+.late {
+    background: var(--yellow);
+    color: black;
+}
+
+.absent {
+    background: var(--red);
+}

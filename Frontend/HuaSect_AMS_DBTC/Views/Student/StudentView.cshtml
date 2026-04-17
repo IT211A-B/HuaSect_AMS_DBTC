@@ -1,0 +1,158 @@
+﻿using StudentManagement.Models;
+
+namespace StudentManagement.Services
+{
+// ────────────────────────────────────────────────────────────────
+// IStudentService — contract for all student-related data operations
+// ────────────────────────────────────────────────────────────────
+public interface IStudentService
+{
+Task<List<StudentModel>>      GetAllStudentsAsync();
+Task<StudentModel?>           GetStudentByIdAsync(int id);
+Task<StudentModel>            AddStudentAsync(StudentModel student);
+Task<StudentModel>            UpdateStudentAsync(StudentModel student);
+Task                          DeleteStudentAsync(int id);
+Task<List<AttendanceDto>>     GetAttendanceByStudentIdAsync(int studentId);
+Task<StudentListViewModel>    GetStudentListViewModelAsync(string? course, DateTime date);
+Task                          SaveAttendanceAsync(List<AttendanceInputModel> records);
+}
+
+// ────────────────────────────────────────────────────────────────
+// StudentService — in-memory implementation (swap for EF Core / DB)
+// ────────────────────────────────────────────────────────────────
+public class StudentService : IStudentService
+{
+// Simulated in-memory store — replace with DbContext injection for production.
+private static readonly List<StudentModel> _store = new()
+{
+new StudentModel { Id=1, FirstName="Dench Mery",  MiddleName="S.", LastName="Caballero",   StudentId="2024-0001", StudentNo="6", YearLevel="3", CourseId="BSIT", Email="dench@school.edu" },
+new StudentModel { Id=2, FirstName="Julia",       MiddleName="Yashika", LastName="Kong",   StudentId="2024-0002", StudentNo="5", YearLevel="2", CourseId="BSIT", Email="julia@school.edu" },
+new StudentModel { Id=3, FirstName="Maverick",    LastName="Tajanlangit",                   StudentId="2024-0003", StudentNo="4", YearLevel="2", CourseId="BSIT", Email="maverick@school.edu" },
+new StudentModel { Id=4, FirstName="Leon",        MiddleName="S.", LastName="Kennedy",     StudentId="2024-0004", StudentNo="3", YearLevel="3", CourseId="BSIT", Email="leon@school.edu" },
+new StudentModel { Id=5, FirstName="Ada",         MiddleName="A.", LastName="Wong",        StudentId="2024-0005", StudentNo="2", YearLevel="4", CourseId="ME",   Email="ada@school.edu" },
+new StudentModel { Id=6, FirstName="Mikhael",     LastName="Roso. Santos",                  StudentId="2024-0006", StudentNo="1", YearLevel="2", CourseId="BSIT", Email="mikhael@school.edu" },
+};
+
+private static readonly List<AttendanceRecord> _attendance = new();
+private static int _nextId = 7;
+
+// ── Read All ──────────────────────────────────────────────────
+public Task<List<StudentModel>> GetAllStudentsAsync()
+=> Task.FromResult(_store.OrderByDescending(s => s.StudentNo).ToList());
+
+// ── Read One ──────────────────────────────────────────────────
+public Task<StudentModel?> GetStudentByIdAsync(int id)
+=> Task.FromResult(_store.FirstOrDefault(s => s.Id == id));
+
+// ── Create ────────────────────────────────────────────────────
+public Task<StudentModel> AddStudentAsync(StudentModel student)
+{
+student.Id        = _nextId++;
+student.CreatedAt = DateTime.UtcNow;
+student.UpdatedAt = DateTime.UtcNow;
+_store.Add(student);
+return Task.FromResult(student);
+}
+
+// ── Update ────────────────────────────────────────────────────
+public Task<StudentModel> UpdateStudentAsync(StudentModel updated)
+{
+var existing = _store.FirstOrDefault(s => s.Id == updated.Id)
+?? throw new KeyNotFoundException($"Student {updated.Id} not found.");
+
+existing.FirstName  = updated.FirstName;
+existing.MiddleName = updated.MiddleName;
+existing.LastName   = updated.LastName;
+existing.StudentId  = updated.StudentId;
+existing.StudentNo  = updated.StudentNo;
+existing.YearLevel  = updated.YearLevel;
+existing.CourseId   = updated.CourseId;
+existing.Email      = updated.Email;
+existing.UpdatedAt  = DateTime.UtcNow;
+
+return Task.FromResult(existing);
+}
+
+// ── Delete ────────────────────────────────────────────────────
+public Task DeleteStudentAsync(int id)
+{
+var student = _store.FirstOrDefault(s => s.Id == id);
+if (student != null) _store.Remove(student);
+return Task.CompletedTask;
+}
+
+// ── Attendance History ────────────────────────────────────────
+public Task<List<AttendanceDto>> GetAttendanceByStudentIdAsync(int studentId)
+{
+var records = _attendance
+.Where(a => a.StudentId == studentId)
+.OrderByDescending(a => a.Date)
+.Take(30)
+.Select(a => new AttendanceDto
+{
+Id      = a.Id,
+Date    = a.Date.ToString("MMM dd, yyyy"),
+Subject = a.Subject ?? "General",
+Status  = a.Status
+})
+.ToList();
+
+// Seed sample data if empty
+if (records.Count == 0)
+{
+var statuses = new[] { AttendanceStatus.Present, AttendanceStatus.Late, AttendanceStatus.Absent };
+var subjects = new[] { "Information Management", "Data Structures", "Web Development" };
+var rand     = new Random(studentId);
+
+records = Enumerable.Range(0, 10).Select(i =>
+{
+var d = DateTime.Today.AddDays(-i);
+return new AttendanceDto
+{
+Id      = i,
+Date    = d.ToString("MMM dd, yyyy"),
+Subject = subjects[i % 3],
+Status  = statuses[rand.Next(3)]
+};
+}).ToList();
+}
+
+return Task.FromResult(records);
+}
+
+// ── Student List ViewModel ────────────────────────────────────
+public Task<StudentListViewModel> GetStudentListViewModelAsync(string? course, DateTime date)
+{
+var courses  = _store.Select(s => s.CourseId).Distinct().OrderBy(c => c).ToList();
+var students = string.IsNullOrWhiteSpace(course)
+? _store.ToList()
+: _store.Where(s => s.CourseId == course).ToList();
+
+var vm = new StudentListViewModel
+{
+Students        = students.OrderByDescending(s => s.StudentNo).ToList(),
+Courses         = courses,
+SelectedCourse  = course,
+Date            = date
+};
+
+return Task.FromResult(vm);
+}
+
+// ── Save Bulk Attendance ──────────────────────────────────────
+public Task SaveAttendanceAsync(List<AttendanceInputModel> inputs)
+{
+foreach (var input in inputs)
+{
+_attendance.Add(new AttendanceRecord
+{
+StudentId = input.StudentId,
+Date      = input.Date,
+Status    = input.Status,
+Subject   = input.Subject
+});
+}
+return Task.CompletedTask;
+}
+}
+}

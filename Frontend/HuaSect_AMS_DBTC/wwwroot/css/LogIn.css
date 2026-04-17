@@ -1,0 +1,119 @@
+﻿body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    /* White, Gray, Navy Blue background pattern */
+    background: linear-gradient(115deg, #ffffff 30%, #808080 30%, #808080 60%, #000080 60%);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-container {
+    background-color: rgba(40, 40, 40, 0.6); /* 60% Dark Gray */
+    padding: 40px;
+    border-radius: 40px;
+    width: 400px;
+    text-align: center;
+    color: white;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+
+.logo-wrapper {
+    background: white;
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    margin: -80px auto 20px auto; /* Centered and overlapping top */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 5px solid #444;
+}
+
+.logo-img {
+    width: 50px;
+}
+
+.title {
+    letter-spacing: 1px;
+    font-size: 1.2rem;
+    margin-bottom: 20px;
+}
+
+.role-switcher {
+    margin-bottom: 25px;
+}
+
+.role-btn {
+    background: transparent;
+    border: none;
+    color: white;
+    padding: 8px 20px;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-weight: bold;
+    margin: 0 5px;
+}
+
+    .role-btn.active {
+        background-color: #0000ff; /* Blue highlight */
+    }
+
+input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border-radius: 25px;
+    border: none;
+    text-align: center;
+    box-sizing: border-box;
+}
+
+.btn-login {
+    width: 60%;
+    padding: 10px;
+    border-radius: 25px;
+    border: none;
+    background: white;
+    color: #333;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.divider {
+    margin: 20px 0;
+    display: flex;
+    align-items: center;
+}
+
+    .divider::before, .divider::after {
+        content: "";
+        flex: 1;
+        height: 1px;
+        background: #ccc;
+    }
+
+    .divider span {
+        padding: 0 10px;
+        font-size: 0.8rem;
+    }
+
+.btn-google {
+    background: white;
+    border: none;
+    padding: 10px 30px;
+    border-radius: 25px;
+    display: flex;
+    align-items: center;
+    margin: 0 auto;
+    cursor: pointer;
+    color: #555;
+}
+
+    .btn-google img {
+        width: 20px;
+        margin-right: 10px;
+    }

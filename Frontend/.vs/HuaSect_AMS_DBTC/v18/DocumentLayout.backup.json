@@ -1,0 +1,565 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\dongk\\Desktop\\Frontend\\HuaSect_AMS_DBTC\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{52AEB98E-9B02-46CD-A7EC-EF93111A5130}|HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC.csproj|c:\\users\\dongk\\desktop\\frontend\\huasect_ams_dbtc\\huasect_ams_dbtc\\controllers\\attendancecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{52AEB98E-9B02-46CD-A7EC-EF93111A5130}|HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC.csproj|solutionrelative:huasect_ams_dbtc\\controllers\\attendancecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{52AEB98E-9B02-46CD-A7EC-EF93111A5130}|HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC.csproj|c:\\users\\dongk\\desktop\\frontend\\huasect_ams_dbtc\\huasect_ams_dbtc\\models\\attendancemodels.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{52AEB98E-9B02-46CD-A7EC-EF93111A5130}|HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC.csproj|solutionrelative:huasect_ams_dbtc\\models\\attendancemodels.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{52AEB98E-9B02-46CD-A7EC-EF93111A5130}|HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC.csproj|c:\\users\\dongk\\desktop\\frontend\\huasect_ams_dbtc\\huasect_ams_dbtc\\wwwroot\\css\\attendance.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{52AEB98E-9B02-46CD-A7EC-EF93111A5130}|HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC.csproj|solutionrelative:huasect_ams_dbtc\\wwwroot\\css\\attendance.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{52AEB98E-9B02-46CD-A7EC-EF93111A5130}|HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC.csproj|c:\\users\\dongk\\desktop\\frontend\\huasect_ams_dbtc\\huasect_ams_dbtc\\wwwroot\\js\\attendance.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{52AEB98E-9B02-46CD-A7EC-EF93111A5130}|HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC.csproj|solutionrelative:huasect_ams_dbtc\\wwwroot\\js\\attendance.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{52AEB98E-9B02-46CD-A7EC-EF93111A5130}|HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC.csproj|c:\\users\\dongk\\desktop\\frontend\\huasect_ams_dbtc\\huasect_ams_dbtc\\views\\attendance\\attendanceview.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{52AEB98E-9B02-46CD-A7EC-EF93111A5130}|HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC.csproj|solutionrelative:huasect_ams_dbtc\\views\\attendance\\attendanceview.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{52AEB98E-9B02-46CD-A7EC-EF93111A5130}|HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC.csproj|c:\\users\\dongk\\desktop\\frontend\\huasect_ams_dbtc\\huasect_ams_dbtc\\views\\shared\\attendancelayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{52AEB98E-9B02-46CD-A7EC-EF93111A5130}|HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC.csproj|solutionrelative:huasect_ams_dbtc\\views\\shared\\attendancelayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{52AEB98E-9B02-46CD-A7EC-EF93111A5130}|HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC.csproj|c:\\users\\dongk\\desktop\\frontend\\huasect_ams_dbtc\\huasect_ams_dbtc\\views\\student\\studentview.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{52AEB98E-9B02-46CD-A7EC-EF93111A5130}|HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC.csproj|solutionrelative:huasect_ams_dbtc\\views\\student\\studentview.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{52AEB98E-9B02-46CD-A7EC-EF93111A5130}|HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC.csproj|c:\\users\\dongk\\desktop\\frontend\\huasect_ams_dbtc\\huasect_ams_dbtc\\views\\login\\loginview.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{52AEB98E-9B02-46CD-A7EC-EF93111A5130}|HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC.csproj|solutionrelative:huasect_ams_dbtc\\views\\login\\loginview.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{52AEB98E-9B02-46CD-A7EC-EF93111A5130}|HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC.csproj|c:\\users\\dongk\\desktop\\frontend\\huasect_ams_dbtc\\huasect_ams_dbtc\\views\\courses\\coursesview.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{52AEB98E-9B02-46CD-A7EC-EF93111A5130}|HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC.csproj|solutionrelative:huasect_ams_dbtc\\views\\courses\\coursesview.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{52AEB98E-9B02-46CD-A7EC-EF93111A5130}|HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC.csproj|c:\\users\\dongk\\desktop\\frontend\\huasect_ams_dbtc\\huasect_ams_dbtc\\wwwroot\\css\\courses.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{52AEB98E-9B02-46CD-A7EC-EF93111A5130}|HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC.csproj|solutionrelative:huasect_ams_dbtc\\wwwroot\\css\\courses.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{52AEB98E-9B02-46CD-A7EC-EF93111A5130}|HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC.csproj|c:\\users\\dongk\\desktop\\frontend\\huasect_ams_dbtc\\huasect_ams_dbtc\\wwwroot\\js\\courses.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{52AEB98E-9B02-46CD-A7EC-EF93111A5130}|HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC.csproj|solutionrelative:huasect_ams_dbtc\\wwwroot\\js\\courses.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{52AEB98E-9B02-46CD-A7EC-EF93111A5130}|HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC.csproj|c:\\users\\dongk\\desktop\\frontend\\huasect_ams_dbtc\\huasect_ams_dbtc\\controllers\\coursescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{52AEB98E-9B02-46CD-A7EC-EF93111A5130}|HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC.csproj|solutionrelative:huasect_ams_dbtc\\controllers\\coursescontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{52AEB98E-9B02-46CD-A7EC-EF93111A5130}|HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC.csproj|c:\\users\\dongk\\desktop\\frontend\\huasect_ams_dbtc\\huasect_ams_dbtc\\models\\coursesmodels.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{52AEB98E-9B02-46CD-A7EC-EF93111A5130}|HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC.csproj|solutionrelative:huasect_ams_dbtc\\models\\coursesmodels.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{52AEB98E-9B02-46CD-A7EC-EF93111A5130}|HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC.csproj|c:\\users\\dongk\\desktop\\frontend\\huasect_ams_dbtc\\huasect_ams_dbtc\\views\\shared\\courseslayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{52AEB98E-9B02-46CD-A7EC-EF93111A5130}|HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC.csproj|solutionrelative:huasect_ams_dbtc\\views\\shared\\courseslayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{52AEB98E-9B02-46CD-A7EC-EF93111A5130}|HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC.csproj|c:\\users\\dongk\\desktop\\frontend\\huasect_ams_dbtc\\huasect_ams_dbtc\\views\\shared\\studentlayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{52AEB98E-9B02-46CD-A7EC-EF93111A5130}|HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC.csproj|solutionrelative:huasect_ams_dbtc\\views\\shared\\studentlayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{52AEB98E-9B02-46CD-A7EC-EF93111A5130}|HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC.csproj|c:\\users\\dongk\\desktop\\frontend\\huasect_ams_dbtc\\huasect_ams_dbtc\\models\\studentmodels.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{52AEB98E-9B02-46CD-A7EC-EF93111A5130}|HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC.csproj|solutionrelative:huasect_ams_dbtc\\models\\studentmodels.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{52AEB98E-9B02-46CD-A7EC-EF93111A5130}|HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC.csproj|c:\\users\\dongk\\desktop\\frontend\\huasect_ams_dbtc\\huasect_ams_dbtc\\controllers\\studentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{52AEB98E-9B02-46CD-A7EC-EF93111A5130}|HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC.csproj|solutionrelative:huasect_ams_dbtc\\controllers\\studentcontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{52AEB98E-9B02-46CD-A7EC-EF93111A5130}|HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC.csproj|c:\\users\\dongk\\desktop\\frontend\\huasect_ams_dbtc\\huasect_ams_dbtc\\wwwroot\\js\\student.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{52AEB98E-9B02-46CD-A7EC-EF93111A5130}|HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC.csproj|solutionrelative:huasect_ams_dbtc\\wwwroot\\js\\student.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{52AEB98E-9B02-46CD-A7EC-EF93111A5130}|HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC.csproj|c:\\users\\dongk\\desktop\\frontend\\huasect_ams_dbtc\\huasect_ams_dbtc\\wwwroot\\css\\student.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{52AEB98E-9B02-46CD-A7EC-EF93111A5130}|HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC.csproj|solutionrelative:huasect_ams_dbtc\\wwwroot\\css\\student.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{52AEB98E-9B02-46CD-A7EC-EF93111A5130}|HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC.csproj|c:\\users\\dongk\\desktop\\frontend\\huasect_ams_dbtc\\huasect_ams_dbtc\\views\\shared\\loginlayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{52AEB98E-9B02-46CD-A7EC-EF93111A5130}|HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC.csproj|solutionrelative:huasect_ams_dbtc\\views\\shared\\loginlayout.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{52AEB98E-9B02-46CD-A7EC-EF93111A5130}|HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC.csproj|c:\\users\\dongk\\desktop\\frontend\\huasect_ams_dbtc\\huasect_ams_dbtc\\models\\loginmodels.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{52AEB98E-9B02-46CD-A7EC-EF93111A5130}|HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC.csproj|solutionrelative:huasect_ams_dbtc\\models\\loginmodels.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{52AEB98E-9B02-46CD-A7EC-EF93111A5130}|HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC.csproj|c:\\users\\dongk\\desktop\\frontend\\huasect_ams_dbtc\\huasect_ams_dbtc\\views\\teacher\\teacherview.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{52AEB98E-9B02-46CD-A7EC-EF93111A5130}|HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC.csproj|solutionrelative:huasect_ams_dbtc\\views\\teacher\\teacherview.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{52AEB98E-9B02-46CD-A7EC-EF93111A5130}|HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC.csproj|c:\\users\\dongk\\desktop\\frontend\\huasect_ams_dbtc\\huasect_ams_dbtc\\views\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{52AEB98E-9B02-46CD-A7EC-EF93111A5130}|HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC.csproj|solutionrelative:huasect_ams_dbtc\\views\\_viewimports.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{52AEB98E-9B02-46CD-A7EC-EF93111A5130}|HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC.csproj|c:\\users\\dongk\\desktop\\frontend\\huasect_ams_dbtc\\huasect_ams_dbtc\\controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{52AEB98E-9B02-46CD-A7EC-EF93111A5130}|HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC.csproj|solutionrelative:huasect_ams_dbtc\\controllers\\logincontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{52AEB98E-9B02-46CD-A7EC-EF93111A5130}|HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC.csproj|c:\\users\\dongk\\desktop\\frontend\\huasect_ams_dbtc\\huasect_ams_dbtc\\wwwroot\\js\\login.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{52AEB98E-9B02-46CD-A7EC-EF93111A5130}|HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC.csproj|solutionrelative:huasect_ams_dbtc\\wwwroot\\js\\login.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{52AEB98E-9B02-46CD-A7EC-EF93111A5130}|HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC.csproj|c:\\users\\dongk\\desktop\\frontend\\huasect_ams_dbtc\\huasect_ams_dbtc\\wwwroot\\css\\login.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{52AEB98E-9B02-46CD-A7EC-EF93111A5130}|HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC.csproj|solutionrelative:huasect_ams_dbtc\\wwwroot\\css\\login.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{52AEB98E-9B02-46CD-A7EC-EF93111A5130}|HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC.csproj|c:\\users\\dongk\\desktop\\frontend\\huasect_ams_dbtc\\huasect_ams_dbtc\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{52AEB98E-9B02-46CD-A7EC-EF93111A5130}|HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC.csproj|solutionrelative:huasect_ams_dbtc\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{52AEB98E-9B02-46CD-A7EC-EF93111A5130}|HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC.csproj|c:\\users\\dongk\\desktop\\frontend\\huasect_ams_dbtc\\huasect_ams_dbtc\\models\\teachermodels.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{52AEB98E-9B02-46CD-A7EC-EF93111A5130}|HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC.csproj|solutionrelative:huasect_ams_dbtc\\models\\teachermodels.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{52AEB98E-9B02-46CD-A7EC-EF93111A5130}|HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC.csproj|c:\\users\\dongk\\desktop\\frontend\\huasect_ams_dbtc\\huasect_ams_dbtc\\huasect_ams_dbtc.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
+      "RelativeMoniker": "D:0:0:{52AEB98E-9B02-46CD-A7EC-EF93111A5130}|HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC.csproj|solutionrelative:huasect_ams_dbtc\\huasect_ams_dbtc.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{52AEB98E-9B02-46CD-A7EC-EF93111A5130}|HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC.csproj|c:\\users\\dongk\\desktop\\frontend\\huasect_ams_dbtc\\huasect_ams_dbtc\\controllers\\teachercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{52AEB98E-9B02-46CD-A7EC-EF93111A5130}|HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC.csproj|solutionrelative:huasect_ams_dbtc\\controllers\\teachercontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{52AEB98E-9B02-46CD-A7EC-EF93111A5130}|HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC.csproj|c:\\users\\dongk\\desktop\\frontend\\huasect_ams_dbtc\\huasect_ams_dbtc\\wwwroot\\js\\teacher.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}",
+      "RelativeMoniker": "D:0:0:{52AEB98E-9B02-46CD-A7EC-EF93111A5130}|HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC.csproj|solutionrelative:huasect_ams_dbtc\\wwwroot\\js\\teacher.js||{14D17961-FE51-464D-9111-C4AF11D7D99A}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{52AEB98E-9B02-46CD-A7EC-EF93111A5130}|HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC.csproj|c:\\users\\dongk\\desktop\\frontend\\huasect_ams_dbtc\\huasect_ams_dbtc\\wwwroot\\css\\teacher.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}",
+      "RelativeMoniker": "D:0:0:{52AEB98E-9B02-46CD-A7EC-EF93111A5130}|HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC.csproj|solutionrelative:huasect_ams_dbtc\\wwwroot\\css\\teacher.css||{A5401142-F49D-43DB-90B1-F57BA349E55C}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 5,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AttendanceModels.cs",
+              "DocumentMoniker": "C:\\Users\\dongk\\Desktop\\Frontend\\HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC\\Models\\AttendanceModels.cs",
+              "RelativeDocumentMoniker": "HuaSect_AMS_DBTC\\Models\\AttendanceModels.cs",
+              "ToolTip": "C:\\Users\\dongk\\Desktop\\Frontend\\HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC\\Models\\AttendanceModels.cs",
+              "RelativeToolTip": "HuaSect_AMS_DBTC\\Models\\AttendanceModels.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAuwAQAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-16T18:18:38.67Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "AttendanceLayout.cshtml",
+              "DocumentMoniker": "C:\\Users\\dongk\\Desktop\\Frontend\\HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC\\Views\\Shared\\AttendanceLayout.cshtml",
+              "RelativeDocumentMoniker": "HuaSect_AMS_DBTC\\Views\\Shared\\AttendanceLayout.cshtml",
+              "ToolTip": "C:\\Users\\dongk\\Desktop\\Frontend\\HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC\\Views\\Shared\\AttendanceLayout.cshtml",
+              "RelativeToolTip": "HuaSect_AMS_DBTC\\Views\\Shared\\AttendanceLayout.cshtml",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAowCQAAAAGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-16T18:16:59.464Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "AttendanceView.cshtml",
+              "DocumentMoniker": "C:\\Users\\dongk\\Desktop\\Frontend\\HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC\\Views\\Attendance\\AttendanceView.cshtml",
+              "RelativeDocumentMoniker": "HuaSect_AMS_DBTC\\Views\\Attendance\\AttendanceView.cshtml",
+              "ToolTip": "C:\\Users\\dongk\\Desktop\\Frontend\\HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC\\Views\\Attendance\\AttendanceView.cshtml",
+              "RelativeToolTip": "HuaSect_AMS_DBTC\\Views\\Attendance\\AttendanceView.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-16T15:35:54.339Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Attendance.js",
+              "DocumentMoniker": "C:\\Users\\dongk\\Desktop\\Frontend\\HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC\\wwwroot\\js\\Attendance.js",
+              "RelativeDocumentMoniker": "HuaSect_AMS_DBTC\\wwwroot\\js\\Attendance.js",
+              "ToolTip": "C:\\Users\\dongk\\Desktop\\Frontend\\HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC\\wwwroot\\js\\Attendance.js",
+              "RelativeToolTip": "HuaSect_AMS_DBTC\\wwwroot\\js\\Attendance.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-04-16T13:24:03.836Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Attendance.css",
+              "DocumentMoniker": "C:\\Users\\dongk\\Desktop\\Frontend\\HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC\\wwwroot\\css\\Attendance.css",
+              "RelativeDocumentMoniker": "HuaSect_AMS_DBTC\\wwwroot\\css\\Attendance.css",
+              "ToolTip": "C:\\Users\\dongk\\Desktop\\Frontend\\HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC\\wwwroot\\css\\Attendance.css",
+              "RelativeToolTip": "HuaSect_AMS_DBTC\\wwwroot\\css\\Attendance.css",
+              "ViewState": "AgIAAE8AAAAAAAAAAAAUwGoAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2026-04-16T13:22:17.93Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AttendanceController.cs",
+              "DocumentMoniker": "C:\\Users\\dongk\\Desktop\\Frontend\\HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC\\Controllers\\AttendanceController.cs",
+              "RelativeDocumentMoniker": "HuaSect_AMS_DBTC\\Controllers\\AttendanceController.cs",
+              "ToolTip": "C:\\Users\\dongk\\Desktop\\Frontend\\HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC\\Controllers\\AttendanceController.cs",
+              "RelativeToolTip": "HuaSect_AMS_DBTC\\Controllers\\AttendanceController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-16T13:32:13.907Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{cce594b6-0c39-4442-ba28-10c64ac7e89f}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "StudentView.cshtml",
+              "DocumentMoniker": "C:\\Users\\dongk\\Desktop\\Frontend\\HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC\\Views\\Student\\StudentView.cshtml",
+              "RelativeDocumentMoniker": "HuaSect_AMS_DBTC\\Views\\Student\\StudentView.cshtml",
+              "ToolTip": "C:\\Users\\dongk\\Desktop\\Frontend\\HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC\\Views\\Student\\StudentView.cshtml",
+              "RelativeToolTip": "HuaSect_AMS_DBTC\\Views\\Student\\StudentView.cshtml",
+              "ViewState": "AgIAAIMAAAAAAAAAAAAqwJ0AAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-16T15:34:14.994Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "LogInView.cshtml",
+              "DocumentMoniker": "C:\\Users\\dongk\\Desktop\\Frontend\\HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC\\Views\\LogIn\\LogInView.cshtml",
+              "RelativeDocumentMoniker": "HuaSect_AMS_DBTC\\Views\\LogIn\\LogInView.cshtml",
+              "ToolTip": "C:\\Users\\dongk\\Desktop\\Frontend\\HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC\\Views\\LogIn\\LogInView.cshtml",
+              "RelativeToolTip": "HuaSect_AMS_DBTC\\Views\\LogIn\\LogInView.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAACEAAAA0AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-16T15:26:32.257Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "CoursesView.cshtml",
+              "DocumentMoniker": "C:\\Users\\dongk\\Desktop\\Frontend\\HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC\\Views\\Courses\\CoursesView.cshtml",
+              "RelativeDocumentMoniker": "HuaSect_AMS_DBTC\\Views\\Courses\\CoursesView.cshtml",
+              "ToolTip": "C:\\Users\\dongk\\Desktop\\Frontend\\HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC\\Views\\Courses\\CoursesView.cshtml",
+              "RelativeToolTip": "HuaSect_AMS_DBTC\\Views\\Courses\\CoursesView.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-16T15:36:33.711Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "Courses.css",
+              "DocumentMoniker": "C:\\Users\\dongk\\Desktop\\Frontend\\HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC\\wwwroot\\css\\Courses.css",
+              "RelativeDocumentMoniker": "HuaSect_AMS_DBTC\\wwwroot\\css\\Courses.css",
+              "ToolTip": "C:\\Users\\dongk\\Desktop\\Frontend\\HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC\\wwwroot\\css\\Courses.css",
+              "RelativeToolTip": "HuaSect_AMS_DBTC\\wwwroot\\css\\Courses.css",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2026-04-16T13:22:46.815Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "Courses.js",
+              "DocumentMoniker": "C:\\Users\\dongk\\Desktop\\Frontend\\HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC\\wwwroot\\js\\Courses.js",
+              "RelativeDocumentMoniker": "HuaSect_AMS_DBTC\\wwwroot\\js\\Courses.js",
+              "ToolTip": "C:\\Users\\dongk\\Desktop\\Frontend\\HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC\\wwwroot\\js\\Courses.js",
+              "RelativeToolTip": "HuaSect_AMS_DBTC\\wwwroot\\js\\Courses.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAADAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-04-16T13:25:05.528Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "CoursesController.cs",
+              "DocumentMoniker": "C:\\Users\\dongk\\Desktop\\Frontend\\HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC\\Controllers\\CoursesController.cs",
+              "RelativeDocumentMoniker": "HuaSect_AMS_DBTC\\Controllers\\CoursesController.cs",
+              "ToolTip": "C:\\Users\\dongk\\Desktop\\Frontend\\HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC\\Controllers\\CoursesController.cs",
+              "RelativeToolTip": "HuaSect_AMS_DBTC\\Controllers\\CoursesController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAgAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-16T13:32:46.348Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "CoursesModels.cs",
+              "DocumentMoniker": "C:\\Users\\dongk\\Desktop\\Frontend\\HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC\\Models\\CoursesModels.cs",
+              "RelativeDocumentMoniker": "HuaSect_AMS_DBTC\\Models\\CoursesModels.cs",
+              "ToolTip": "C:\\Users\\dongk\\Desktop\\Frontend\\HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC\\Models\\CoursesModels.cs",
+              "RelativeToolTip": "HuaSect_AMS_DBTC\\Models\\CoursesModels.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAYAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-16T13:35:33.716Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 13,
+              "Title": "CoursesLayout.cshtml",
+              "DocumentMoniker": "C:\\Users\\dongk\\Desktop\\Frontend\\HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC\\Views\\Shared\\CoursesLayout.cshtml",
+              "RelativeDocumentMoniker": "HuaSect_AMS_DBTC\\Views\\Shared\\CoursesLayout.cshtml",
+              "ToolTip": "C:\\Users\\dongk\\Desktop\\Frontend\\HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC\\Views\\Shared\\CoursesLayout.cshtml",
+              "RelativeToolTip": "HuaSect_AMS_DBTC\\Views\\Shared\\CoursesLayout.cshtml",
+              "ViewState": "AgIAAAcAAAAAAAAAAAAowCEAAAAHAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-16T17:53:33.984Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 14,
+              "Title": "StudentLayout.cshtml",
+              "DocumentMoniker": "C:\\Users\\dongk\\Desktop\\Frontend\\HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC\\Views\\Shared\\StudentLayout.cshtml",
+              "RelativeDocumentMoniker": "HuaSect_AMS_DBTC\\Views\\Shared\\StudentLayout.cshtml",
+              "ToolTip": "C:\\Users\\dongk\\Desktop\\Frontend\\HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC\\Views\\Shared\\StudentLayout.cshtml",
+              "RelativeToolTip": "HuaSect_AMS_DBTC\\Views\\Shared\\StudentLayout.cshtml",
+              "ViewState": "AgIAABYAAAAAAAAAAAAowDAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-16T17:37:59.095Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 15,
+              "Title": "StudentModels.cs",
+              "DocumentMoniker": "C:\\Users\\dongk\\Desktop\\Frontend\\HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC\\Models\\StudentModels.cs",
+              "RelativeDocumentMoniker": "HuaSect_AMS_DBTC\\Models\\StudentModels.cs",
+              "ToolTip": "C:\\Users\\dongk\\Desktop\\Frontend\\HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC\\Models\\StudentModels.cs",
+              "RelativeToolTip": "HuaSect_AMS_DBTC\\Models\\StudentModels.cs",
+              "ViewState": "AgIAALIAAAAAAAAAAAAowMwAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-16T14:01:39.701Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 16,
+              "Title": "StudentController.cs",
+              "DocumentMoniker": "C:\\Users\\dongk\\Desktop\\Frontend\\HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC\\Controllers\\StudentController.cs",
+              "RelativeDocumentMoniker": "HuaSect_AMS_DBTC\\Controllers\\StudentController.cs",
+              "ToolTip": "C:\\Users\\dongk\\Desktop\\Frontend\\HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC\\Controllers\\StudentController.cs",
+              "RelativeToolTip": "HuaSect_AMS_DBTC\\Controllers\\StudentController.cs",
+              "ViewState": "AgIAABkAAAAAAAAAAAAQwJEAAAAWAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-16T13:34:10.25Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 18,
+              "Title": "Student.css",
+              "DocumentMoniker": "C:\\Users\\dongk\\Desktop\\Frontend\\HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC\\wwwroot\\css\\Student.css",
+              "RelativeDocumentMoniker": "HuaSect_AMS_DBTC\\wwwroot\\css\\Student.css",
+              "ToolTip": "C:\\Users\\dongk\\Desktop\\Frontend\\HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC\\wwwroot\\css\\Student.css",
+              "RelativeToolTip": "HuaSect_AMS_DBTC\\wwwroot\\css\\Student.css",
+              "ViewState": "AgIAAHUDAAAAAAAAAAAYwJADAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2026-04-16T13:22:58.977Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 17,
+              "Title": "Student.js",
+              "DocumentMoniker": "C:\\Users\\dongk\\Desktop\\Frontend\\HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC\\wwwroot\\js\\Student.js",
+              "RelativeDocumentMoniker": "HuaSect_AMS_DBTC\\wwwroot\\js\\Student.js",
+              "ToolTip": "C:\\Users\\dongk\\Desktop\\Frontend\\HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC\\wwwroot\\js\\Student.js",
+              "RelativeToolTip": "HuaSect_AMS_DBTC\\wwwroot\\js\\Student.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-04-16T13:25:21.553Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 19,
+              "Title": "LogInLayout.cshtml",
+              "DocumentMoniker": "C:\\Users\\dongk\\Desktop\\Frontend\\HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC\\Views\\Shared\\LogInLayout.cshtml",
+              "RelativeDocumentMoniker": "HuaSect_AMS_DBTC\\Views\\Shared\\LogInLayout.cshtml",
+              "ToolTip": "C:\\Users\\dongk\\Desktop\\Frontend\\HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC\\Views\\Shared\\LogInLayout.cshtml",
+              "RelativeToolTip": "HuaSect_AMS_DBTC\\Views\\Shared\\LogInLayout.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABMAAAArAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-16T15:38:58.899Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 20,
+              "Title": "LogInModels.cs",
+              "DocumentMoniker": "C:\\Users\\dongk\\Desktop\\Frontend\\HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC\\Models\\LogInModels.cs",
+              "RelativeDocumentMoniker": "HuaSect_AMS_DBTC\\Models\\LogInModels.cs",
+              "ToolTip": "C:\\Users\\dongk\\Desktop\\Frontend\\HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC\\Models\\LogInModels.cs",
+              "RelativeToolTip": "HuaSect_AMS_DBTC\\Models\\LogInModels.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAABAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-16T14:58:20.305Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 21,
+              "Title": "TeacherView.cshtml",
+              "DocumentMoniker": "C:\\Users\\dongk\\Desktop\\Frontend\\HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC\\Views\\Teacher\\TeacherView.cshtml",
+              "RelativeDocumentMoniker": "HuaSect_AMS_DBTC\\Views\\Teacher\\TeacherView.cshtml",
+              "ToolTip": "C:\\Users\\dongk\\Desktop\\Frontend\\HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC\\Views\\Teacher\\TeacherView.cshtml",
+              "RelativeToolTip": "HuaSect_AMS_DBTC\\Views\\Teacher\\TeacherView.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-16T15:35:19.197Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 22,
+              "Title": "_ViewImports.cshtml",
+              "DocumentMoniker": "C:\\Users\\dongk\\Desktop\\Frontend\\HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC\\Views\\_ViewImports.cshtml",
+              "RelativeDocumentMoniker": "HuaSect_AMS_DBTC\\Views\\_ViewImports.cshtml",
+              "ToolTip": "C:\\Users\\dongk\\Desktop\\Frontend\\HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC\\Views\\_ViewImports.cshtml",
+              "RelativeToolTip": "HuaSect_AMS_DBTC\\Views\\_ViewImports.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2026-04-16T16:37:34.539Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 23,
+              "Title": "LogInController.cs",
+              "DocumentMoniker": "C:\\Users\\dongk\\Desktop\\Frontend\\HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC\\Controllers\\LogInController.cs",
+              "RelativeDocumentMoniker": "HuaSect_AMS_DBTC\\Controllers\\LogInController.cs",
+              "ToolTip": "C:\\Users\\dongk\\Desktop\\Frontend\\HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC\\Controllers\\LogInController.cs",
+              "RelativeToolTip": "HuaSect_AMS_DBTC\\Controllers\\LogInController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAQAAAAKAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-16T14:58:06.144Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 24,
+              "Title": "LogIn.js",
+              "DocumentMoniker": "C:\\Users\\dongk\\Desktop\\Frontend\\HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC\\wwwroot\\js\\LogIn.js",
+              "RelativeDocumentMoniker": "HuaSect_AMS_DBTC\\wwwroot\\js\\LogIn.js",
+              "ToolTip": "C:\\Users\\dongk\\Desktop\\Frontend\\HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC\\wwwroot\\js\\LogIn.js",
+              "RelativeToolTip": "HuaSect_AMS_DBTC\\wwwroot\\js\\LogIn.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAABGAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-04-16T14:55:42.295Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 25,
+              "Title": "LogIn.css",
+              "DocumentMoniker": "C:\\Users\\dongk\\Desktop\\Frontend\\HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC\\wwwroot\\css\\LogIn.css",
+              "RelativeDocumentMoniker": "HuaSect_AMS_DBTC\\wwwroot\\css\\LogIn.css",
+              "ToolTip": "C:\\Users\\dongk\\Desktop\\Frontend\\HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC\\wwwroot\\css\\LogIn.css",
+              "RelativeToolTip": "HuaSect_AMS_DBTC\\wwwroot\\css\\LogIn.css",
+              "ViewState": "AgIAAFwAAAAAAAAAAAAUwHcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2026-04-16T14:53:43.812Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 26,
+              "Title": "Program.cs",
+              "DocumentMoniker": "C:\\Users\\dongk\\Desktop\\Frontend\\HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC\\Program.cs",
+              "RelativeDocumentMoniker": "HuaSect_AMS_DBTC\\Program.cs",
+              "ToolTip": "C:\\Users\\dongk\\Desktop\\Frontend\\HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC\\Program.cs",
+              "RelativeToolTip": "HuaSect_AMS_DBTC\\Program.cs",
+              "ViewState": "AgIAAAYAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-16T15:52:36.944Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 27,
+              "Title": "TeacherModels.cs",
+              "DocumentMoniker": "C:\\Users\\dongk\\Desktop\\Frontend\\HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC\\Models\\TeacherModels.cs",
+              "RelativeDocumentMoniker": "HuaSect_AMS_DBTC\\Models\\TeacherModels.cs",
+              "ToolTip": "C:\\Users\\dongk\\Desktop\\Frontend\\HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC\\Models\\TeacherModels.cs",
+              "RelativeToolTip": "HuaSect_AMS_DBTC\\Models\\TeacherModels.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-16T14:01:56.566Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 28,
+              "Title": "HuaSect_AMS_DBTC",
+              "DocumentMoniker": "C:\\Users\\dongk\\Desktop\\Frontend\\HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC.csproj",
+              "RelativeDocumentMoniker": "HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC.csproj",
+              "ToolTip": "C:\\Users\\dongk\\Desktop\\Frontend\\HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC.csproj",
+              "RelativeToolTip": "HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC.csproj",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-04-16T13:56:36.832Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 29,
+              "Title": "TeacherController.cs",
+              "DocumentMoniker": "C:\\Users\\dongk\\Desktop\\Frontend\\HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC\\Controllers\\TeacherController.cs",
+              "RelativeDocumentMoniker": "HuaSect_AMS_DBTC\\Controllers\\TeacherController.cs",
+              "ToolTip": "C:\\Users\\dongk\\Desktop\\Frontend\\HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC\\Controllers\\TeacherController.cs",
+              "RelativeToolTip": "HuaSect_AMS_DBTC\\Controllers\\TeacherController.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-04-16T13:34:34.21Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 30,
+              "Title": "Teacher.js",
+              "DocumentMoniker": "C:\\Users\\dongk\\Desktop\\Frontend\\HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC\\wwwroot\\js\\Teacher.js",
+              "RelativeDocumentMoniker": "HuaSect_AMS_DBTC\\wwwroot\\js\\Teacher.js",
+              "ToolTip": "C:\\Users\\dongk\\Desktop\\Frontend\\HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC\\wwwroot\\js\\Teacher.js",
+              "RelativeToolTip": "HuaSect_AMS_DBTC\\wwwroot\\js\\Teacher.js",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001646|",
+              "WhenOpened": "2026-04-16T13:25:40.204Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 31,
+              "Title": "Teacher.css",
+              "DocumentMoniker": "C:\\Users\\dongk\\Desktop\\Frontend\\HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC\\wwwroot\\css\\Teacher.css",
+              "RelativeDocumentMoniker": "HuaSect_AMS_DBTC\\wwwroot\\css\\Teacher.css",
+              "ToolTip": "C:\\Users\\dongk\\Desktop\\Frontend\\HuaSect_AMS_DBTC\\HuaSect_AMS_DBTC\\wwwroot\\css\\Teacher.css",
+              "RelativeToolTip": "HuaSect_AMS_DBTC\\wwwroot\\css\\Teacher.css",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003000|",
+              "WhenOpened": "2026-04-16T13:23:15.006Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

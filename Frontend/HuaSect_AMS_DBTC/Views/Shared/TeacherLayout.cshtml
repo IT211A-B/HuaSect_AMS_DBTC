@@ -1,0 +1,89 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"]</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,300&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="~/css/Teacher.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+</head>
+<body>
+    <div class="app-shell">
+
+        <!-- ░░ SIDEBAR ░░ -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-logo">
+                <span class="logo-icon"><i class="fa-solid fa-graduation-cap"></i></span>
+                <span class="logo-text">EduTrack</span>
+            </div>
+
+            <nav class="sidebar-nav">
+                <a href="/Teacher/Dashboard" class="nav-item @(ViewData["ActiveNav"]?.ToString() == "home" ? "active" : "")" data-tooltip="Home">
+                    <i class="fa-solid fa-house-chimney"></i>
+                    <span class="nav-label">Home</span>
+                </a>
+                <a href="/Teacher/Courses" class="nav-item @(ViewData["ActiveNav"]?.ToString() == "courses" ? "active" : "")" data-tooltip="Courses">
+                    <i class="fa-solid fa-book-open"></i>
+                    <span class="nav-label">Courses</span>
+                </a>
+                <a href="/Teacher/Attendance" class="nav-item @(ViewData["ActiveNav"]?.ToString() == "attendance" ? "active" : "")" data-tooltip="Attendance">
+                    <i class="fa-solid fa-calendar-check"></i>
+                    <span class="nav-label">Attendance</span>
+                </a>
+                <a href="/Teacher/Reports" class="nav-item @(ViewData["ActiveNav"]?.ToString() == "reports" ? "active" : "")" data-tooltip="Reports">
+                    <i class="fa-solid fa-chart-bar"></i>
+                    <span class="nav-label">Reports</span>
+                </a>
+            </nav>
+
+            <div class="sidebar-bottom">
+                <a href="/Teacher/Settings" class="nav-item @(ViewData["ActiveNav"]?.ToString() == "settings" ? "active" : "")" data-tooltip="Settings">
+                    <i class="fa-solid fa-gear"></i>
+                    <span class="nav-label">Settings</span>
+                </a>
+                <button class="sidebar-toggle" id="sidebarToggle" aria-label="Toggle sidebar">
+                    <i class="fa-solid fa-chevron-left" id="toggleIcon"></i>
+                </button>
+            </div>
+        </aside>
+
+        <!-- ░░ MAIN CONTENT ░░ -->
+        <div class="main-wrapper">
+
+            <!-- Top Bar -->
+            <header class="topbar">
+                <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Open menu">
+                    <i class="fa-solid fa-bars"></i>
+                </button>
+                <div class="topbar-right">
+                    <div class="welcome-pill">
+                        <div class="welcome-avatar">
+                            @{
+                                var name = ViewData["TeacherName"]?.ToString() ?? "Teacher";
+                                var initials = string.Join("", name.Split(' ').Select(w => w[0]));
+                            }
+                            <span>@initials</span>
+                        </div>
+                        <span class="welcome-text">Welcome back, <strong>@name</strong></span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Page Body -->
+            <main class="page-body">
+                @RenderBody()
+            </main>
+        </div>
+    </div>
+
+    <!-- Mobile overlay -->
+    <div class="sidebar-overlay" id="sidebarOverlay"></div>
+
+    <script src="~/js/Teacher.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>
+

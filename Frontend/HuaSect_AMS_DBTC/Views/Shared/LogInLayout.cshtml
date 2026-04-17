@@ -1,0 +1,38 @@
+﻿@using Microsoft.AspNetCore.Antiforgery
+@inject IAntiforgery Antiforgery
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Attendance Checking System — Login" />
+    <meta name="theme-color" content="#0d1b4b" />
+
+    <title>@ViewData["Title"]</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;700&family=Nunito:wght@400;600;700&display=swap"
+          rel="stylesheet" />
+
+    <link rel="stylesheet" href="~/css/LogIn.css" asp-append-version="true" />
+
+    <meta name="__RequestVerificationToken"
+          content="@Antiforgery.GetAndStoreTokens(Context).RequestToken" />
+
+    @await RenderSectionAsync("Head", required: false)
+</head>
+<body>
+
+    <a href="#main-content" class="sr-only sr-only-focusable">Skip to main content</a>
+
+    <main id="main-content" role="main">
+        @RenderBody()
+    </main>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+</html>

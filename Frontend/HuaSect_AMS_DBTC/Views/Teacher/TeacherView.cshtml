@@ -1,0 +1,116 @@
+﻿@model YourApp.Models.TeacherDashboardViewModel
+@{
+    Layout = "~/Views/Shared/TeacherLayout.cshtml";
+    ViewData["Title"] = "Dashboard";
+    ViewData["ActiveNav"] = "home";
+}
+
+<!-- ░░ PAGE HEADER ░░ -->
+<div class="page-header">
+    <div>
+        <h1 class="page-title">My Courses</h1>
+        <p class="page-subtitle">@DateTime.Now.ToString("dddd, MMMM dd yyyy") &nbsp;·&nbsp; @Model.TotalCourses course@(Model.TotalCourses != 1 ? "s" : "") assigned</p>
+    </div>
+</div>
+
+<!-- ░░ QUICK STATS ░░ -->
+<div class="stats-row">
+    <div class="stat-card">
+        <div class="stat-icon blue"><i class="fa-solid fa-book-open"></i></div>
+        <div class="stat-value">@Model.TotalCourses</div>
+        <div class="stat-label">Total Courses</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon teal"><i class="fa-solid fa-users"></i></div>
+        <div class="stat-value">@Model.TotalStudents</div>
+        <div class="stat-label">Students</div>
+    </div>
+    <div class="stat-card">
+        <div class="stat-icon amber"><i class="fa-solid fa-calendar-day"></i></div>
+        <div class="stat-value">@Model.CoursesToday</div>
+        <div class="stat-label">Classes Today</div>
+    </div>
+</div>
+
+<!-- ░░ SEARCH ░░ -->
+<div class="search-wrap">
+    <i class="fa-solid fa-magnifying-glass"></i>
+    <input type="text"
+           id="courseSearch"
+           class="search-input"
+           placeholder="Search by course title, code, or faculty…"
+           autocomplete="off"
+           spellcheck="false" />
+</div>
+
+<!-- ░░ COURSE LIST ░░ -->
+<div class="section-label">
+    <h2>Assigned Courses</h2>
+</div>
+
+<div class="course-grid" id="courseGrid">
+
+    @if (!Model.Courses.Any())
+    {
+        <div class="empty-state">
+            <i class="fa-solid fa-folder-open"></i>
+            <p>No courses assigned yet.</p>
+        </div>
+    }
+    else
+    {
+        @foreach (var course in Model.Courses)
+        {
+            <div class="course-card"
+                 data-title="@course.Title.ToLower()"
+                 data-code="@course.Code.ToLower()"
+                 data-faculty="@course.FacultyName.ToLower()">
+
+                <!-- Left: course info -->
+                <div class="card-info">
+                    <span class="card-code-badge">@course.Code</span>
+                    <h3 class="card-title">@course.Title</h3>
+                    <div class="card-meta">
+                        <span class="card-meta-item">
+                            <i class="fa-solid fa-chalkboard-user"></i>
+                            @course.FacultyName
+                        </span>
+                        <span class="card-meta-item">
+                            <i class="fa-solid fa-calendar-days"></i>
+                            @course.Days
+                        </span>
+                        <span class="card-meta-item">
+                            <i class="fa-regular fa-clock"></i>
+                            @course.TimeSlot
+                        </span>
+                        <span class="card-meta-item">
+                            <i class="fa-solid fa-user-group"></i>
+                            @course.StudentCount students
+                        </span>
+                    </div>
+                </div>
+
+                <!-- Right: action buttons -->
+                <div class="card-actions">
+                    <a href="@course.AttendanceUrl" class="btn btn-primary">
+                        <i class="fa-solid fa-clipboard-list"></i>
+                        View Attendance
+                    </a>
+                    <a href="/Teacher/Courses/@course.CourseId" class="btn btn-ghost">
+                        <i class="fa-solid fa-arrow-up-right-from-square"></i>
+                        Open Class
+                    </a>
+                </div>
+
+            </div>
+        }
+
+        <!-- Empty state shown by JS when search yields no results -->
+        <div class="empty-state" id="emptyState" style="display:none;">
+            <i class="fa-solid fa-magnifying-glass"></i>
+            <p>No courses match your search.</p>
+        </div>
+    }
+
+</div>
+
