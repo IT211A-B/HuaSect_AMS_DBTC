@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
 using HuaSect_AMS_DBTC.Service;
 using HuaSect_AMS_DBTCclasslib;
+using Microsoft.AspNetCore.Authorization;
 
 namespace HuaSect_AMS_DBTC.Controllers
 {
@@ -15,6 +16,7 @@ namespace HuaSect_AMS_DBTC.Controllers
         public TeacherController(ITeacherService teacherService) => _teacherService = teacherService;
 
         [HttpGet]
+        [Authorize(Roles = "Student,Teacher,Admin")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetTeachers()
         {
@@ -23,6 +25,7 @@ namespace HuaSect_AMS_DBTC.Controllers
         }
 
         [HttpGet("paginated")]
+        [Authorize(Roles = "Student,Teacher,Admin")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetTeachersPaginated([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
         {
@@ -31,6 +34,7 @@ namespace HuaSect_AMS_DBTC.Controllers
         }
 
         [HttpGet("{id:int}")]
+        [Authorize(Roles = "Student,Teacher,Admin")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetStudent(int id)
@@ -40,6 +44,7 @@ namespace HuaSect_AMS_DBTC.Controllers
         }
 
         [HttpPost("create")]
+        [Authorize(Roles = "Admin")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> CreateTeacher(CreateTeacherDto teacherDto)
         {
@@ -49,6 +54,7 @@ namespace HuaSect_AMS_DBTC.Controllers
         }
 
         [HttpPut("update/{id:int}")]
+        [Authorize(Roles = "Admin")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -69,6 +75,7 @@ namespace HuaSect_AMS_DBTC.Controllers
         }
 
         [HttpPatch("update-selective/{id:int}")]
+        [Authorize(Roles = "Admin")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -98,6 +105,7 @@ namespace HuaSect_AMS_DBTC.Controllers
         }
 
         [HttpDelete("delete/{id:int}")]
+        [Authorize(Roles = "Admin")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> DeleteTeacher(int id)

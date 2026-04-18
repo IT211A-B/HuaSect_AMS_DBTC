@@ -65,10 +65,11 @@ builder.Services.AddScoped<IStudentService, StudentService>();
 builder.Services.AddScoped<ITeacherService, TeacherService>();
 builder.Services.AddScoped<IAttendanceService, AttendanceService>();
 builder.Services.AddTransient<IEmailSender<IdentityUser>, NoOpEmailSender>();
+builder.Services.AddScoped<IdentitySeederService>();
 
 builder.Services.AddRateLimiter(options =>
 {
-    options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(httpContext => 
+    options.GlobalLimiter = PartitionedRateLimiter.Create<HttpContext, string>(httpContext =>
         RateLimitPartition.GetFixedWindowLimiter(
             partitionKey: httpContext.Connection.RemoteIpAddress?.ToString() ?? "unknown",
             factory: _ => new FixedWindowRateLimiterOptions
@@ -79,12 +80,12 @@ builder.Services.AddRateLimiter(options =>
                 Window = TimeSpan.FromMinutes(1)
             }
         ));
-        options.OnRejected = async (context, cancellationToken) =>
-        {
-            context.HttpContext.Response.StatusCode = StatusCodes.Status429TooManyRequests;
-            context.HttpContext.Response.Headers["Retry-After"] = "60";
-            await context.HttpContext.Response.WriteAsync("Too many requests. Please try again later.", cancellationToken);
-        };
+    options.OnRejected = async (context, cancellationToken) =>
+    {
+        context.HttpContext.Response.StatusCode = StatusCodes.Status429TooManyRequests;
+        context.HttpContext.Response.Headers["Retry-After"] = "60";
+        await context.HttpContext.Response.WriteAsync("Too many requests. Please try again later.", cancellationToken);
+    };
 });
 
 var app = builder.Build();
@@ -104,5 +105,27 @@ app.MapGet("/health", () => Results.Ok(new { status = "healthy", timestamp = Dat
    .AllowAnonymous();
 app.MapControllers();
 app.MapIdentityApi<IdentityUser>();
+
+using (var scope = app.Services.CreateScope())
+{
+    var seeder = scope.ServiceProvider.GetRequiredService<IdentitySeederService>();
+
+    try
+    {
+        await seeder.SeedRolesAsync();
+
+        if (builder.Environment.IsDevelopment())
+        {
+            var adminEmail = builder.Configuration["Seed:AdminEmail"] ?? "admin@dbtc-cebu.edu";
+            var adminPassword = builder.Configuration["Seed:AdminEmail"] ?? "TempPass123!";
+
+            await seeder.SeedAdminAsync(adminEmail, adminPassword);
+        }
+    }
+    catch (Exception ex)
+    {
+        Console.WriteLine($"Role Seeding Failed: {ex.Message}");
+    }
+}
 
 app.Run();
