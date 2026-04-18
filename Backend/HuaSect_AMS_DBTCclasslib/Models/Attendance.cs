@@ -7,7 +7,7 @@ public class Attendance
 {
     public int ID { get; set; }
 
-    public Student Student { get; set; } = new Student("", "", "", "", 0, "");
+    public StudentProfile StudentProfile { get; set; } = new StudentProfile("", 0);
 
     public Course Course { get; set; } = new Course("", "", "", 0);
 

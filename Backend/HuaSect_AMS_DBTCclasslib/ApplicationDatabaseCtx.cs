@@ -7,8 +7,8 @@ namespace HuaSect_AMS_DBTCclasslib.DbCtx;
 
 public class ApplicationDatabaseCtx : IdentityDbContext<IdentityUser>
 {
-    public DbSet<Student> Student { get; set; }
-    public DbSet<Teacher> Teacher { get; set; }
+    public DbSet<StudentProfile> StudentProfile { get; set; }
+    public DbSet<TeacherProfile> TeacherProfile { get; set; }
     public DbSet<Course> Course { get; set; }
     public DbSet<Attendance> Attendance { get; set; }
     public ApplicationDatabaseCtx(DbContextOptions<ApplicationDatabaseCtx> options) : base(options) { }

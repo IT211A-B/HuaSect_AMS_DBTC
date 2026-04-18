@@ -4,12 +4,12 @@ namespace HuaSect_AMS_DBTC.Repository
 {
     public interface ITeacherRepository
     {
-        Task<List<Teacher>> GetAllAsync();
-        Task<(int TotalRecords, List<Teacher> Data)> GetPaginatedAsync(int pageNumber, int pageSize);
-        Task<Teacher?> GetByIdAsync(int id);
-        Task<Teacher> AddAsync(Teacher teacher);
-        Task UpdateAsync(Teacher teacher);
-        Task DeleteAsync(Teacher teacher);
+        Task<List<TeacherProfile>> GetAllAsync();
+        Task<(int TotalRecords, List<TeacherProfile> Data)> GetPaginatedAsync(int pageNumber, int pageSize);
+        Task<TeacherProfile?> GetByIdAsync(int id);
+        Task<TeacherProfile> AddAsync(TeacherProfile teacherProfile);
+        Task UpdateAsync(TeacherProfile teacherProfile);
+        Task DeleteAsync(TeacherProfile teacherProfile);
         Task SaveChangesAsync();
     }
 }

@@ -12,7 +12,7 @@ public class Course
 
     public int Units { get; set; }
 
-    public Teacher Teacher { get; set; } = new Teacher("", "", "", "", "");
+    public TeacherProfile TeacherProfile { get; set; } = new TeacherProfile("");
 
     public Course(string code, string name, string description, int units)
     {

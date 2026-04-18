@@ -10,11 +10,11 @@ namespace HuaSect_AMS_DBTC.Repository
 
         public TeacherRepository(ApplicationDatabaseCtx context) => _context = context;
 
-        public async Task<List<Teacher>> GetAllAsync() => await _context.Teacher.ToListAsync();
+        public async Task<List<TeacherProfile>> GetAllAsync() => await _context.TeacherProfile.ToListAsync();
 
-        public async Task<(int TotalRecords, List<Teacher> Data)> GetPaginatedAsync(int pageNumber, int pageSize)
+        public async Task<(int TotalRecords, List<TeacherProfile> Data)> GetPaginatedAsync(int pageNumber, int pageSize)
         {
-            var query = _context.Teacher.AsQueryable();
+            var query = _context.TeacherProfile.AsQueryable();
             var totalRecords = await query.CountAsync();
             var data = await query
                 .OrderBy(t => t.ID)
@@ -25,23 +25,23 @@ namespace HuaSect_AMS_DBTC.Repository
             return (totalRecords, data);
         }
 
-        public async Task<Teacher?> GetByIdAsync(int id) => await _context.Teacher.FirstOrDefaultAsync(t => t.ID == id);
+        public async Task<TeacherProfile?> GetByIdAsync(int id) => await _context.TeacherProfile.FirstOrDefaultAsync(t => t.ID == id);
 
-        public async Task<Teacher> AddAsync(Teacher teacher)
+        public async Task<TeacherProfile> AddAsync(TeacherProfile teacherProfile)
         {
-            await _context.Teacher.AddAsync(teacher);
-            return teacher;
+            await _context.TeacherProfile.AddAsync(teacherProfile);
+            return teacherProfile;
         }
 
-        public Task UpdateAsync(Teacher teacher)
+        public Task UpdateAsync(TeacherProfile teacherProfile)
         {
-            _context.Teacher.Update(teacher);
+            _context.TeacherProfile.Update(teacherProfile);
             return Task.CompletedTask;
         }
 
-        public Task DeleteAsync(Teacher teacher)
+        public Task DeleteAsync(TeacherProfile teacherProfile)
         {
-            _context.Teacher.Remove(teacher);
+            _context.TeacherProfile.Remove(teacherProfile);
             return Task.CompletedTask;
         }
 

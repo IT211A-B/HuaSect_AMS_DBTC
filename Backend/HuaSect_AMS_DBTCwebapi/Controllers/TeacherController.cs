@@ -39,8 +39,8 @@ namespace HuaSect_AMS_DBTC.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetStudent(int id)
         {
-            var student = await _teacherService.GetTeacherByIdAsync(id);
-            return student == null ? NotFound($"Teacher with id = {id} not found") : Ok(student);
+            var teacher = await _teacherService.GetTeacherByIdAsync(id);
+            return teacher is null ? NotFound($"Teacher with id = {id} not found") : Ok(teacher);
         }
 
         [HttpPost("create")]

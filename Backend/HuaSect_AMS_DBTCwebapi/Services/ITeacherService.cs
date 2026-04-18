@@ -5,9 +5,9 @@ namespace HuaSect_AMS_DBTC.Service
 {
     public interface ITeacherService
     {
-        Task<List<Teacher>> GetAllTeachersAsync();
-        Task<PagedResult<Teacher>> GetPaginatedTeachersAsync(int pageNumber, int pageSize);
-        Task<Teacher?> GetTeacherByIdAsync(int id);
+        Task<List<TeacherProfile>> GetAllTeachersAsync();
+        Task<PagedResult<TeacherProfile>> GetPaginatedTeachersAsync(int pageNumber, int pageSize);
+        Task<TeacherProfile?> GetTeacherByIdAsync(int id);
         Task<NewlyCreateTeacherDto> CreateTeacherAsync(CreateTeacherDto dto);
         Task UpdateTeacherAsync(int id, UpdateTeacherDto dto);
         Task UpdateTeacherSelectivelyAsync(int id, UpdateTeacherDto patchedDto);

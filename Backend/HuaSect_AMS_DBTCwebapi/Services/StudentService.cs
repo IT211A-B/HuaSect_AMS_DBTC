@@ -11,12 +11,12 @@ namespace HuaSect_AMS_DBTC.Service
 
         public StudentService(IStudentRepository repository) => _repository = repository;
 
-        public async Task<List<Student>> GetAllStudentsAsync() => await _repository.GetAllAsync();
+        public async Task<List<StudentProfile>> GetAllStudentsAsync() => await _repository.GetAllAsync();
 
-        public async Task<PagedResult<Student>> GetPaginatedStudentsAsync(int pageNumber, int pageSize)
+        public async Task<PagedResult<StudentProfile>> GetPaginatedStudentsAsync(int pageNumber, int pageSize)
         {
             var (total, data) = await _repository.GetPaginatedAsync(pageNumber, pageSize);
-            return new PagedResult<Student>
+            return new PagedResult<StudentProfile>
             {
                 Data = data,
                 PageNumber = pageNumber,
@@ -25,21 +25,17 @@ namespace HuaSect_AMS_DBTC.Service
             };
         }
 
-        public async Task<Student?> GetStudentByIdAsync(int id) => await _repository.GetByIdAsync(id);
+        public async Task<StudentProfile?> GetStudentByIdAsync(int id) => await _repository.GetByIdAsync(id);
 
         public async Task<NewlyCreateStudentDto> CreateStudentAsync(CreateStudentDto dto)
         {
-            var newStudent = new Student(dto.Number, dto.FirstName, dto.LastName, dto.MiddleName, dto.YearLevel, dto.Email);
+            var newStudent = new StudentProfile(dto.Number, dto.YearLevel);
             await _repository.AddAsync(newStudent);
             await _repository.SaveChangesAsync();
 
             return new NewlyCreateStudentDto
             {
                 ID = newStudent.ID,
-                Email = newStudent.Email,
-                FirstName = newStudent.FirstName,
-                LastName = newStudent.LastName,
-                MiddleName = newStudent.MiddleName,
                 YearLevel = newStudent.YearLevel
             };
         }
@@ -53,7 +49,7 @@ namespace HuaSect_AMS_DBTC.Service
             if (student == null)
                 throw new KeyNotFoundException($"Student with id = {id} not found");
 
-            student.Update(dto.ID, dto.Number, dto.FirstName, dto.LastName, dto.MiddleName, dto.YearLevel, dto.Email);
+            student.Update(dto.ID, dto.Number, dto.YearLevel);
             await _repository.SaveChangesAsync();
         }
 
@@ -64,7 +60,7 @@ namespace HuaSect_AMS_DBTC.Service
             if (student == null)
                 throw new KeyNotFoundException($"Student with id = {id} not found");
 
-            student.Update(patchedDto.ID, patchedDto.Number, patchedDto.FirstName, patchedDto.LastName, patchedDto.MiddleName, patchedDto.YearLevel, patchedDto.Email);
+            student.Update(patchedDto.ID, patchedDto.Number, patchedDto.YearLevel);
             await _repository.SaveChangesAsync();
         }
 

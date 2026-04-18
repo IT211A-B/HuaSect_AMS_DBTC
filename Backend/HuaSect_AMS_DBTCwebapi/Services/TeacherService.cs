@@ -10,12 +10,12 @@ namespace HuaSect_AMS_DBTC.Service
 
         public TeacherService(ITeacherRepository repository) => _repository = repository;
 
-        public async Task<List<Teacher>> GetAllTeachersAsync() => await _repository.GetAllAsync();
+        public async Task<List<TeacherProfile>> GetAllTeachersAsync() => await _repository.GetAllAsync();
 
-        public async Task<PagedResult<Teacher>> GetPaginatedTeachersAsync(int pageNumber, int pageSize)
+        public async Task<PagedResult<TeacherProfile>> GetPaginatedTeachersAsync(int pageNumber, int pageSize)
         {
             var (total, data) = await _repository.GetPaginatedAsync(pageNumber, pageSize);
-            return new PagedResult<Teacher>
+            return new PagedResult<TeacherProfile>
             {
                 Data = data,
                 PageNumber = pageNumber,
@@ -24,11 +24,11 @@ namespace HuaSect_AMS_DBTC.Service
             };
         }
 
-        public async Task<Teacher?> GetTeacherByIdAsync(int id) => await _repository.GetByIdAsync(id);
+        public async Task<TeacherProfile?> GetTeacherByIdAsync(int id) => await _repository.GetByIdAsync(id);
 
         public async Task<NewlyCreateTeacherDto> CreateTeacherAsync(CreateTeacherDto dto)
         {
-            var newTeacher = new Teacher(dto.FirstName, dto.LastName, dto.Email, dto.Department, dto.PhoneNumber);
+            var newTeacher = new TeacherProfile(dto.Department);
             await _repository.AddAsync(newTeacher);
             await _repository.SaveChangesAsync();
 
@@ -36,10 +36,6 @@ namespace HuaSect_AMS_DBTC.Service
             {
                 ID = newTeacher.ID,
                 Department = newTeacher.Department,
-                Email = newTeacher.Email,
-                FirstName = newTeacher.FirstName,
-                LastName = newTeacher.LastName,
-                PhoneNumber = newTeacher.PhoneNumber,
             };
         }
 
@@ -52,7 +48,7 @@ namespace HuaSect_AMS_DBTC.Service
             if (teacher == null)
                 throw new KeyNotFoundException($"Teacher with id = {id} not found");
 
-            teacher.Update(dto.ID, dto.FirstName, dto.LastName, dto.Email, dto.Department, dto.PhoneNumber);
+            teacher.Update(dto.ID, dto.Department);
             await _repository.SaveChangesAsync();
         }
 
@@ -63,7 +59,7 @@ namespace HuaSect_AMS_DBTC.Service
             if (teacher == null)
                 throw new KeyNotFoundException($"Teacher with id = {id} not found");
 
-            teacher.Update(patchedDto.ID, patchedDto.FirstName, patchedDto.LastName, patchedDto.Email, patchedDto.Department, patchedDto.PhoneNumber);
+            teacher.Update(patchedDto.ID, patchedDto.Department);
             await _repository.SaveChangesAsync();
         }
 
