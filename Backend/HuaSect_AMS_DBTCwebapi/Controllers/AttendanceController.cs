@@ -15,7 +15,7 @@ namespace HuaSect_AMS_DBTC.Controllers
         public AttendanceController(IAttendanceService attendanceService) => _attendanceService = attendanceService;
 
         [HttpGet]
-        [Authorize(Roles = "Teacher,Admin")]
+        [Authorize(Roles = "Teacher,Admin,Student")]
         public async Task<IActionResult> GetAttendanceRecords()
         {
             var attendanceRecords = await _attendanceService.GetAllAttendanceRecordsAsync();
@@ -23,7 +23,7 @@ namespace HuaSect_AMS_DBTC.Controllers
         }
 
         [HttpGet("paginated")]
-        [Authorize(Roles = "Teacher,Admin")]
+        [Authorize(Roles = "Teacher,Admin,Student")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetAttendanceRecordsPaginated([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
         {
@@ -32,7 +32,7 @@ namespace HuaSect_AMS_DBTC.Controllers
         }
 
         [HttpGet("{id:int}")]
-        [Authorize(Roles = "Teacher,Admin")]
+        [Authorize(Roles = "Teacher,Admin,Student")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetCourse(int id)
@@ -42,7 +42,7 @@ namespace HuaSect_AMS_DBTC.Controllers
         }
 
         [HttpPost("create")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Teacher,Admin")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> CreateAttendanceRecord(CreateAttendanceRecordDto attendanceRecordDto)
         {
@@ -51,7 +51,7 @@ namespace HuaSect_AMS_DBTC.Controllers
         }
 
         [HttpPut("update/{id:int}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Teacher,Admin")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -72,7 +72,7 @@ namespace HuaSect_AMS_DBTC.Controllers
         }
 
         [HttpPatch("update-selectively/{id:int}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Teacher,Admin")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
@@ -102,7 +102,7 @@ namespace HuaSect_AMS_DBTC.Controllers
         }
 
         [HttpDelete("delete/{id:int}")]
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "Teacher,Admin")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> DeleteCourse(int id)

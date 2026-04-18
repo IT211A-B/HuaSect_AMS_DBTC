@@ -162,22 +162,6 @@ namespace HuaSect_AMS_DBTC.Controllers
             return BadRequest("Email confirmation failed");
         }
 
-        [HttpGet("manage/info")]
-        [Authorize]
-        public async Task<IActionResult> GetManageInfo()
-        {
-            var user = await _userManager.GetUserAsync(User);
-            if (user == null) return NotFound("User not found");
-
-            return Ok(new
-            {
-                user.Id,
-                user.Email,
-                user.UserName,
-                user.EmailConfirmed
-            });
-        }
-
         private string GenerateJwtToken(ApplicationUser user)
         {
             var claims = new List<Claim>
