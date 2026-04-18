@@ -42,16 +42,6 @@ namespace HuaSect_AMS_DBTC.Controllers
             return student == null ? NotFound($"Student with id = {id} not found") : Ok(student);
         }
 
-        [HttpPost("create")]
-        [Authorize(Roles = "Admin")]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<IActionResult> CreateStudent(CreateStudentDto studentDto)
-        {
-            var createdDto = await _studentService.CreateStudentAsync(studentDto);
-            // Fixed: Location header should point to a GET endpoint
-            return CreatedAtAction(nameof(GetStudent), new { id = createdDto.ID }, createdDto);
-        }
-
         [HttpPut("update/{id:int}")]
         [Authorize(Roles = "Admin")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -59,7 +49,7 @@ namespace HuaSect_AMS_DBTC.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> UpdateStudent(int id, UpdateStudentDto studentDto)
         {
-            if (id != studentDto.ID)
+            if (id != studentDto.Id)
                 return BadRequest("Student ID mismatch");
 
             try
@@ -86,7 +76,7 @@ namespace HuaSect_AMS_DBTC.Controllers
             if (existingStudent == null)
                 return NotFound($"Student with id = {id} not found");
 
-            var dtoToPatch = new UpdateStudentDto { ID = existingStudent.ID };
+            var dtoToPatch = new UpdateStudentDto { Id = existingStudent.ID };
             patchDoc.ApplyTo(dtoToPatch, ModelState);
 
             if (!TryValidateModel(dtoToPatch))

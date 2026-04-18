@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 using HuaSect_AMS_DBTC.Service;
 using HuaSect_AMS_DBTCclasslib;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http.HttpResults;
 
 namespace HuaSect_AMS_DBTC.Controllers
 {
@@ -43,16 +44,6 @@ namespace HuaSect_AMS_DBTC.Controllers
             return teacher is null ? NotFound($"Teacher with id = {id} not found") : Ok(teacher);
         }
 
-        [HttpPost("create")]
-        [Authorize(Roles = "Admin")]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<IActionResult> CreateTeacher(CreateTeacherDto teacherDto)
-        {
-            var createdDto = await _teacherService.CreateTeacherAsync(teacherDto);
-            // Fixed: Location header should point to a GET endpoint
-            return CreatedAtAction(nameof(CreateTeacher), new { id = createdDto.ID }, createdDto);
-        }
-
         [HttpPut("update/{id:int}")]
         [Authorize(Roles = "Admin")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
@@ -60,7 +51,7 @@ namespace HuaSect_AMS_DBTC.Controllers
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> UpdateTeacher(int id, UpdateTeacherDto teacherDto)
         {
-            if (id != teacherDto.ID)
+            if (id != teacherDto.Id)
                 return BadRequest("Teacher ID mismatch");
 
             try
@@ -71,6 +62,10 @@ namespace HuaSect_AMS_DBTC.Controllers
             catch (KeyNotFoundException ex)
             {
                 return NotFound(ex.Message);
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
         }
 
@@ -87,7 +82,7 @@ namespace HuaSect_AMS_DBTC.Controllers
             if (existingTeacher == null)
                 return NotFound($"Teacher with id = {id} not found");
 
-            var dtoToPatch = new UpdateTeacherDto { ID = existingTeacher.ID };
+            var dtoToPatch = new UpdateTeacherDto(existingTeacher.ID);
             patchDoc.ApplyTo(dtoToPatch, ModelState);
 
             if (!TryValidateModel(dtoToPatch))

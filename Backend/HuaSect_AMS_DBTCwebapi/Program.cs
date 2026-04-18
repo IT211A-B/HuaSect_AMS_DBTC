@@ -65,7 +65,7 @@ builder.Services.AddScoped<ICourseService, CourseService>();
 builder.Services.AddScoped<IStudentService, StudentService>();
 builder.Services.AddScoped<ITeacherService, TeacherService>();
 builder.Services.AddScoped<IAttendanceService, AttendanceService>();
-builder.Services.AddTransient<IEmailSender<IdentityUser>, NoOpEmailSender>();
+builder.Services.AddTransient<IEmailSender<ApplicationUser>, NoOpEmailSender>();
 builder.Services.AddScoped<IdentitySeederService>();
 
 builder.Services.AddRateLimiter(options =>
@@ -105,7 +105,6 @@ app.UseRateLimiter();
 app.MapGet("/health", () => Results.Ok(new { status = "healthy", timestamp = DateTime.UtcNow }))
    .AllowAnonymous();
 app.MapControllers();
-app.MapIdentityApi<IdentityUser>();
 
 using (var scope = app.Services.CreateScope())
 {
