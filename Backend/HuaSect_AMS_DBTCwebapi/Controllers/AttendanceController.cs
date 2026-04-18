@@ -47,7 +47,6 @@ namespace HuaSect_AMS_DBTC.Controllers
         public async Task<IActionResult> CreateAttendanceRecord(CreateAttendanceRecordDto attendanceRecordDto)
         {
             var createdDto = await _attendanceService.CreateAttendanceRecordAsync(attendanceRecordDto);
-            // Note: Changed to nameof(GetCourse) to return a valid Location header
             return CreatedAtAction(nameof(CreateAttendanceRecord), new { id = createdDto.ID }, createdDto);
         }
 

@@ -47,7 +47,6 @@ namespace HuaSect_AMS_DBTC.Controllers
         public async Task<IActionResult> CreateCourse(CreateCourseDto courseDto)
         {
             var createdDto = await _courseService.CreateCourseAsync(courseDto);
-            // Note: Changed to nameof(GetCourse) to return a valid Location header
             return CreatedAtAction(nameof(GetCourse), new { id = createdDto.ID }, createdDto);
         }
 

@@ -7,7 +7,6 @@ public class NoOpEmailSender : IEmailSender<ApplicationUser>
 {
     public Task SendConfirmationLinkAsync(ApplicationUser user, string email, string confirmationLink)
     {
-        // Log the link for testing instead of sending email
         Console.WriteLine($"[DEV] Confirmation link for {email}: {confirmationLink}");
         return Task.CompletedTask;
     }

@@ -56,7 +56,6 @@ namespace HuaSect_AMS_DBTC.Service
             await _repository.SaveChangesAsync();
         }
 
-        // This method assumes validation & patch application happened in the controller
         public async Task UpdateCourseSelectivelyAsync(int id, UpdateCourseDto patchedDto)
         {
             var course = await _repository.GetByIdAsync(id);
