@@ -10,11 +10,20 @@ using HuaSect_AMS_DBTC.Service;
 using HuaSect_AMS_DBTC.Repository;
 using System.Threading.RateLimiting;
 using HuaSect_AMS_DBTCclasslib;
+using HuaSect_AMS_DBTCclasslib.Interfaces;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
+builder.Services.AddSingleton<IEncryptionService>(sp =>
+{
+    var config = sp.GetRequiredService<IConfiguration>();
+    var key = config["Encryption:Key"] ?? throw new InvalidOperationException("Encryption key not configured");
+    var iv = config["Encryption:IV"] ?? throw new InvalidOperationException("Encryption IV not configured");
+
+    return new AesEncryptionService(key, iv);
+});
 builder.Services.AddDbContext<ApplicationDatabaseCtx>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
 builder.Services.AddIdentity<ApplicationUser, IdentityRole>(options =>
@@ -67,6 +76,7 @@ builder.Services.AddScoped<ITeacherService, TeacherService>();
 builder.Services.AddScoped<IAttendanceService, AttendanceService>();
 builder.Services.AddTransient<IEmailSender<ApplicationUser>, NoOpEmailSender>();
 builder.Services.AddScoped<IdentitySeederService>();
+
 
 builder.Services.AddRateLimiter(options =>
 {
