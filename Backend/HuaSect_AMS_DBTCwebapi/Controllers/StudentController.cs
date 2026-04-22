@@ -1,57 +1,47 @@
-using HuaSect_AMS_DBTCclasslib.DbCtx;
 using HuaSect_AMS_DBTCclasslib.Dtos;
-using HuaSect_AMS_DBTCclasslib.Models;
-using HuaSect_AMS_DBTCclasslib.Helpers;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
+using HuaSect_AMS_DBTC.Service;
+using Microsoft.AspNetCore.Authorization;
 
-namespace MyApp.Namespace
+namespace HuaSect_AMS_DBTC.Controllers
 {
-
     [Route("api/[controller]")]
     [ApiController]
     public class StudentController : ControllerBase
     {
-        private readonly DatabaseCtx _context;
-        public StudentController(DatabaseCtx context)
-        {
-            _context = context;
-        }
+        private readonly IStudentService _studentService;
+
+        public StudentController(IStudentService studentService) => _studentService = studentService;
 
         [HttpGet]
+        [Authorize(Roles = "Student,Teacher,Admin")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetStudents()
         {
-            return Ok(await _context.Student.ToListAsync());
+            var students = await _studentService.GetAllStudentsAsync();
+            return Ok(students);
         }
 
         [HttpGet("paginated")]
+        [Authorize(Roles = "Student,Teacher,Admin")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         public async Task<IActionResult> GetStudentsPaginated([FromQuery] int pageNumber = 1, [FromQuery] int pageSize = 10)
         {
-            var totalRecords = await _context.Student.CountAsync();
-
-            var data = await _context.Student
-                .OrderBy(s => s.ID)
-                .Skip((pageNumber - 1) * pageSize)
-                .Take(pageSize)
-                .ToListAsync();
-
-            return Ok(new PagedResult<Student>
-            {
-                Data = data,
-                PageNumber = pageNumber,
-                PageSize = pageSize,
-                TotalRecords = totalRecords,
-            });
+            var result = await _studentService.GetPaginatedStudentsAsync(pageNumber, pageSize);
+            return Ok(result);
         }
 
         [HttpGet("{id:int}")]
+        [Authorize(Roles = "Student,Teacher,Admin")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetStudent(int id)
         {
+<<<<<<< HEAD
+            var student = await _studentService.GetStudentByIdAsync(id);
+            return student == null ? NotFound($"Student with id = {id} not found") : Ok(student);
+=======
             var student = await _context.Student.FirstOrDefaultAsync(s => s.ID == id);
             if (student == null)
             {
@@ -78,70 +68,91 @@ namespace MyApp.Namespace
                 FullName = newlyAddedStudent.FullName,
                 YearLevel = newlyAddedStudent.YearLevel
             }, newlyAddedStudent);
+>>>>>>> 624762897acc0c0f9d7ec50ea297351c211aeea6
         }
 
         [HttpPut("update/{id:int}")]
+        [Authorize(Roles = "Admin,Student")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> UpdateStudent(int id, UpdateStudentDto student)
+        public async Task<IActionResult> UpdateStudent(int id, UpdateStudentDto studentDto)
         {
-            if (id != student.ID)
-            {
+            if (id != studentDto.Id)
                 return BadRequest("Student ID mismatch");
-            }
 
-            var studentToUpdate = await _context.Student.FirstOrDefaultAsync(dbStudent => dbStudent.ID == id);
-            if (studentToUpdate == null)
+            try
             {
-                return NotFound($"Student with id = {id} not found");
+                await _studentService.UpdateStudentAsync(id, studentDto);
+                return NoContent();
             }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+<<<<<<< HEAD
+=======
 
             studentToUpdate.Update(student.ID, student.Email, student.FirstName, student.LastName, student.MiddleName, student.Suffix, student.YearLevel);
             _context.Entry(studentToUpdate).State = EntityState.Modified;
             await _context.SaveChangesAsync();
             return NoContent();
+>>>>>>> 624762897acc0c0f9d7ec50ea297351c211aeea6
         }
 
         [HttpPatch("update-selective/{id:int}")]
+        [Authorize(Roles = "Admin,Student")]
+        [ProducesResponseType(StatusCodes.Status204NoContent)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
         public async Task<IActionResult> UpdateStudentSelectively(int id, [FromBody] JsonPatchDocument<UpdateStudentDto> patchDoc)
         {
-            if (patchDoc == null) return BadRequest();
+            if (patchDoc == null) return BadRequest("Patch document cannot be null");
 
-            var student = await _context.Student.FirstOrDefaultAsync(s => s.ID == id);
-            if (student == null)
-            {
+            var existingStudent = await _studentService.GetStudentByIdAsync(id);
+            if (existingStudent == null)
                 return NotFound($"Student with id = {id} not found");
-            }
 
-            var mapStudentDto = new UpdateStudentDto { ID = student.ID };
-            patchDoc.ApplyTo(mapStudentDto, ModelState);
-            if (!TryValidateModel(mapStudentDto))
-            {
+            var dtoToPatch = new UpdateStudentDto { Id = existingStudent.ID };
+            patchDoc.ApplyTo(dtoToPatch, ModelState);
+
+            if (!TryValidateModel(dtoToPatch))
                 return ValidationProblem(ModelState);
+
+            try
+            {
+                await _studentService.UpdateStudentSelectivelyAsync(id, dtoToPatch);
+                return NoContent();
             }
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
+<<<<<<< HEAD
+=======
 
             student.Update(mapStudentDto.ID, mapStudentDto.Email, mapStudentDto.FirstName, mapStudentDto.LastName, mapStudentDto.MiddleName, mapStudentDto.Suffix, mapStudentDto.YearLevel);
             await _context.SaveChangesAsync();
 
             return NoContent();
+>>>>>>> 624762897acc0c0f9d7ec50ea297351c211aeea6
         }
 
         [HttpDelete("delete/{id:int}")]
+        [Authorize(Roles = "Admin,Student")]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         public async Task<IActionResult> DeleteStudent(int id)
         {
-            var studentToDelete = await _context.Student.FirstOrDefaultAsync(dbStudent => dbStudent.ID == id);
-            if (studentToDelete == null)
+            try
             {
-                return NotFound($"Student with id = {id} not found");
+                await _studentService.DeleteStudentAsync(id);
+                return NoContent();
             }
-
-            _context.Student.Remove(studentToDelete);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
+            catch (KeyNotFoundException ex)
+            {
+                return NotFound(ex.Message);
+            }
         }
     }
 }
