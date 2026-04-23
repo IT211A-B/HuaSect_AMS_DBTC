@@ -46,8 +46,21 @@ namespace HuaSect_AMS_DBTC.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> CreateCourse(CreateCourseDto courseDto)
         {
+<<<<<<< HEAD
             var createdDto = await _courseService.CreateCourseAsync(courseDto);
             return CreatedAtAction(nameof(GetCourse), new { id = createdDto.ID }, createdDto);
+=======
+            var newCourse = new Course(course.Name, course.Units, course.Schedule);
+            var newlyAddedCourse = (await _context.AddAsync(newCourse)).Entity;
+            await _context.SaveChangesAsync();
+            return CreatedAtAction(nameof(CreateCourse), new NewlyCreateCourseDto
+            {
+                ID = newlyAddedCourse.ID,
+                Name = newlyAddedCourse.Name,
+                Schedule = newlyAddedCourse.Schedule,
+                Units = newlyAddedCourse.Units
+            }, newlyAddedCourse);
+>>>>>>> 624762897acc0c0f9d7ec50ea297351c211aeea6
         }
 
         [HttpPut("update/{id:int}")]
@@ -69,6 +82,14 @@ namespace HuaSect_AMS_DBTC.Controllers
             {
                 return NotFound(ex.Message);
             }
+<<<<<<< HEAD
+=======
+
+            courseToUpdate.Update(course.ID, course.Name, course.Schedule, course.Units);
+            _context.Entry(courseToUpdate).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return NoContent();
+>>>>>>> 624762897acc0c0f9d7ec50ea297351c211aeea6
         }
 
         [HttpPatch("update-selectively/{id:int}")]
@@ -99,6 +120,14 @@ namespace HuaSect_AMS_DBTC.Controllers
             {
                 return NotFound(ex.Message);
             }
+<<<<<<< HEAD
+=======
+
+            course.Update(mapCourseDto.ID, mapCourseDto.Name, mapCourseDto.Schedule, mapCourseDto.Units);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+>>>>>>> 624762897acc0c0f9d7ec50ea297351c211aeea6
         }
 
         [HttpDelete("delete/{id:int}")]

@@ -38,8 +38,37 @@ namespace HuaSect_AMS_DBTC.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetStudent(int id)
         {
+<<<<<<< HEAD
             var student = await _studentService.GetStudentByIdAsync(id);
             return student == null ? NotFound($"Student with id = {id} not found") : Ok(student);
+=======
+            var student = await _context.Student.FirstOrDefaultAsync(s => s.ID == id);
+            if (student == null)
+            {
+                return NotFound("Student with id = {id} not found");
+            }
+            return Ok(student);
+        }
+
+        [HttpPost("create")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        public async Task<IActionResult> CreateStudent(CreateStudentDto student)
+        {
+            var newStudent = new Student(student.Email, student.FirstName, student.LastName, student.MiddleName, student.Suffix, student.YearLevel);
+            var newlyAddedStudent = (await _context.AddAsync(newStudent)).Entity;
+            await _context.SaveChangesAsync();
+            return CreatedAtAction(nameof(CreateStudent), new NewlyCreateStudentDto
+            {
+                ID = newlyAddedStudent.ID,
+                Email = newlyAddedStudent.Email,
+                FirstName = newlyAddedStudent.FirstName,
+                LastName = newlyAddedStudent.LastName,
+                MiddleName = newlyAddedStudent.MiddleName,
+                Suffix = newlyAddedStudent.Suffix,
+                FullName = newlyAddedStudent.FullName,
+                YearLevel = newlyAddedStudent.YearLevel
+            }, newlyAddedStudent);
+>>>>>>> 624762897acc0c0f9d7ec50ea297351c211aeea6
         }
 
         [HttpPut("update/{id:int}")]
@@ -61,6 +90,14 @@ namespace HuaSect_AMS_DBTC.Controllers
             {
                 return NotFound(ex.Message);
             }
+<<<<<<< HEAD
+=======
+
+            studentToUpdate.Update(student.ID, student.Email, student.FirstName, student.LastName, student.MiddleName, student.Suffix, student.YearLevel);
+            _context.Entry(studentToUpdate).State = EntityState.Modified;
+            await _context.SaveChangesAsync();
+            return NoContent();
+>>>>>>> 624762897acc0c0f9d7ec50ea297351c211aeea6
         }
 
         [HttpPatch("update-selective/{id:int}")]
@@ -91,6 +128,14 @@ namespace HuaSect_AMS_DBTC.Controllers
             {
                 return NotFound(ex.Message);
             }
+<<<<<<< HEAD
+=======
+
+            student.Update(mapStudentDto.ID, mapStudentDto.Email, mapStudentDto.FirstName, mapStudentDto.LastName, mapStudentDto.MiddleName, mapStudentDto.Suffix, mapStudentDto.YearLevel);
+            await _context.SaveChangesAsync();
+
+            return NoContent();
+>>>>>>> 624762897acc0c0f9d7ec50ea297351c211aeea6
         }
 
         [HttpDelete("delete/{id:int}")]
