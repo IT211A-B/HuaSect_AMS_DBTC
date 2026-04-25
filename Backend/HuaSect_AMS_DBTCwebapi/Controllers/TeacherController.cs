@@ -40,37 +40,8 @@ namespace HuaSect_AMS_DBTC.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> GetStudent(int id)
         {
-<<<<<<< HEAD
             var teacher = await _teacherService.GetTeacherByIdAsync(id);
             return teacher is null ? NotFound($"Teacher with id = {id} not found") : Ok(teacher);
-=======
-            var teacher = await _context.Teacher.FirstOrDefaultAsync(s => s.ID == id);
-            if (teacher == null)
-            {
-                return NotFound("Teacher with id = {id} not found");
-            }
-            return Ok(teacher);
-        }
-
-        [HttpPost("create")]
-        [ProducesResponseType(StatusCodes.Status201Created)]
-        public async Task<IActionResult> CreateTeacher(CreateTeacherDto teacher)
-        {
-            var newTeacher = new Teacher(teacher.FirstName, teacher.LastName, teacher.MiddleName, teacher.Suffix, teacher.Email, teacher.PhoneNumber, teacher.Department);
-            var newlyAddedTeacher = (await _context.AddAsync(newTeacher)).Entity;
-            await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(CreateTeacher), new NewlyCreateTeacherDto
-            {
-                ID = newlyAddedTeacher.ID,
-                Department = newlyAddedTeacher.Department,
-                Email = newlyAddedTeacher.Email,
-                FirstName = newlyAddedTeacher.FirstName,
-                LastName = newlyAddedTeacher.LastName,
-                MiddleName = newlyAddedTeacher.MiddleName,
-                PhoneNumber = newlyAddedTeacher.PhoneNumber,
-                Suffix = newlyAddedTeacher.Suffix
-            }, newlyAddedTeacher);
->>>>>>> 624762897acc0c0f9d7ec50ea297351c211aeea6
         }
 
         [HttpPut("update/{id:int}")]
@@ -96,13 +67,6 @@ namespace HuaSect_AMS_DBTC.Controllers
             {
                 return StatusCode(StatusCodes.Status500InternalServerError, ex.Message);
             }
-<<<<<<< HEAD
-=======
-            teacherToUpdate.Update(teacher.ID, teacher.Department, teacher.Email, teacher.FirstName, teacher.LastName, teacher.MiddleName, teacher.Suffix, teacher.PhoneNumber);
-            _context.Entry(teacherToUpdate).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
-            return NoContent();
->>>>>>> 624762897acc0c0f9d7ec50ea297351c211aeea6
         }
 
         [HttpPatch("update-selective/{id:int}")]
@@ -133,14 +97,6 @@ namespace HuaSect_AMS_DBTC.Controllers
             {
                 return NotFound(ex.Message);
             }
-<<<<<<< HEAD
-=======
-
-            teacher.Update(mapTeacherDto.ID, mapTeacherDto.Department, mapTeacherDto.Email, mapTeacherDto.FirstName, mapTeacherDto.LastName, mapTeacherDto.MiddleName, mapTeacherDto.Suffix, mapTeacherDto.PhoneNumber);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
->>>>>>> 624762897acc0c0f9d7ec50ea297351c211aeea6
         }
 
         [HttpDelete("delete/{id:int}")]

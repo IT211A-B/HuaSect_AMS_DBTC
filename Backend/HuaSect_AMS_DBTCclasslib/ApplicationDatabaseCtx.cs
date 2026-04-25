@@ -8,24 +8,25 @@ namespace HuaSect_AMS_DBTCclasslib.DbCtx;
 
 public class ApplicationDatabaseCtx : IdentityDbContext<IdentityUser>
 {
-    private readonly IEncryptionService _encryptionService;
+    private readonly IEncryptionService? _encryptionService;
 
     public DbSet<StudentProfile> StudentProfile { get; set; }
     public DbSet<TeacherProfile> TeacherProfile { get; set; }
     public DbSet<Course> Course { get; set; }
     public DbSet<Attendance> Attendance { get; set; }
-    public ApplicationDatabaseCtx(DbContextOptions<ApplicationDatabaseCtx> options, IEncryptionService encryptionService) : base(options)
+    public ApplicationDatabaseCtx(DbContextOptions<ApplicationDatabaseCtx> options, IEncryptionService? encryptionService) : base(options)
     {
         _encryptionService = encryptionService;
     }
 
-    public ApplicationDatabaseCtx() { }
+    public ApplicationDatabaseCtx(DbContextOptions<ApplicationDatabaseCtx> options ) : this(options, null) { }
 
     protected override void OnModelCreating(ModelBuilder builder)
     {
         base.OnModelCreating(builder);
         builder.Entity<IdentityUser>(entity => entity.ToTable(name: "Users"));
         builder.Entity<IdentityRole>(entity => entity.ToTable(name: "Roles"));
-        builder.AddGlobalStringEncryption(_encryptionService);
+        if (_encryptionService != null)
+            builder.AddGlobalStringEncryption(_encryptionService);
     }
 }

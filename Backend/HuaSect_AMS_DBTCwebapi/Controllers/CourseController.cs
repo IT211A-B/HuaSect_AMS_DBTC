@@ -1,5 +1,5 @@
 using HuaSect_AMS_DBTC.Service;
-using HuaSect_AMS_DBTCclasslib;
+using HuaSect_AMS_DBTCclasslib.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
@@ -38,7 +38,7 @@ namespace HuaSect_AMS_DBTC.Controllers
         public async Task<IActionResult> GetCourse(int id)
         {
             var course = await _courseService.GetCourseByIdAsync(id);
-            return course == null ? NotFound($"Course with id = {id} not found") : Ok(course);
+            return course is null ? NotFound($"Course with id = {id} not found") : Ok(course);
         }
 
         [HttpPost("create")]
@@ -46,21 +46,8 @@ namespace HuaSect_AMS_DBTC.Controllers
         [ProducesResponseType(StatusCodes.Status201Created)]
         public async Task<IActionResult> CreateCourse(CreateCourseDto courseDto)
         {
-<<<<<<< HEAD
             var createdDto = await _courseService.CreateCourseAsync(courseDto);
             return CreatedAtAction(nameof(GetCourse), new { id = createdDto.ID }, createdDto);
-=======
-            var newCourse = new Course(course.Name, course.Units, course.Schedule);
-            var newlyAddedCourse = (await _context.AddAsync(newCourse)).Entity;
-            await _context.SaveChangesAsync();
-            return CreatedAtAction(nameof(CreateCourse), new NewlyCreateCourseDto
-            {
-                ID = newlyAddedCourse.ID,
-                Name = newlyAddedCourse.Name,
-                Schedule = newlyAddedCourse.Schedule,
-                Units = newlyAddedCourse.Units
-            }, newlyAddedCourse);
->>>>>>> 624762897acc0c0f9d7ec50ea297351c211aeea6
         }
 
         [HttpPut("update/{id:int}")]
@@ -82,14 +69,6 @@ namespace HuaSect_AMS_DBTC.Controllers
             {
                 return NotFound(ex.Message);
             }
-<<<<<<< HEAD
-=======
-
-            courseToUpdate.Update(course.ID, course.Name, course.Schedule, course.Units);
-            _context.Entry(courseToUpdate).State = EntityState.Modified;
-            await _context.SaveChangesAsync();
-            return NoContent();
->>>>>>> 624762897acc0c0f9d7ec50ea297351c211aeea6
         }
 
         [HttpPatch("update-selectively/{id:int}")]
@@ -102,7 +81,7 @@ namespace HuaSect_AMS_DBTC.Controllers
             if (patchDoc == null) return BadRequest("Patch document cannot be null");
 
             var existingCourse = await _courseService.GetCourseByIdAsync(id);
-            if (existingCourse == null)
+            if (existingCourse is null)
                 return NotFound($"Course with id = {id} not found");
 
             var dtoToPatch = new UpdateCourseDto { ID = existingCourse.ID };
@@ -120,14 +99,6 @@ namespace HuaSect_AMS_DBTC.Controllers
             {
                 return NotFound(ex.Message);
             }
-<<<<<<< HEAD
-=======
-
-            course.Update(mapCourseDto.ID, mapCourseDto.Name, mapCourseDto.Schedule, mapCourseDto.Units);
-            await _context.SaveChangesAsync();
-
-            return NoContent();
->>>>>>> 624762897acc0c0f9d7ec50ea297351c211aeea6
         }
 
         [HttpDelete("delete/{id:int}")]
