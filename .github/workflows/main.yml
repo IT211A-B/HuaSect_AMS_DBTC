@@ -10,7 +10,10 @@ env:
   DOTNET_VERSION: '9.0'
   PROJECT_PATH: 'Backend/HuaSect_AMS_DBTCwebapi/HuaSect_AMS_DBTCwebapi.csproj'
   TEST_PROJECT: 'Backend/HuaSect_AMS_DBTCtests/HuaSect_AMS_DBTCtests.csproj'
-  DOCKER_IMAGE: ${{ vars.DOCKER_USERNAME }}/huasect-ams-backend
+  DOCKER_IMAGE: ${{ vars.DOCKER_USERNAME }}/huasect-ams-dbtc
+  AZURE_RESOURCE_GROUP: 'huasect-ams-dbtc-rg'
+  AZURE_CONTAINER_APP: 'huasect-ams-dbtc-containerapp'
+  AZURE_CONTAINER_APP_ENV: 'huasect-ams-dbtc-containerapp-env'
 
 jobs:
   ci:
@@ -38,7 +41,7 @@ jobs:
       - name: Run container + smoke test
         run: |
           docker run -d -p 8080:8080 --name ci-smoke ${{ env.DOCKER_IMAGE }}:ci-test
-          echo "⏳ Waiting for app to start..."
+          echo "Waiting for app to start..."
           for i in {1..15}; do
             curl -sf http://localhost:8080/health && break || sleep 3
           done
@@ -66,47 +69,54 @@ jobs:
           file: ./Dockerfile
           push: true
           tags: |
-            ${{ env.DOCKER_IMAGE }}:latest
             ${{ env.DOCKER_IMAGE }}:${{ github.sha }}
           cache-from: type=registry,ref=${{ env.DOCKER_IMAGE }}:buildcache
           cache-to: type=registry,ref=${{ env.DOCKER_IMAGE }}:buildcache,mode=max
+      
+      - name: Azure Login with OIDC
+        uses: azure/login@v2
+        with:
+          client-id: ${{ secrets.AZURE_CLIENT_ID }}
+          tenant-id: ${{ secrets.AZURE_TENANT_ID }}
+          subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
 
-      - name: Deploy to Staging Server via SSH
+
+      - name: Deploy to Azure Container Apps
+        uses: azure/CLI@v2
+        with:
+          inlineScript: |
+            az containerapp update \
+              --name ${{ env.AZURE_CONTAINER_APP }} \
+              --resource-group ${{ env.AZURE_RESOURCE_GROUP }} \
+              --image ${{ env.DOCKER_IMAGE }}:${{ github.sha }} \
+
+            echo "Waiting for new revision to be ready..."
+            az containerapp revision list \
+              --name ${{ env.AZURE_CONTAINER_APP }} \
+              --resource-group ${{ env.AZURE_RESOURCE_GROUP }} \
+              --query "[?properties.active].name" -o tsv | head -1 | xargs -I {} \
+              az containerapp revision wait \
+                --name ${{ env.AZURE_CONTAINER_APP }} \
+                --resource-group ${{ env.AZURE_RESOURCE_GROUP }} \
+                --revision {} \
+                --custom "properties.status.readyReplicas>0" \
+                --timeout 300
+      
+      
+      - name: Verify deployment
         run: |
-          echo "🚀 Deploying ${{ env.DOCKER_IMAGE }}:${{ github.sha }} to staging..."
-          ssh -o StrictHostKeyChecking=accept-new ${{ secrets.STAGING_SSH_USER }}@${{ secrets.STAGING_SSH_HOST }} << 'EOF'
-            set -e
-            
-            # Pull new image
-            docker pull ${{ env.DOCKER_IMAGE }}:staging
-            
-            # Stop & remove old container (graceful)
-            docker stop huasect-ams-staging 2>/dev/null || true
-            docker rm huasect-ams-staging 2>/dev/null || true
-            
-            # Run new container with env vars
-            docker run -d \
-              --name huasect-ams-staging \
-              --restart unless-stopped \
-              -p 8080:8080 \
-              -e ASPNETCORE_ENVIRONMENT=Staging \
-              -e ConnectionStrings__DefaultConnection="${{ secrets.STAGING_DB_CONN }}" \
-              -e Stripe__ApiKey="${{ secrets.STAGING_STRIPE_KEY }}" \
-              -e Jwt__Key="${{ secrets.STAGING_JWT_KEY }}" \
-              ${{ env.DOCKER_IMAGE }}:staging
-            
-            echo "✅ Container started. Waiting for health check..."
-            
-            # Wait for app to be ready (max 60s)
-            for i in {1..20}; do
-              if curl -sf http://localhost:8080/health; then
-                echo "🎉 Staging deployment successful!"
-                exit 0
-              fi
-              sleep 3
-            done
-            
-            echo "❌ Health check failed. Rolling back..."
-            docker logs huasect-ams-staging
-            exit 1
-          EOF
+          FQDN=$(az containerapp show \
+            --name ${{ env.AZURE_CONTAINER_APP }} \
+            --resource-group ${{ env.AZURE_RESOURCE_GROUP }} \
+            --query properties.configuration.ingress.fqdn -o tsv)
+          
+          echo "Checking health at https://$FQDN/health"
+          for i in {1..10}; do
+            if curl -sf "https://$FQDN/health"; then
+              echo "Deployment successful!"
+              exit 0
+            fi
+            sleep 5
+          done
+          echo "Health check failed"
+          exit 1
