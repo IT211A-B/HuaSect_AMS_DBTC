@@ -48,6 +48,18 @@ jobs:
           docker logs ci-smoke
           docker stop ci-smoke
 
+      - name: Generate migration script
+        run: dotnet ef migrations script --idempotent --output migrations.sql --project ${{ env.PROJECT_PATH }}
+      - name: Apply via psql
+        run: |
+          docker run --rm \
+            -e PGPASSWORD=$(echo "${{ secrets.STAGING_DB_CONN }}" | grep -oP 'Password=\K[^;]+') \
+            postgres:18 \
+            psql -h $(echo "${{ secrets.STAGING_DB_CONN }}" | grep -oP 'Host=\K[^;]+') \
+                -U $(echo "${{ secrets.STAGING_DB_CONN }}" | grep -oP 'Username=\K[^;]+') \
+                -d $(echo "${{ secrets.STAGING_DB_CONN }}" | grep -oP 'Database=\K[^;]+') \
+                -f migrations.sql
+          
   deploy-staging:
     needs: ci
     if: github.ref == 'refs/heads/main'
