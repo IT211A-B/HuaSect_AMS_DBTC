@@ -18,10 +18,6 @@ public class DesignTimeDbContextFactory : IDesignTimeDbContextFactory<Applicatio
         
         optionsBuilder.UseNpgsql(configuration.GetConnectionString("DefaultConnection"));
         
-        // If your DbContext needs IEncryptionService, you have two choices:
-        // A) Pass null/dummy values for design-time (if encryption isn't needed for migrations)
-        // B) Register services manually here
-        
         return new ApplicationDatabaseCtx(optionsBuilder.Options);
     }
 }

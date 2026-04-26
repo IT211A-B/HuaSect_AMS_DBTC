@@ -2,6 +2,8 @@ using System.Security.Cryptography;
 using System.Text;
 using HuaSect_AMS_DBTCclasslib.Interfaces;
 
+namespace HuaSect_AMS_DBTC.Service;
+
 public class AesEncryptionService : IEncryptionService
 {
     private readonly byte[] _key;
