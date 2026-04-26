@@ -1,4 +1,3 @@
-
 using HuaSect_AMS_DBTCclasslib.DbCtx;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -141,3 +140,5 @@ using (var scope = app.Services.CreateScope())
 }
 
 app.Run();
+
+public partial class Program { };

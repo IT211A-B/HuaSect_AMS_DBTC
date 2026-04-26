@@ -2,6 +2,8 @@ using System.Security.Cryptography;
 using HuaSect_AMS_DBTC.Service;
 using HuaSect_AMS_DBTCclasslib.Interfaces;
 
+namespace HuaSect_AMS_DBTCtests;
+
 [TestClass]
 public class EncryptionServiceTests
 {
