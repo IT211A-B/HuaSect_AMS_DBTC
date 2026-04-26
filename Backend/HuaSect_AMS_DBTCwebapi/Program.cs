@@ -11,6 +11,7 @@ using HuaSect_AMS_DBTC.Repository;
 using System.Threading.RateLimiting;
 using HuaSect_AMS_DBTCclasslib;
 using HuaSect_AMS_DBTCclasslib.Interfaces;
+using HuaSect_AMS_DBTCclasslib.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -74,8 +75,10 @@ builder.Services.AddScoped<ICourseService, CourseService>();
 builder.Services.AddScoped<IStudentService, StudentService>();
 builder.Services.AddScoped<ITeacherService, TeacherService>();
 builder.Services.AddScoped<IAttendanceService, AttendanceService>();
-builder.Services.AddTransient<IEmailSender<ApplicationUser>, NoOpEmailSender>();
+builder.Services.AddTransient<IEmailSender<ApplicationUser>, EmailSenderService>();
 builder.Services.AddScoped<IdentitySeederService>();
+builder.Services.Configure<EmailSettings>(
+    builder.Configuration.GetSection("EmailSettings"));
 
 
 builder.Services.AddRateLimiter(options =>
