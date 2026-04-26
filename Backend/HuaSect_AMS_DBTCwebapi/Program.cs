@@ -21,9 +21,8 @@ builder.Services.AddSingleton<IEncryptionService>(sp =>
 {
     var config = sp.GetRequiredService<IConfiguration>();
     var key = config["Encryption:Key"] ?? throw new InvalidOperationException("Encryption key not configured");
-    var iv = config["Encryption:IV"] ?? throw new InvalidOperationException("Encryption IV not configured");
 
-    return new AesEncryptionService(key, iv);
+    return new AesEncryptionService(key);
 });
 builder.Services.AddDbContext<ApplicationDatabaseCtx>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
