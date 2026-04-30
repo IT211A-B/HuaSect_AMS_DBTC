@@ -81,8 +81,8 @@ public class IntegrationTestFactory : WebApplicationFactory<Program>
             services.AddSingleton<IEncryptionService>(
                 new AesEncryptionService(testEncryptionKey));
 
-            services.RemoveAll<IEmailService>();
-            services.AddTransient<IEmailService, FakeEmailService>();
+            services.RemoveAll<IEmailSender>();
+            services.AddTransient<IEmailService, EmailSenderService>();
 
             RemoveAllHostedServices(services);
         });

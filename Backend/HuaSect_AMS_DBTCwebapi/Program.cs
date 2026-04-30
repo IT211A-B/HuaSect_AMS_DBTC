@@ -11,6 +11,7 @@ using System.Threading.RateLimiting;
 using HuaSect_AMS_DBTCclasslib;
 using HuaSect_AMS_DBTCclasslib.Interfaces;
 using HuaSect_AMS_DBTCclasslib.Models;
+using HuaSect_AMS_DBTC.Hubs;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -78,6 +79,7 @@ builder.Services.AddScoped<IdentitySeederService>();
 builder.Services.Configure<EmailSettings>(
     builder.Configuration.GetSection("EmailSettings"));
 
+builder.Services.AddSignalR();
 
 builder.Services.AddRateLimiter(options =>
 {
@@ -116,6 +118,9 @@ app.UseRateLimiter();
 app.MapGet("/health", () => Results.Ok(new { status = "healthy", timestamp = DateTime.UtcNow }))
    .AllowAnonymous();
 app.MapControllers();
+app.UseWebSockets();
+app.MapHub<QrScanHub>("/qr-scan-hub");
+app.MapHub<NotificationHub>("/notifications");
 
 using (var scope = app.Services.CreateScope())
 {

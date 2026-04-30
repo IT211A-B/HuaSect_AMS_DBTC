@@ -21,12 +21,13 @@ public class AuthorizationTests
     [ClassCleanup]
     public static async Task ClassCleanup() => await _factory.DisposeAsync();
 
-    private HttpClient GetClient(params Claim[] claims)
+    private async Task<HttpClient> GetClientAsync(params Claim[] claims)
     {
         var client = _factory.CreateClient();
-        var handler = (TestAuthHandler)_factory.Services
+        var scheme = await _factory.Services
             .GetRequiredService<IAuthenticationSchemeProvider>()
-            .GetSchemeAsync(TestAuthHandler.SchemeName).Result!.HandlerType;
+            .GetSchemeAsync(TestAuthHandler.SchemeName);
+        var handler = (TestAuthHandler)_factory.Services.GetRequiredService(scheme!.HandlerType);
 
         handler.TestUser = new ClaimsPrincipal(new ClaimsIdentity(claims, TestAuthHandler.SchemeName));
         return client;
@@ -43,7 +44,7 @@ public class AuthorizationTests
     [TestMethod]
     public async Task GET_Attendance_Returns403_WhenWrongRole()
     {
-        var client = GetClient(new Claim(ClaimTypes.Role, "Intern"));
+        var client = await GetClientAsync(new Claim(ClaimTypes.Role, "Intern"));
         var response = await client.GetAsync("/api/attendance/1");
         Assert.AreEqual(HttpStatusCode.Forbidden, response.StatusCode);
     }
@@ -51,10 +52,10 @@ public class AuthorizationTests
     [TestMethod]
     public async Task GET_Attendance_Returns200_WhenAdminRole()
     {
-        var client = GetClient(
+        var client = await GetClientAsync(
             new Claim(ClaimTypes.NameIdentifier, "user-123"),
             new Claim(ClaimTypes.Role, "Admin"));
-        
+
         var response = await client.GetAsync("/api/attendance/1");
         Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
     }
@@ -62,10 +63,10 @@ public class AuthorizationTests
     [TestMethod]
     public async Task GET_Attendance_Returns200_WhenOwnRecord()
     {
-        var client = GetClient(
+        var client = await GetClientAsync(
             new Claim(ClaimTypes.NameIdentifier, "user-123"),
             new Claim(ClaimTypes.Role, "Employee"));
-        
+
         var response = await client.GetAsync("/api/attendance/1");
         Assert.AreEqual(HttpStatusCode.OK, response.StatusCode);
     }
