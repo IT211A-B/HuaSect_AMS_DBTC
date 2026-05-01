@@ -1,6 +1,5 @@
-﻿using AttendanceChecking.Models;
+﻿using HuaSect_AMS_DBTC.Models;
 using Microsoft.AspNetCore.Mvc;
-
 
 namespace HuaSect_AMS_DBTC.Controllers
 {
@@ -9,7 +8,7 @@ namespace HuaSect_AMS_DBTC.Controllers
         [HttpGet]
         public IActionResult Index()
         {
-            return View();
+            return View("LogInView");
         }
 
         [HttpPost]

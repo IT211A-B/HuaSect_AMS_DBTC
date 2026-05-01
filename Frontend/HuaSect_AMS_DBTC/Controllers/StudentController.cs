@@ -1,9 +1,9 @@
-﻿using Microsoft.AspNetCore.Mvc;
-using StudentManagement.Models;
-using StudentManagement.Services;
+﻿using HuaSect_AMS_DBTC.Models;
+using HuaSect_AMS_DBTC.Services;
+using Microsoft.AspNetCore.Mvc;
 
-namespace Student.Controllers
-
+namespace HuaSect_AMS_DBTC.Controllers
+{
     public class StudentController : Controller
     {
         private readonly IStudentService _studentService;
@@ -13,13 +13,12 @@ namespace Student.Controllers
             _studentService = studentService;
         }
 
-
         [HttpGet]
         public async Task<IActionResult> Index()
         {
             var students = await _studentService.GetAllStudentsAsync();
-            var model = new StudentViewModel { Students = students };
-            return View("Student", model);
+            var model = new StudentViewModel { Students = students.ToList() };
+            return View("StudentView", model);
         }
 
         [HttpPost]
@@ -37,11 +36,10 @@ namespace Student.Controllers
                 FirstName = input.FirstName.Trim(),
                 MiddleName = input.MiddleName?.Trim(),
                 LastName = input.LastName.Trim(),
-                StudentId = input.StudentId.Trim(),
                 StudentNo = input.StudentNo.Trim(),
                 YearLevel = input.YearLevel.Trim(),
                 Email = input.Email.Trim().ToLower(),
-                CourseId = input.CourseId.Trim()
+                CourseId = input.CourseId.Trim(),
             };
 
             await _studentService.AddStudentAsync(student);
@@ -49,7 +47,6 @@ namespace Student.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // ── POST /Student/UpdateStudent
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdateStudent(StudentInputModel input)
@@ -63,25 +60,23 @@ namespace Student.Controllers
             var student = await _studentService.GetStudentByIdAsync(input.Id);
             if (student == null)
             {
-                TempData["Error"] = "Student record not found.";
+                TempData["Error"] = "Student not found.";
                 return RedirectToAction(nameof(Index));
             }
 
             student.FirstName = input.FirstName.Trim();
             student.MiddleName = input.MiddleName?.Trim();
             student.LastName = input.LastName.Trim();
-            student.StudentId = input.StudentId.Trim();
             student.StudentNo = input.StudentNo.Trim();
             student.YearLevel = input.YearLevel.Trim();
             student.Email = input.Email.Trim().ToLower();
             student.CourseId = input.CourseId.Trim();
 
             await _studentService.UpdateStudentAsync(student);
-            TempData["Success"] = $"Student '{student.FullName}' updated successfully.";
+            TempData["Success"] = $"Student '{student.FullName}' updated.";
             return RedirectToAction(nameof(Index));
         }
 
-        // ── POST /Student/DeleteStudent
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteStudent(int id)
@@ -89,35 +84,29 @@ namespace Student.Controllers
             var student = await _studentService.GetStudentByIdAsync(id);
             if (student == null)
             {
-                TempData["Error"] = "Student record not found.";
+                TempData["Error"] = "Student not found.";
                 return RedirectToAction(nameof(Index));
             }
 
             await _studentService.DeleteStudentAsync(id);
-            TempData["Success"] = $"Student record deleted.";
+            TempData["Success"] = "Student deleted.";
             return RedirectToAction(nameof(Index));
         }
 
-        // ── GET /Student/Attendance/{id}
         [HttpGet]
         public async Task<IActionResult> Attendance(int id)
         {
             var records = await _studentService.GetAttendanceByStudentIdAsync(id);
-            if (records == null)
-                return NotFound();
-
+            if (records == null) return NotFound();
             return Json(records);
         }
 
-        // ── GET /Student/StudentList
         [HttpGet]
         public async Task<IActionResult> StudentList(string course, DateTime? date)
         {
             var model = await _studentService.GetStudentListViewModelAsync(course, date ?? DateTime.Today);
             return View("StudentList", model);
         }
-
-        // ── POST /Student/SaveAttendance 
 
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -130,7 +119,7 @@ namespace Student.Controllers
             }
 
             await _studentService.SaveAttendanceAsync(records);
-            TempData["Success"] = "Attendance saved successfully.";
+            TempData["Success"] = "Attendance saved.";
             return RedirectToAction(nameof(StudentList));
         }
     }

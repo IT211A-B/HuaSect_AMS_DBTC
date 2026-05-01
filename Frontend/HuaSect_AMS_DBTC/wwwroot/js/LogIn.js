@@ -4,11 +4,13 @@
     document.getElementById('btnTeacher').classList.remove('active');
 
     // Add active class to selected and update hidden input
-    if (role === 'Student') {
+    if (role === 'student') {
         document.getElementById('btnStudent').classList.add('active');
+        document.getElementById('btnTeacher').classList.remove('active');
         document.getElementById('SelectedRole').value = 'Student';
     } else {
         document.getElementById('btnTeacher').classList.add('active');
+        document.getElementById('btnStudent').classList.remove('active');
         document.getElementById('SelectedRole').value = 'Teacher';
     }
 

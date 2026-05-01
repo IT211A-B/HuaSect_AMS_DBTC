@@ -1,17 +1,9 @@
-﻿using AttendanceSystem.Models;
-using AttendanceSystem.Services;
-using Microsoft.AspNetCore.Cors.Infrastructure;
+﻿using HuaSect_AMS_DBTC.Models;
+using HuaSect_AMS_DBTC.Services;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
-namespace AttendanceSystem.Controllers
+namespace HuaSect_AMS_DBTC.Controllers
 {
-    /// <summary>
-    /// Handles all Course List and Attendance management routes.
-    /// </summary>
     public class CoursesController : Controller
     {
         private readonly ICourseService _courseService;
@@ -28,13 +20,8 @@ namespace AttendanceSystem.Controllers
             _attendanceService = attendanceService;
         }
 
-        // ── GET /Courses ──────────────────────────────────────────────────
-
-        /// <summary>
-        /// Displays the Course List / Attendance main page.
-        /// </summary>
         [HttpGet]
-        public async Task<IActionResult> Index(string courseId = null, DateTime? date = null)
+        public async Task<IActionResult> Index(string? courseId = null, DateTime? date = null)
         {
             var selectedDate = date ?? DateTime.Today;
 
@@ -48,41 +35,25 @@ namespace AttendanceSystem.Controllers
                     : await _studentService.GetStudentsByCourseAsync(courseId),
             };
 
-            // Pre-load existing attendance records for the chosen date
             if (!string.IsNullOrEmpty(courseId))
             {
                 var records = await _attendanceService.GetRecordsAsync(courseId, selectedDate);
-                model.AttendanceRecords = records.ToDictionary(r => r.StudentId, r => r.Status);
+                model.AttendanceRecords = records
+                    .ToDictionary(r => r.StudentId, r => r.Status);
             }
 
             return View("~/Views/Courses/CoursesView.cshtml", model);
         }
 
-        // ── GET /Courses/Details/{id} ─────────────────────────────────────
-
-        /// <summary>
-        /// Returns details for a single course (used by AJAX / partial refresh).
-        /// </summary>
         [HttpGet]
         public async Task<IActionResult> Details(string id)
         {
             var course = await _courseService.GetCourseByIdAsync(id);
             if (course == null) return NotFound();
 
-            return Json(new
-            {
-                course.Id,
-                course.Name,
-                course.Code,
-                course.Description,
-            });
+            return Json(new { course.Id, course.Name, course.Code, course.Description });
         }
 
-        // ── POST /Courses/SaveAttendance ──────────────────────────────────
-
-        /// <summary>
-        /// Receives and persists the attendance payload from the client.
-        /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> SaveAttendance([FromBody] AttendanceSaveRequest request)
@@ -101,21 +72,14 @@ namespace AttendanceSystem.Controllers
                 }).ToList();
 
                 await _attendanceService.SaveRecordsAsync(records);
-
-                return Ok(new { success = true, message = "Attendance saved successfully.", count = records.Count });
+                return Ok(new { success = true, message = "Attendance saved.", count = records.Count });
             }
-            catch (Exception ex)
+            catch
             {
-                // Log ex in production
-                return StatusCode(500, new { success = false, message = "An error occurred while saving." });
+                return StatusCode(500, new { success = false, message = "An error occurred." });
             }
         }
 
-        // ── POST /Courses/Create ──────────────────────────────────────────
-
-        /// <summary>
-        /// Creates a new course.
-        /// </summary>
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Create(CourseModel model)
@@ -128,30 +92,19 @@ namespace AttendanceSystem.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        // ── GET /Courses/Back ─────────────────────────────────────────────
-
-        /// <summary>
-        /// Navigates back; falls back to Index if no referrer.
-        /// </summary>
         [HttpGet]
         public IActionResult Back()
         {
             var referrer = Request.Headers["Referer"].ToString();
             if (!string.IsNullOrEmpty(referrer))
                 return Redirect(referrer);
-
             return RedirectToAction(nameof(Index));
         }
 
-        // ── AJAX: /Courses/FilterStudents ─────────────────────────────────
-
-        /// <summary>
-        /// Returns students filtered by course (used by client-side live filter).
-        /// </summary>
         [HttpGet]
-        public async Task<IActionResult> FilterStudents(string courseId)
+        public async Task<IActionResult> FilterStudents(string? courseId)
         {
-            IEnumerable<StudentModel> students = string.IsNullOrEmpty(courseId)
+            var students = string.IsNullOrEmpty(courseId)
                 ? await _studentService.GetAllStudentsAsync()
                 : await _studentService.GetStudentsByCourseAsync(courseId);
 
@@ -165,8 +118,6 @@ namespace AttendanceSystem.Controllers
 
             return Json(result);
         }
-
-        // ── Helpers ───────────────────────────────────────────────────────
 
         private static AttendanceStatus ParseStatus(string value) =>
             value?.ToLower() switch

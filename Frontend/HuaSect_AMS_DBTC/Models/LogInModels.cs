@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace HuaSect_AMS_DBTC.Models
+namespace HuaSect_AMS_DBTC.Models   // was HuaSect_AMS_DBTC.Models (already correct — skip)
 {
 
     public class LogInModel

@@ -1,9 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 
-public class AttendanceController : Controller
+namespace HuaSect_AMS_DBTC.Controllers
 {
-    public IActionResult Index()
+    public class AttendanceController : Controller
     {
-        return View();
+        public IActionResult Index()
+        {
+            return View("AttendanceView");
+        }
     }
 }

@@ -1,2 +1,0 @@
-C:\Users\dongk\Desktop\Frontend\HuaSect_AMS_DBTC\HuaSect_AMS_DBTC\wwwroot\css\site.css
-C:\Users\dongk\Desktop\Frontend\HuaSect_AMS_DBTC\HuaSect_AMS_DBTC\wwwroot\js\site.js

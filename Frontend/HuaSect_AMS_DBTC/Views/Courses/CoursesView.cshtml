@@ -1,4 +1,4 @@
-﻿@model AttendanceSystem.Models.CourseListViewModel
+﻿@model HuaSect_AMS_DBTC.Models.CourseListViewModel
 @{
     ViewData["Title"] = "Course List";
     Layout = "~/Views/Shared/CoursesLayout.cshtml";
@@ -20,10 +20,10 @@
                 <option value="">All Courses</option>
                 @foreach (var course in Model.AvailableCourses)
                 {
-                    <option value="@course.Id"
+                    <!option value="@course.Id"
                             @(course.Id == Model.SelectedCourseId ? "selected" : "")>
                         @course.Name
-                    </option>
+                    </!option>
                 }
             </select>
             <svg class="combo-arrow" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor">
@@ -89,7 +89,7 @@
             {
                 @foreach (var student in Model.Students.OrderByDescending(s => s.RollNumber))
                 {
-                    var currentStatus = Model.AttendanceRecords.TryGetValue(student.Id, out var status)
+                    var currentStatus = Model.AttendanceRecords.TryGetValue(student.Id.ToString(), out var status)
                         ? status.ToString().ToLower()
                         : null;
 
@@ -135,6 +135,7 @@
                 </div>
             }
         </div>
+    
     </div>
 
     @* Footer: Save Button *@

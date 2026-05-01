@@ -2,7 +2,7 @@
 
 @{
     ViewData["Title"] = "Login";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/Views/Shared/LogInLayout.cshtml";
 }
 
 <div class="login-wrapper">
@@ -48,3 +48,7 @@
         </button>
     </div>
 </div>
+
+@section Scripts {
+    <script src="~/js/LogIn.js"></script>
+}
