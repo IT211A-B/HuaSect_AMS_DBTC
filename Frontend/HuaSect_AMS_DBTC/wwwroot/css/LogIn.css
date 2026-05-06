@@ -1,16 +1,4 @@
-﻿body {
-    margin: 0;
-    padding: 0;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-    /* White, Gray, Navy Blue background pattern */
-    background: linear-gradient(115deg, #ffffff 30%, #808080 30%, #808080 60%, #000080 60%);
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.login-container {
+﻿.login-container {
     background-color: rgba(40, 40, 40, 0.6); /* 60% Dark Gray */
     padding: 40px;
     border-radius: 40px;

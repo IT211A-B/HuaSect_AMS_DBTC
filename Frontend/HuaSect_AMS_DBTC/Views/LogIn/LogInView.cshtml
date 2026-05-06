@@ -2,7 +2,11 @@
 
 @{
     ViewData["Title"] = "Login";
-    Layout = "~/Views/Shared/LogInLayout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Head {
+    <link rel="stylesheet" href="~/css/LogIn.css" />
 }
 
 <div class="login-wrapper">
@@ -21,7 +25,6 @@
         <form asp-controller="LogIn" asp-action="Login" method="post">
             @Html.AntiForgeryToken()
 
-            @* This hidden field stores the role from the switcher *@
             <input type="hidden" id="SelectedRole" asp-for="Role" value="student" />
 
             <div class="input-group">

@@ -1,0 +1,44 @@
+﻿body {
+    margin: 0;
+    padding: 0;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+* {
+    overflow: hidden;
+}
+
+#backdrop-1 {
+    background-color: #47474780;
+    width: 200px;
+    right: 170px;
+    rotate: 170deg;
+}
+
+#backdrop-2 {
+    background-color: #001685;
+    width: 100px;
+    right: 101px;
+    rotate: 175deg;
+}
+
+#backdrop-3 {
+    background-color: #01003B;
+    width: 150px;
+    right: -50px;
+    rotate: 175deg;
+}
+
+.backdrop {
+    height: 200vh;
+    position: absolute;
+    z-index: 1;
+}
+
+main {
+    z-index: 2;
+}

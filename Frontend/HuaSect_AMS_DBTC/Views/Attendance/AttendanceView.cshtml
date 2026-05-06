@@ -7,7 +7,11 @@ Records { get; set; }
 } *@
 @{
     ViewData["Title"] = "Attendance";
-    Layout = "~/Views/Shared/AttendanceLayout.cshtml";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Head {
+    <link rel="stylesheet" href="~/css/Attendance.css" asp-append-version="true" />
 }
 
 <div class="main">
@@ -43,3 +47,7 @@ Records { get; set; }
     </div>
 
 </div>
+
+@section Scripts {
+    <script src="~/js/Attendance.js"></script>
+}

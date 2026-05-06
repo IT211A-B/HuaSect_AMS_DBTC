@@ -1,6 +1,4 @@
-﻿@using Microsoft.AspNetCore.Antiforgery
-@inject IAntiforgery Antiforgery
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8" />
@@ -15,21 +13,17 @@
     <link href="https://fonts.googleapis.com/css2?family=Rajdhani:wght@500;700&family=Nunito:wght@400;600;700&display=swap"
           rel="stylesheet" />
 
-    <link rel="stylesheet" href="~/css/LogIn.css" asp-append-version="true" />
-
-    <meta name="__RequestVerificationToken"
-          content="@Antiforgery.GetAndStoreTokens(Context).RequestToken" />
-
+    <link rel="stylesheet" href="~/css/main.css" />
     @await RenderSectionAsync("Head", required: false)
 </head>
 <body>
-
-    <a href="#main-content" class="sr-only sr-only-focusable">Skip to main content</a>
-
     <main id="main-content" role="main">
         @RenderBody()
     </main>
 
+    <div id="backdrop-1" class="backdrop"></div>
+    <div id="backdrop-2" class="backdrop"></div>
+    <div id="backdrop-3" class="backdrop"></div>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>

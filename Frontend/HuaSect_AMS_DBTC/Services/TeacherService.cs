@@ -4,17 +4,17 @@ namespace HuaSect_AMS_DBTC.Services
 {
     public class TeacherService : ITeacherService
     {
-        Task<AttendanceHistoryViewModel?> ITeacherService.GetAttendanceAsync(int teacherId, int courseId)
+        public async Task<AttendanceHistoryViewModel?> GetAttendanceAsync(int teacherId, int courseId)
         {
             throw new NotImplementedException();
         }
 
-        Task<TeacherDashboardViewModel?> ITeacherService.GetDashboardAsync(int teacherId)
+        public async Task<TeacherDashboardViewModel?> GetDashboardAsync(int teacherId)
         {
             throw new NotImplementedException();
         }
 
-        Task<Teacher?> ITeacherService.GetTeacherAsync(int teacherId)
+        public async Task<Teacher?> GetTeacherAsync(int teacherId)
         {
             throw new NotImplementedException();
         }

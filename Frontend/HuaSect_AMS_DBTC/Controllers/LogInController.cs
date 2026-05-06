@@ -16,7 +16,6 @@ namespace HuaSect_AMS_DBTC.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Handle logic based on model.Role
                 return RedirectToAction("Dashboard");
             }
             return View("Index", model);
