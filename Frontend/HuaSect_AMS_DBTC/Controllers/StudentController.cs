@@ -101,8 +101,8 @@ namespace HuaSect_AMS_DBTC.Controllers
             return Json(records);
         }
 
-        [HttpGet]
-        public async Task<IActionResult> StudentList(string course, DateTime? date)
+        [HttpGet("list")]
+        public async Task<IActionResult> StudentList([FromQuery] string course, [FromQuery] DateTime? date)
         {
             var model = await _studentService.GetStudentListViewModelAsync(course, date ?? DateTime.Today);
             return View("StudentList", model);
