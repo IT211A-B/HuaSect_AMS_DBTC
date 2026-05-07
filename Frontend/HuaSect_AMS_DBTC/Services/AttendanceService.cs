@@ -4,17 +4,32 @@ namespace HuaSect_AMS_DBTC.Services
 {
     public class AttendanceService : IAttendanceService
     {
-        Task<IEnumerable<AttendanceRecord>> IAttendanceService.GetRecordsAsync(string courseId, DateTime date)
+        private readonly HttpClient _httpClient;
+        private readonly IConfiguration _config;
+
+        public AttendanceService(HttpClient httpClient, IConfiguration config)
+        {
+            _httpClient = httpClient;
+            _config = config;
+        }
+
+        public async Task<IEnumerable<AttendanceRecord>> GetRecordsAsync(string courseId, DateTime date)
+        {
+            var response = await _httpClient.GetAsync($"{_config["BackendUrl"]}/api/Attendance");
+
+            response.EnsureSuccessStatusCode();
+
+            var attendanceRecords = await response.Content.ReadFromJsonAsync<IEnumerable<AttendanceRecord>>();
+
+            return attendanceRecords ?? Enumerable.Empty<AttendanceRecord>();
+        }
+
+        public async Task<IEnumerable<AttendanceRecord>> GetRecordsByStudentAsync(string studentId)
         {
             throw new NotImplementedException();
         }
 
-        Task<IEnumerable<AttendanceRecord>> IAttendanceService.GetRecordsByStudentAsync(string studentId)
-        {
-            throw new NotImplementedException();
-        }
-
-        Task IAttendanceService.SaveRecordsAsync(IEnumerable<AttendanceRecord> records)
+        public async Task SaveRecordsAsync(IEnumerable<AttendanceRecord> records)
         {
             throw new NotImplementedException();
         }

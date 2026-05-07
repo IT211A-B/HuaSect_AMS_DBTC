@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace HuaSect_AMS_DBTC.Controllers
 {
     //[Authorize(Roles = "Teacher,Admin")]
+    [Route("[controller]")]
     public class TeacherController : Controller
     {
         private readonly ITeacherService _teacherService;
@@ -22,7 +23,7 @@ namespace HuaSect_AMS_DBTC.Controllers
             return int.TryParse(claim, out var id) ? id : 0;
         }
 
-        [HttpGet]
+        [HttpGet("dashboard")]
         public async Task<IActionResult> Dashboard()
         {
             var vm = await _teacherService.GetDashboardAsync(CurrentTeacherId());
@@ -33,7 +34,7 @@ namespace HuaSect_AMS_DBTC.Controllers
             return View("TeacherView", vm);
         }
 
-        [HttpGet]
+        [HttpGet("courses")]
         public async Task<IActionResult> Courses()
         {
             var vm = await _teacherService.GetDashboardAsync(CurrentTeacherId());
@@ -44,7 +45,7 @@ namespace HuaSect_AMS_DBTC.Controllers
             return View("TeacherView", vm);
         }
 
-        [HttpGet]
+        [HttpGet("attendance")]
         public async Task<IActionResult> Attendance(int id)
         {
             var vm = await _teacherService.GetAttendanceAsync(CurrentTeacherId(), id);
@@ -53,14 +54,14 @@ namespace HuaSect_AMS_DBTC.Controllers
             return View("AttendanceView", vm);
         }
 
-        [HttpGet]
+        [HttpGet("reports")]
         public IActionResult Reports()
         {
             ViewData["ActiveNav"] = "reports";
             return View();
         }
 
-        [HttpGet]
+        [HttpGet("settings")]
         public IActionResult Settings()
         {
             ViewData["ActiveNav"] = "settings";

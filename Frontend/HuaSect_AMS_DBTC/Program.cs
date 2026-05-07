@@ -3,21 +3,14 @@ using Microsoft.AspNetCore.Cors.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add MVC
 builder.Services.AddControllersWithViews();
 
-// -------------------------------------------------------
-// FIX: Register all service implementations here.
-// Replace the right-hand side with your actual concrete
-// classes once you create them in the Services/ folder.
-// -------------------------------------------------------
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<ICourseService, CourseService>();
 builder.Services.AddScoped<IStudentService, StudentService>();
 builder.Services.AddScoped<IAttendanceService, AttendanceService>();
 builder.Services.AddScoped<ITeacherService, TeacherService>();
 
-// Add Authentication (Cookie-based example)
 builder.Services.AddAuthentication("Cookies")
     .AddCookie("Cookies", options =>
     {

@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HuaSect_AMS_DBTC.Controllers
 {
+    [Route("[controller]")]
     public class CoursesController : Controller
     {
         private readonly ICourseService _courseService;

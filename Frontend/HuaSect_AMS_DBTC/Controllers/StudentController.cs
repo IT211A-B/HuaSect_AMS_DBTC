@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HuaSect_AMS_DBTC.Controllers
 {
+    [Route("[controller]")]
     public class StudentController : Controller
     {
         private readonly IStudentService _studentService;
@@ -47,7 +48,7 @@ namespace HuaSect_AMS_DBTC.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        [HttpPost]
+        [HttpPut]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> UpdateStudent(StudentInputModel input)
         {
@@ -77,7 +78,7 @@ namespace HuaSect_AMS_DBTC.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        [HttpPost]
+        [HttpDelete]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteStudent(int id)
         {
@@ -93,8 +94,7 @@ namespace HuaSect_AMS_DBTC.Controllers
             return RedirectToAction(nameof(Index));
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Attendance(int id)
+        private async Task<IActionResult> Attendance(int id)
         {
             var records = await _studentService.GetAttendanceByStudentIdAsync(id);
             if (records == null) return NotFound();
@@ -108,7 +108,7 @@ namespace HuaSect_AMS_DBTC.Controllers
             return View("StudentList", model);
         }
 
-        [HttpPost]
+        [HttpPost("attendance")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> SaveAttendance(List<AttendanceInputModel> records)
         {
