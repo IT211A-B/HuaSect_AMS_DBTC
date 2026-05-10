@@ -25,6 +25,8 @@ namespace HuaSect_AMS_DBTC.Service
             };
         }
 
+        public async Task<List<Attendance>> GetAllStudentAttendanceRecordsAsync(int id) => await _repository.GetAllByStudentAsync(id);
+
         public async Task<Attendance?> GetAttendanceRecordByIdAsync(int id) => await _repository.GetByIdAsync(id);
 
         public async Task<NewlyCreateAttendanceRecordDto> CreateAttendanceRecordAsync(CreateAttendanceRecordDto dto)
