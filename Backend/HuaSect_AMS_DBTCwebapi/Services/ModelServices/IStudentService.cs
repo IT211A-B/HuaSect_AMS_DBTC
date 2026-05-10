@@ -7,6 +7,8 @@ namespace HuaSect_AMS_DBTC.Service
     public interface IStudentService
     {
         Task<List<StudentProfile>> GetAllStudentsAsync();
+
+        Task<List<StudentProfile>> GetAllCourseStudentsAsync(int id);
         Task<PagedResult<StudentProfile>> GetPaginatedStudentsAsync(int pageNumber, int pageSize);
         Task<StudentProfile?> GetStudentByIdAsync(int id);
         Task<NewlyCreateStudentDto> CreateStudentAsync(CreateStudentDto dto);

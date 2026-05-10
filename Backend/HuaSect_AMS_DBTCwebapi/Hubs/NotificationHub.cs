@@ -1,3 +1,4 @@
+using HuaSect_AMS_DBTCclasslib.Models;
 using Microsoft.AspNetCore.SignalR;
 
 namespace HuaSect_AMS_DBTC.Hubs;

@@ -6,6 +6,7 @@ namespace HuaSect_AMS_DBTC.Repository
     {
         Task<List<StudentProfile>> GetAllAsync();
         Task<(int TotalRecords, List<StudentProfile> Data)> GetPaginatedAsync(int pageNumber, int pageSize);
+        Task<List<StudentProfile>> GetAllByCourseAsync(int id);
         Task<StudentProfile?> GetByIdAsync(int id);
         Task<StudentProfile> AddAsync(StudentProfile studentProfile);
         Task UpdateAsync(StudentProfile studentProfile);

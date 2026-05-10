@@ -31,6 +31,8 @@ namespace HuaSect_AMS_DBTC.Service
             };
         }
 
+        public async Task<List<StudentProfile>> GetAllCourseStudentsAsync(int id) => await _repository.GetAllByCourseAsync(id);
+
         public async Task<StudentProfile?> GetStudentByIdAsync(int id) => await _repository.GetByIdAsync(id);
 
         public async Task<NewlyCreateStudentDto> CreateStudentAsync(CreateStudentDto dto)
