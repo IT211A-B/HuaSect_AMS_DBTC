@@ -5,6 +5,8 @@ public class CreateAttendanceRecordDto
     public DateTime Date { get; set; } = DateTime.Now;
 
     public bool Status { get; set; }
+
+    public int CourseId { get; set; }
 }
 
 public class NewlyCreateAttendanceRecordDto
@@ -14,6 +16,8 @@ public class NewlyCreateAttendanceRecordDto
     public DateTime Date { get; set; } = DateTime.Now;
 
     public bool Status { get; set; }
+
+    public int CourseId { get; set; }
 }
 
 public class UpdateAttendanceRecordDto
@@ -23,4 +27,6 @@ public class UpdateAttendanceRecordDto
     public DateTime Date { get; set; } = DateTime.Now;
 
     public bool Status { get; set; }
+
+    public int CourseId { get; set; }
 }
