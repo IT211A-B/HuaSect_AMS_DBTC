@@ -9,7 +9,19 @@
     @* <link rel="stylesheet" href="~/css/Student.css" /> *@
 }
 
-<div class="modal-overlay">
+@section NavHeader {
+    ADD STUDENT
+}
+
+@section NavUsername {
+    Dench Caballero
+}
+
+@section NavRole {
+    Student
+}
+
+<div>
     <div class="modal-container">
         <div class="modal-header">
             <div class="icon-circle">
@@ -57,8 +69,8 @@
         </div>
 
         <div class="form-actions">
-            <button class="btn btn-add">Add</button>
-            <button class="btn btn-cancel">Cancel</button>
+            <div class="btn btn-add">Add</div>
+            <div class="btn btn-cancel"><a asp-controller="Teacher" asp-action="StudentManagement">Cancel</a></div>
         </div>
     </div>
 </div>

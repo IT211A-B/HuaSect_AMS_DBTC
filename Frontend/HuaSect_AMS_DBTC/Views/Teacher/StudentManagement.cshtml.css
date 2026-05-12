@@ -67,6 +67,10 @@ body {
 
 .btn-add {
   background: #1a2a6c;
+}
+
+.btn-add ::deep a {
+  text-decoration: none;
   color: white;
 }
 

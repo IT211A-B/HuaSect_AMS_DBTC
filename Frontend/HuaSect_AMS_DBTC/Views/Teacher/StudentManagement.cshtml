@@ -9,6 +9,17 @@
     @* <link rel="stylesheet" href="~/css/Student.css" /> *@
 }
 
+@section NavHeader {
+    TEACHERS DASHBOARD
+}
+
+@section NavUsername {
+    Dench Caballero
+}
+
+@section NavRole {
+    Student
+}
 
 <div class="container">
     <div class="search-bar">
@@ -19,8 +30,8 @@
             </svg>
             <input type="text" placeholder="Search by Name or Roll No">
         </div>
-        <button class="btn btn-add">Add Student</button>
-        <button class="btn btn-attendance">Take Attendance</button>
+        <div class="btn btn-add"><a asp-controller="Teacher" asp-action="AddStudent">Add Student</a></div>
+        <div class="btn btn-attendance"><a>Take Attendance</a></div>
     </div>
 
     <div class="cards-grid">
@@ -43,10 +54,10 @@
                     </div>
                 </div>
             </div>
-            <div class="dropdown-menu">
+            @* <div class="dropdown-menu">
                 <div class="dropdown-item">Delete</div>
                 <div class="dropdown-item">Update</div>
-            </div>
+            </div> *@
         </div>
 
         <div class="card-wrapper">

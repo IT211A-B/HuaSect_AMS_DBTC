@@ -13,7 +13,7 @@
     width: 80px;
     height: 80px;
     border-radius: 50%;
-    margin: -80px auto 20px auto; /* Centered and overlapping top */
+    /* margin: -80px auto 20px auto; Centered and overlapping top */
     display: flex;
     align-items: center;
     justify-content: center;
