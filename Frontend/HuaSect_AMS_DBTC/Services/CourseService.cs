@@ -16,7 +16,9 @@ namespace HuaSect_AMS_DBTC.Services
 
         public async Task CreateCourseAsync(CourseModel course)
         {
-            throw new NotImplementedException();
+            var response = await _httpClient.PostAsJsonAsync($"{_config["BackendUrl"]}/api/Course", course);
+
+            response.EnsureSuccessStatusCode();
         }
 
         public async Task<IEnumerable<CourseModel>> GetAllCoursesAsync()

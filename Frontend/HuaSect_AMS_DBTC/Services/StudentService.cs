@@ -42,7 +42,14 @@ namespace HuaSect_AMS_DBTC.Services
 
         public async Task<StudentModel?> GetStudentByIdAsync(int id)
         {
-            throw new NotImplementedException();
+            var response = await _httpClient.GetAsync($"{_config["BackendUrl"]}/api/Student/{id}");
+
+            response.EnsureSuccessStatusCode();
+
+            var student = await response.Content.ReadFromJsonAsync<StudentModel>();
+
+            return student;
+
         }
 
         public async Task<StudentListViewModel> GetStudentListViewModelAsync(string course, DateTime date)

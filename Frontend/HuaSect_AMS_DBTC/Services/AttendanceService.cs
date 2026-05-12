@@ -31,7 +31,11 @@ namespace HuaSect_AMS_DBTC.Services
 
         public async Task SaveRecordsAsync(IEnumerable<AttendanceRecord> records)
         {
-            throw new NotImplementedException();
+            foreach (var record in records) {
+                var response = await _httpClient.PostAsJsonAsync($"{_config["BackendUrl"]}/api/Attendance", record);
+
+                response.EnsureSuccessStatusCode();
+            }
         }
     }
 }
