@@ -1,0 +1,164 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    min-height: 100vh;
+    padding: 30px 20px;
+}
+
+.container {
+    max-width: 800px;
+    width: 100%;
+}
+
+.dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.page-title {
+    color: white;
+    font-size: 20px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.welcome-badge {
+    background: #0a0a8c;
+    color: white;
+    padding: 10px 24px;
+    border-radius: 24px;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+.search-bar {
+    margin-bottom: 20px;
+}
+
+.search-input {
+    display: flex;
+    align-items: center;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 8px 14px;
+    max-width: 320px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+}
+
+.search-input svg {
+    width: 16px;
+    height: 16px;
+    margin-right: 8px;
+    color: #888;
+}
+
+.search-input input {
+    border: none;
+    outline: none;
+    font-size: 12px;
+    width: 100%;
+    color: #888;
+}
+
+.section-label {
+    display: inline-block;
+    background: white;
+    color: #0a0a8c;
+    font-size: 16px;
+    font-weight: 700;
+    text-transform: uppercase;
+    padding: 4px 16px;
+    border-radius: 8px;
+    border: 2px solid #0a0a8c;
+    margin-bottom: -10px;
+    position: relative;
+    z-index: 2;
+    margin-left: 16px;
+}
+
+.course-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.course-card {
+    background: #2a2a2a;
+    border-radius: 16px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.course-header {
+    background: #1a1a6c;
+    padding: 12px 18px;
+    position: relative;
+}
+
+.course-header::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    left: 0;
+    right: 0;
+    height: 16px;
+    background: #1a1a6c;
+    transform: skewY(-1deg);
+    transform-origin: bottom left;
+}
+
+.course-title {
+    color: white;
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 2px;
+}
+
+.course-code {
+    color: rgba(255, 255, 255, 0.7);
+    font-size: 11px;
+}
+
+.course-body {
+    padding: 14px 18px 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+.course-info {
+    color: rgba(255, 255, 255, 0.85);
+    font-size: 11px;
+    line-height: 1.6;
+}
+
+.btn-history {
+    background: white;
+    color: #1a1a8c;
+    border: none;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-size: 11px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    white-space: nowrap;
+}
+
+.btn-history:hover {
+    background: #f0f0f0;
+}

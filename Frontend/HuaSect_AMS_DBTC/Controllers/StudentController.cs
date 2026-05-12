@@ -14,113 +14,22 @@ namespace HuaSect_AMS_DBTC.Controllers
             _studentService = studentService;
         }
 
-        [HttpGet]
-        public async Task<IActionResult> Index()
+        [HttpGet("student-dashboard")]
+        public async Task<IActionResult> StudentDashboard()
         {
-            var students = await _studentService.GetAllStudentsAsync();
-            var model = new StudentViewModel { Students = students.ToList() };
-            return View("StudentView", model);
+            return View("StudentDashboard");
         }
 
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> AddStudent(StudentInputModel input)
+        [HttpGet("attendance-profile")]
+        public async Task<IActionResult> StudentList()
         {
-            if (!ModelState.IsValid)
-            {
-                TempData["Error"] = "Please fill in all required fields.";
-                return RedirectToAction(nameof(Index));
-            }
-
-            var student = new StudentModel
-            {
-                FirstName = input.FirstName.Trim(),
-                MiddleName = input.MiddleName?.Trim(),
-                LastName = input.LastName.Trim(),
-                StudentNo = input.StudentNo.Trim(),
-                YearLevel = input.YearLevel.Trim(),
-                Email = input.Email.Trim().ToLower(),
-                CourseId = input.CourseId.Trim(),
-            };
-
-            await _studentService.AddStudentAsync(student);
-            TempData["Success"] = $"Student '{student.FullName}' added successfully.";
-            return RedirectToAction(nameof(Index));
+            return View("AttendanceProfile");
         }
 
-        [HttpPut]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> UpdateStudent(StudentInputModel input)
+        [HttpGet("settings")]
+        public async Task<IActionResult> Settings()
         {
-            if (!ModelState.IsValid || input.Id == 0)
-            {
-                TempData["Error"] = "Invalid student data.";
-                return RedirectToAction(nameof(Index));
-            }
-
-            var student = await _studentService.GetStudentByIdAsync(input.Id);
-            if (student == null)
-            {
-                TempData["Error"] = "Student not found.";
-                return RedirectToAction(nameof(Index));
-            }
-
-            student.FirstName = input.FirstName.Trim();
-            student.MiddleName = input.MiddleName?.Trim();
-            student.LastName = input.LastName.Trim();
-            student.StudentNo = input.StudentNo.Trim();
-            student.YearLevel = input.YearLevel.Trim();
-            student.Email = input.Email.Trim().ToLower();
-            student.CourseId = input.CourseId.Trim();
-
-            await _studentService.UpdateStudentAsync(student);
-            TempData["Success"] = $"Student '{student.FullName}' updated.";
-            return RedirectToAction(nameof(Index));
-        }
-
-        [HttpDelete]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> DeleteStudent(int id)
-        {
-            var student = await _studentService.GetStudentByIdAsync(id);
-            if (student == null)
-            {
-                TempData["Error"] = "Student not found.";
-                return RedirectToAction(nameof(Index));
-            }
-
-            await _studentService.DeleteStudentAsync(id);
-            TempData["Success"] = "Student deleted.";
-            return RedirectToAction(nameof(Index));
-        }
-
-        private async Task<IActionResult> Attendance(int id)
-        {
-            var records = await _studentService.GetAttendanceByStudentIdAsync(id);
-            if (records == null) return NotFound();
-            return Json(records);
-        }
-
-        [HttpGet("list")]
-        public async Task<IActionResult> StudentList([FromQuery] string course, [FromQuery] DateTime? date)
-        {
-            var model = await _studentService.GetStudentListViewModelAsync(course, date ?? DateTime.Today);
-            return View("StudentList", model);
-        }
-
-        [HttpPost("attendance")]
-        [ValidateAntiForgeryToken]
-        public async Task<IActionResult> SaveAttendance(List<AttendanceInputModel> records)
-        {
-            if (records == null || records.Count == 0)
-            {
-                TempData["Error"] = "No attendance records to save.";
-                return RedirectToAction(nameof(StudentList));
-            }
-
-            await _studentService.SaveAttendanceAsync(records);
-            TempData["Success"] = "Attendance saved.";
-            return RedirectToAction(nameof(StudentList));
+            return View("Settings");
         }
     }
 }

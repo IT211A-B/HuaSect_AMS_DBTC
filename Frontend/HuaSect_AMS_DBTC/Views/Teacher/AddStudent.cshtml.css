@@ -1,0 +1,127 @@
+﻿* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f0f0f0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+}
+
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-container {
+    background: #4a4a4a;
+    border-radius: 24px;
+    padding: 0 40px 30px;
+    width: 520px;
+    position: relative;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+}
+
+.modal-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-bottom: 20px;
+    position: relative;
+    top: -35px;
+}
+
+.icon-circle {
+    width: 70px;
+    height: 70px;
+    background: #4a4a4a;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid #6b6b6b;
+    margin-bottom: 12px;
+}
+
+.icon-circle svg {
+    width: 36px;
+    height: 36px;
+}
+
+.modal-title {
+    color: white;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+}
+
+.form-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 14px 16px;
+    margin-bottom: 20px;
+}
+
+.form-group {
+    display: flex;
+    flex-direction: column;
+}
+
+.form-input {
+    padding: 10px 14px;
+    border: none;
+    border-radius: 20px;
+    background: white;
+    font-size: 13px;
+    color: #888;
+    outline: none;
+    width: 100%;
+}
+
+.form-input::placeholder {
+    color: #999;
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 16px;
+    padding-right: 10px;
+}
+
+.btn {
+    padding: 7px 28px;
+    border: none;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: opacity 0.2s;
+}
+
+.btn:hover {
+    opacity: 0.85;
+}
+
+.btn-add {
+    background: #1a1a8c;
+    color: white;
+}
+
+.btn-cancel {
+    background: #1a1a8c;
+    color: white;
+}

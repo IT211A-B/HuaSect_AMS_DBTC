@@ -1,0 +1,75 @@
+﻿@{
+    ViewData["Title"] = "Student";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Head {
+    @* <link rel="stylesheet" href="~/css/Student.css" /> *@
+}
+
+<div class="container">
+    <div class="dashboard-header">
+        <div class="page-title">TEACHERS DASHBOARD</div>
+        <div class="welcome-badge">Welcome Back, Dench Mery!</div>
+    </div>
+
+    <div class="search-bar">
+        <div class="search-input">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                 stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+            <input type="text" placeholder="Search by Course or Roll No">
+        </div>
+    </div>
+
+    <div class="section-label">MY COURSE</div>
+
+    <div class="course-list">
+        <div class="course-card">
+            <div class="course-header">
+                <div class="course-title">Information Management</div>
+                <div class="course-code">IT 210A</div>
+            </div>
+            <div class="course-body">
+                <div class="course-info">
+                    Faculty: Ms. Joan Maris Rosos<br>
+                    Mon & Sat - 8:00 AM - 9:00 AM
+                </div>
+                <button class="btn-history">View Attendance History</button>
+            </div>
+        </div>
+
+        <div class="course-card">
+            <div class="course-header">
+                <div class="course-title">Readings in Philippine History</div>
+                <div class="course-code">GEC 210A</div>
+            </div>
+            <div class="course-body">
+                <div class="course-info">
+                    Faculty: Ms. Marie Arianne Diolingo<br>
+                    Mon & Sat - 9:00 AM - 12:00 PM
+                </div>
+                <button class="btn-history">View Attendance History</button>
+            </div>
+        </div>
+
+        <div class="course-card">
+            <div class="course-header">
+                <div class="course-title">Web Applications Development</div>
+                <div class="course-code">IT 211B</div>
+            </div>
+            <div class="course-body">
+                <div class="course-info">
+                    Faculty: Ms. Chiara Chanque<br>
+                    Mon & Sat - 1:00 PM - 3:00 PM
+                </div>
+                <button class="btn-history">View Attendance History</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @* <script src="~/js/LogIn.js"></script> *@
+}

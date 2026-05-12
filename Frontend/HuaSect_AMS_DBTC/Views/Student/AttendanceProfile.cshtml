@@ -1,0 +1,113 @@
+﻿@{
+    ViewData["Title"] = "Student";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Head {
+    @* <link rel="stylesheet" href="~/css/Student.css" /> *@
+}
+
+<div class="container">
+    <div class="page-title">MY ATTENDANCE</div>
+
+    <div class="info-card">
+        <div class="info-title">Information Management (IT210A)</div>
+        <div class="info-detail">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                 stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round"
+                      d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+            </svg>
+            Student: Dench Mery S. Caballero
+        </div>
+        <div class="info-detail">
+            Instructor: Engr. Joan Maris Rosos
+        </div>
+        <div class="info-detail">
+            Schedule: Mon & Sat - 4:00 PM - 6:00 PM
+        </div>
+    </div>
+
+    <div class="stats-row">
+        <div class="stat-card">
+            <div class="stat-label">Total Sessions</div>
+            <div class="stat-value">6</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Present</div>
+            <div class="stat-value">3</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Late</div>
+            <div class="stat-value">1</div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">Absent</div>
+            <div class="stat-value">2</div>
+        </div>
+    </div>
+
+    <div class="history-container">
+        <div class="history-header">ATTENDANCE HISTORY</div>
+        <div class="month-badge">February 2026</div>
+
+        <div class="history-list">
+            <div class="history-item item-present">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                     stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                Monday, February 15, 2026
+            </div>
+
+            <div class="history-item item-present">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                     stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                Monday, February 14, 2026
+            </div>
+
+            <div class="history-item item-late">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                     stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                Monday, February 13, 2026
+            </div>
+
+            <div class="history-item item-absent">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                     stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+                </svg>
+                Monday, February 12, 2026
+            </div>
+
+            <div class="history-item item-present">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                     stroke-width="2.5">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                Monday, February 11, 2026
+            </div>
+
+            <div class="history-item item-late">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                     stroke-width="2">
+                    <path stroke-linecap="round" stroke-linejoin="round"
+                          d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                </svg>
+                Monday, February 10, 2026
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @* <script src="~/js/LogIn.js"></script> *@
+}

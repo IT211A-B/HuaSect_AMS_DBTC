@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HuaSect_AMS_DBTC.Controllers
 {
-    //[Authorize(Roles = "Teacher,Admin")]
+    
     [Route("[controller]")]
     public class TeacherController : Controller
     {
@@ -14,58 +14,37 @@ namespace HuaSect_AMS_DBTC.Controllers
         public TeacherController(ITeacherService teacherService)
         {
             _teacherService = teacherService;
-        }
+        }        
 
-        private int CurrentTeacherId()
+        [HttpGet("student-management")]
+        public async Task<IActionResult> StudentManagement()
         {
-            var claim = User.FindFirst("TeacherId")?.Value
-                     ?? User.FindFirst(System.Security.Claims.ClaimTypes.NameIdentifier)?.Value;
-            return int.TryParse(claim, out var id) ? id : 0;
+
+            return View("StudentManagement");
         }
 
-        [HttpGet("dashboard")]
-        public async Task<IActionResult> Dashboard()
+        [HttpGet("add-student")]
+        public async Task<IActionResult> AddStudent()
         {
-            var vm = await _teacherService.GetDashboardAsync(CurrentTeacherId());
-            if (vm is null) return NotFound();
-            ViewData["TeacherName"] = vm.Teacher.FullName;
-            ViewData["ActiveNav"] = "home";
-            ViewData["Title"] = "Dashboard";
-            return View("TeacherView", vm);
+            return View("AddStudent");
         }
 
-        [HttpGet("courses")]
-        public async Task<IActionResult> Courses()
+        [HttpGet("course-list")]
+        public async Task<IActionResult> CourseList()
         {
-            var vm = await _teacherService.GetDashboardAsync(CurrentTeacherId());
-            if (vm is null) return NotFound();
-            ViewData["TeacherName"] = vm.Teacher.FullName;
-            ViewData["ActiveNav"] = "courses";
-            ViewData["Title"] = "My Courses";
-            return View("TeacherView", vm);
+            return View("CourseList");
         }
 
-        [HttpGet("attendance")]
-        public async Task<IActionResult> Attendance(int id)
+        [HttpGet("edit-student")]
+        public async Task<IActionResult> EditStudent(int id)
         {
-            var vm = await _teacherService.GetAttendanceAsync(CurrentTeacherId(), id);
-            if (vm is null) return NotFound();
-            ViewData["ActiveNav"] = "attendance";
-            return View("AttendanceView", vm);
+            return View("EditStudent");
         }
 
-        [HttpGet("reports")]
+        [HttpGet("attendance-tracker")]
         public IActionResult Reports()
         {
-            ViewData["ActiveNav"] = "reports";
-            return View();
-        }
-
-        [HttpGet("settings")]
-        public IActionResult Settings()
-        {
-            ViewData["ActiveNav"] = "settings";
-            return View();
+            return View("AttendanceTracker");
         }
     }
 }

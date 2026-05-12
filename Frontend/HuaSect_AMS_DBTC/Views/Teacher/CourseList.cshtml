@@ -1,0 +1,111 @@
+﻿@* @model HuaSect_AMS_DBTC.Models.TeacherDashboardViewModel *@
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Dashboard";
+    ViewData["ActiveNav"] = "home";
+}
+
+@section Head {
+    @* <link rel="stylesheet" href="~/css/Student.css" /> *@
+}
+
+<div class="container">
+    <div class="filter-bar">
+        <div class="filter-group">
+            <label class="filter-label">CLASS</label>
+            <select class="filter-select">
+                <option>Information Management</option>
+            </select>
+        </div>
+        <div class="filter-group">
+            <label class="filter-label">DATE</label>
+            <select class="filter-select">
+                <option>February 15, 2026</option>
+            </select>
+        </div>
+        <button class="btn-back">Back</button>
+    </div>
+
+    <div class="table-container">
+        <div class="table-header">
+            <div class="header-pill">Roll</div>
+            <div class="header-pill">Student's Name</div>
+            <div class="header-pill">Course</div>
+            <div class="header-pill records">Records</div>
+        </div>
+
+        <div class="table-row">
+            <div class="roll-cell">6</div>
+            <div class="name-cell">Dench Mery S. Caballero</div>
+            <div class="course-cell">BSIT</div>
+            <div class="records-cell">
+                <button class="status-btn status-present active">Present</button>
+                <button class="status-btn status-late">Late</button>
+                <button class="status-btn status-absent">Absent</button>
+            </div>
+        </div>
+
+        <div class="table-row">
+            <div class="roll-cell">5</div>
+            <div class="name-cell">Julia Yashika Kong</div>
+            <div class="course-cell">BSIT</div>
+            <div class="records-cell">
+                <button class="status-btn status-present">Present</button>
+                <button class="status-btn status-late active">Late</button>
+                <button class="status-btn status-absent">Absent</button>
+            </div>
+        </div>
+
+        <div class="table-row">
+            <div class="roll-cell">4</div>
+            <div class="name-cell">Maverick Tajenlangit</div>
+            <div class="course-cell">BSIT</div>
+            <div class="records-cell">
+                <button class="status-btn status-present active">Present</button>
+                <button class="status-btn status-late">Late</button>
+                <button class="status-btn status-absent">Absent</button>
+            </div>
+        </div>
+
+        <div class="table-row">
+            <div class="roll-cell">3</div>
+            <div class="name-cell">Leon S. Kennedy</div>
+            <div class="course-cell">BSIT</div>
+            <div class="records-cell">
+                <button class="status-btn status-present">Present</button>
+                <button class="status-btn status-late active">Late</button>
+                <button class="status-btn status-absent">Absent</button>
+            </div>
+        </div>
+
+        <div class="table-row">
+            <div class="roll-cell">2</div>
+            <div class="name-cell">Ada A. Wong</div>
+            <div class="course-cell">ME</div>
+            <div class="records-cell">
+                <button class="status-btn status-present active">Present</button>
+                <button class="status-btn status-late">Late</button>
+                <button class="status-btn status-absent">Absent</button>
+            </div>
+        </div>
+
+        <div class="table-row">
+            <div class="roll-cell">1</div>
+            <div class="name-cell">Mikhael Rosos Santos</div>
+            <div class="course-cell">BSIT</div>
+            <div class="records-cell">
+                <button class="status-btn status-present">Present</button>
+                <button class="status-btn status-late">Late</button>
+                <button class="status-btn status-absent active">Absent</button>
+            </div>
+        </div>
+
+        <div class="save-container">
+            <button class="btn-save">Save</button>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @* <script src="~/js/LogIn.js"></script> *@
+}

@@ -1,0 +1,206 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: #f0f0f0;
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 900px;
+  width: 100%;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 25px;
+}
+
+.search-input {
+  display: flex;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 8px 12px;
+  background: white;
+  flex: 1;
+  max-width: 300px;
+}
+
+.search-input svg {
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+  color: #888;
+}
+
+.search-input input {
+  border: none;
+  outline: none;
+  font-size: 13px;
+  width: 100%;
+}
+
+.btn {
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: opacity 0.2s;
+}
+
+.btn:hover {
+  opacity: 0.9;
+}
+
+.btn-add {
+  background: #1a2a6c;
+  color: white;
+}
+
+.btn-attendance {
+  background: #1a2a6c;
+  color: white;
+}
+
+.cards-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+.student-card {
+  background: #2d3a8c;
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.card-header {
+  padding: 16px 18px 12px;
+  position: relative;
+}
+
+.student-name {
+  color: white;
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 4px;
+}
+
+.student-roll {
+  color: rgba(255, 255, 255, 0.8);
+  font-size: 12px;
+}
+
+.student-icon {
+  position: absolute;
+  right: 16px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 36px;
+  height: 36px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.student-icon svg {
+  width: 20px;
+  height: 20px;
+  color: white;
+}
+
+.card-body {
+  background: #3a3a3a;
+  padding: 20px 18px;
+  position: relative;
+}
+
+.card-body::before {
+  content: '';
+  position: absolute;
+  top: -20px;
+  left: 0;
+  right: 0;
+  height: 40px;
+  background: #3a3a3a;
+  transform: skewY(-3deg);
+  transform-origin: top left;
+}
+
+.card-actions {
+  display: flex;
+  justify-content: center;
+  padding-top: 10px;
+  position: relative;
+  z-index: 1;
+}
+
+.btn-history {
+  background: white;
+  color: #333;
+  border: none;
+  padding: 6px 14px;
+  border-radius: 4px;
+  font-size: 11px;
+  font-weight: 500;
+  cursor: pointer;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.btn-history:hover {
+  background: #f5f5f5;
+}
+
+/* Dropdown menu for first card */
+.dropdown-menu {
+  position: absolute;
+  right: -80px;
+  top: 20px;
+  background: #e8e8e8;
+  border-radius: 8px;
+  overflow: hidden;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  z-index: 10;
+}
+
+.dropdown-item {
+  padding: 10px 20px;
+  font-size: 13px;
+  color: #333;
+  cursor: pointer;
+  border-bottom: 1px solid #ddd;
+  text-align: center;
+}
+
+.dropdown-item:last-child {
+  border-bottom: none;
+}
+
+.dropdown-item:hover {
+  background: #d0d0d0;
+}
+
+.card-wrapper {
+  position: relative;
+}
+
+.card-wrapper:first-child .dropdown-menu {
+  display: block;
+}

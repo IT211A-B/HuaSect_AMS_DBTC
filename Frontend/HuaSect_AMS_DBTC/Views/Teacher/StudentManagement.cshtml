@@ -1,0 +1,161 @@
+﻿@* @model HuaSect_AMS_DBTC.Models.TeacherDashboardViewModel *@
+@{
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    ViewData["Title"] = "Dashboard";
+    ViewData["ActiveNav"] = "home";
+}
+
+@section Head {
+    @* <link rel="stylesheet" href="~/css/Student.css" /> *@
+}
+
+
+<div class="container">
+    <div class="search-bar">
+        <div class="search-input">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                 stroke-width="2">
+                <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+            </svg>
+            <input type="text" placeholder="Search by Name or Roll No">
+        </div>
+        <button class="btn btn-add">Add Student</button>
+        <button class="btn btn-attendance">Take Attendance</button>
+    </div>
+
+    <div class="cards-grid">
+        <div class="card-wrapper">
+            <div class="student-card">
+                <div class="card-header">
+                    <div class="student-name">Dench Mery S. Caballero</div>
+                    <div class="student-roll">BSIT - 3</div>
+                    <div class="student-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                             stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="card-actions">
+                        <button class="btn-history">View Attendance History</button>
+                    </div>
+                </div>
+            </div>
+            <div class="dropdown-menu">
+                <div class="dropdown-item">Delete</div>
+                <div class="dropdown-item">Update</div>
+            </div>
+        </div>
+
+        <div class="card-wrapper">
+            <div class="student-card">
+                <div class="card-header">
+                    <div class="student-name">Julia Yashika Kong</div>
+                    <div class="student-roll">BSIT - 2</div>
+                    <div class="student-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                             stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="card-actions">
+                        <button class="btn-history">View Attendance History</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-wrapper">
+            <div class="student-card">
+                <div class="card-header">
+                    <div class="student-name">Maverick Tajenlangit</div>
+                    <div class="student-roll">BSIT - 2</div>
+                    <div class="student-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                             stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="card-actions">
+                        <button class="btn-history">View Attendance History</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-wrapper">
+            <div class="student-card">
+                <div class="card-header">
+                    <div class="student-name">Leon S. Kennedy</div>
+                    <div class="student-roll">BSIT - 3</div>
+                    <div class="student-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                             stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="card-actions">
+                        <button class="btn-history">View Attendance History</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-wrapper">
+            <div class="student-card">
+                <div class="card-header">
+                    <div class="student-name">Ada A. Wong</div>
+                    <div class="student-roll">ME - 4</div>
+                    <div class="student-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                             stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="card-actions">
+                        <button class="btn-history">View Attendance History</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="card-wrapper">
+            <div class="student-card">
+                <div class="card-header">
+                    <div class="student-name">Mikhael Roso. Santos</div>
+                    <div class="student-roll">BSIT - 2</div>
+                    <div class="student-icon">
+                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
+                             stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round"
+                                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                        </svg>
+                    </div>
+                </div>
+                <div class="card-body">
+                    <div class="card-actions">
+                        <button class="btn-history">View Attendance History</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts {
+    @* <script src="~/js/LogIn.js"></script> *@
+}
