@@ -11,5 +11,10 @@ namespace HuaSect_AMS_DBTC.Services
             _httpClient = httpClient;
             _config = config;
         }
+
+        public Task<ICollection<Student>> GetAllStudentsAsync()
+        {
+            throw new NotImplementedException();
+        }
     }
 }

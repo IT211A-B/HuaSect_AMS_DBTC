@@ -1,4 +1,4 @@
-﻿@* @model HuaSect_AMS_DBTC.Models.TeacherDashboardViewModel *@
+﻿@model HuaSect_AMS_DBTC.Models.StudentManagementPage
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewData["Title"] = "Dashboard";
@@ -35,136 +35,48 @@
     </div>
 
     <div class="cards-grid">
-        <div class="card-wrapper">
-            <div class="student-card">
-                <div class="card-header">
-                    <div class="student-name">Dench Mery S. Caballero</div>
-                    <div class="student-roll">BSIT - 3</div>
-                    <div class="student-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                             stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                        </svg>
+    @if (Model.Students?.Any() == true)
+    {
+        @foreach (var student in Model.Students)
+        {
+            <div class="card-wrapper">
+                <div class="student-card">
+                    <div class="card-header">
+                        <div class="student-name">@student.Name</div>
+                        <div class="student-roll">@student.Field - @student.Year</div>
+                        <div class="student-icon">
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                                <path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="card-body">
+                        <div class="card-actions">
+                            <div class="btn-history">
+                                <a asp-controller="Teacher" asp-action="AttendanceTracker" asp-route-studentName="@student.Name">View Attendance History</a>\
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="card-body">
-                    <div class="card-actions">
-                        <div class="btn-history"><a asp-controller="Teacher" asp-action="AttendanceTracker">View Attendance History</a></div>
-                    </div>
-                </div>
-            </div>
-            @* <div class="dropdown-menu">
-                <div class="dropdown-item">Delete</div>
-                <div class="dropdown-item">Update</div>
-            </div> *@
-        </div>
 
-        <div class="card-wrapper">
-            <div class="student-card">
-                <div class="card-header">
-                    <div class="student-name">Julia Yashika Kong</div>
-                    <div class="student-roll">BSIT - 2</div>
-                    <div class="student-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                             stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                        </svg>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="card-actions">
-                        <div class="btn-history"><a asp-controller="Teacher" asp-action="AttendanceTracker">View Attendance History</a></div>
-                    </div>
-                </div>
+                <!-- Optional: Uncomment dropdown for Edit/Delete actions -->
+                @* <div class="dropdown-menu">
+                    <a asp-controller="Teacher" asp-action="EditStudent" class="dropdown-item">Update</a>
+                    <form asp-controller="Teacher" asp-action="DeleteStudent" method="post" class="d-inline">
+                        @Html.AntiForgeryToken()
+                        <button type="submit" class="dropdown-item text-danger" onclick="return confirm('Delete @student.Name?')">Delete</button>
+                    </form>
+                </div> *@
             </div>
+        }
+    }
+    else
+    {
+        <div class="col-12 text-center text-muted py-5">
+            <p>No students found.</p>
         </div>
-
-        <div class="card-wrapper">
-            <div class="student-card">
-                <div class="card-header">
-                    <div class="student-name">Maverick Tajenlangit</div>
-                    <div class="student-roll">BSIT - 2</div>
-                    <div class="student-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                             stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                        </svg>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="card-actions">
-                        <div class="btn-history"><a asp-controller="Teacher" asp-action="AttendanceTracker">View Attendance History</a></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="card-wrapper">
-            <div class="student-card">
-                <div class="card-header">
-                    <div class="student-name">Leon S. Kennedy</div>
-                    <div class="student-roll">BSIT - 3</div>
-                    <div class="student-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                             stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                        </svg>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="card-actions">
-                        <div class="btn-history"><a asp-controller="Teacher" asp-action="AttendanceTracker">View Attendance History</a></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="card-wrapper">
-            <div class="student-card">
-                <div class="card-header">
-                    <div class="student-name">Ada A. Wong</div>
-                    <div class="student-roll">ME - 4</div>
-                    <div class="student-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                             stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                        </svg>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="card-actions">
-                        <div class="btn-history"><a asp-controller="Teacher" asp-action="AttendanceTracker">View Attendance History</a></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <div class="card-wrapper">
-            <div class="student-card">
-                <div class="card-header">
-                    <div class="student-name">Mikhael Roso. Santos</div>
-                    <div class="student-roll">BSIT - 2</div>
-                    <div class="student-icon">
-                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor"
-                             stroke-width="2">
-                            <path stroke-linecap="round" stroke-linejoin="round"
-                                  d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
-                        </svg>
-                    </div>
-                </div>
-                <div class="card-body">
-                    <div class="card-actions">
-                        <div class="btn-history"><a asp-controller="Teacher" asp-action="AttendanceTracker">View Attendance History</a></div>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+    }
+</div>
 </div>
 
 @section Scripts {

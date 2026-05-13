@@ -10,16 +10,35 @@ namespace HuaSect_AMS_DBTC.Controllers
     public class TeacherController : Controller
     {
         private readonly ITeacherService _teacherService;
+        private readonly IStudentService _studentService;
 
         public TeacherController(ITeacherService teacherService)
         {
             _teacherService = teacherService;
         }
 
-        [HttpGet("student-management")]
-        public async Task<IActionResult> StudentManagement()
+        [HttpGet("{id:int}/student-management")]
+        public async Task<IActionResult> StudentManagement(int id)
         {
-            return View("StudentManagement");
+            Teacher? teacher;
+            ICollection<Student> students;
+            try
+            {
+                teacher = await _teacherService.GetTeacherByIdAsync(id);
+                students = await _studentService.GetAllStudentsAsync();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            if (teacher is null)
+                return BadRequest($"Error: teacher with id = {id} can't be found");
+            var studentManagementModel = new StudentManagementPage
+            {
+                Students = students,
+                Teacher = teacher,
+            };
+            return View("StudentManagement", studentManagementModel);
         }
 
         [HttpGet("add-student")]

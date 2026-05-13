@@ -1,5 +1,12 @@
 ﻿namespace HuaSect_AMS_DBTC.Models
 {
+    public class Teacher
+    {
+        public string FirstName { get; set; } = string.Empty;
+
+        public string LastName { get; set; } = string.Empty;
+    }
+
     public class Student
     {
         public string Name { get; set; } = string.Empty;
@@ -11,9 +18,7 @@
 
     public class StudentManagementPage
     {
-        public string FirstName { get; set; } = string.Empty;
-
-        public string LastName { get; set; } = string.Empty;
+        public required Teacher Teacher { get; set; }
 
         public ICollection<Student> Students { get; set; } = [];
     }
