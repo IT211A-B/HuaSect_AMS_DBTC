@@ -20,5 +20,13 @@ namespace HuaSect_AMS_DBTC.Services
             var courses = await response.Content.ReadFromJsonAsync<ICollection<Course>>();
             return courses;
         }
+
+        public async Task<Course?> GetCourseByIdAsync(int id)
+        {
+            var response = await _httpClient.GetAsync($"{_config["BackendUrl"]}/api/Course/{id}");
+            response.EnsureSuccessStatusCode();
+            var course = await response.Content.ReadFromJsonAsync<Course>();
+            return course;
+        }
     }
 }

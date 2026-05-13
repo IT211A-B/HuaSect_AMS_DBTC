@@ -20,5 +20,13 @@ namespace HuaSect_AMS_DBTC.Services
             var attendanceRecords = await response.Content.ReadFromJsonAsync<ICollection<Attendance>>();
             return attendanceRecords;
         }
+
+        public async Task<ICollection<Attendance>> GetStudentAttendanceRecordsAsync(int studentId)
+        {
+            var response = await _httpClient.GetAsync($"{_config["BackendUrl"]}/api/Attendance?studentId={studentId}");
+            response.EnsureSuccessStatusCode();
+            var attendanceRecords = await response.Content.ReadFromJsonAsync<ICollection<Attendance>>();
+            return attendanceRecords;
+        }
     }
 }

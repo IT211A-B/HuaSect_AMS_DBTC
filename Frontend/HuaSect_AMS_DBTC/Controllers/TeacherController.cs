@@ -84,14 +84,28 @@ namespace HuaSect_AMS_DBTC.Controllers
         }
 
         [HttpGet("attendance-tracker")]
-        public IActionResult AttendanceTracker([FromQuery] int courseId, [FromQuery] int studentId)
+        public async Task<IActionResult> AttendanceTracker([FromQuery] int courseId, [FromQuery] int studentId)
         {
+            Student? student;
+            Course? course;
+            ICollection<Attendance> attendanceRecords;
+            try
+            {
+                student = await _studentService.GetStudentByIdAsync(studentId);
+                course = await _courseService.GetCourseByIdAsync(courseId);
+                attendanceRecords = await _attendanceService.GetStudentAttendanceRecordsAsync(studentId);
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
             var attendanceTrackerModel = new AttendanceTrackerPage
             {
-                Course = ,
-                Student = ,
+                Course = course,
+                Student = student,
+                AttendanceRecords = attendanceRecords
             };
-            return View("AttendanceTracker");
+            return View("AttendanceTracker", attendanceTrackerModel);
         }
     }
 }

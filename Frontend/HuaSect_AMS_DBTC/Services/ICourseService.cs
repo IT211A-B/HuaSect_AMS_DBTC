@@ -5,5 +5,7 @@ namespace HuaSect_AMS_DBTC.Services
     public interface ICourseService
     {
         Task<ICollection<Course>> GetAllCoursesAsync();
+
+        Task<Course?> GetCourseByIdAsync(int id);
     }
 }
