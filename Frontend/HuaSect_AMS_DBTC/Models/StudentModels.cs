@@ -14,6 +14,6 @@ namespace HuaSect_AMS_DBTC.Models
     {
         public required Course Course { get; set; }
 
-        public ICollection<Attendance> AttendanceRecord { get; set;} = [];
+        public ICollection<Attendance> AttendanceRecords { get; set;} = [];
     }
 }
