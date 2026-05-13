@@ -12,9 +12,12 @@ namespace HuaSect_AMS_DBTC.Services
             _config = config;
         }
 
-        public Task<ICollection<Student>> GetAllStudentsAsync()
+        public async Task<ICollection<Student>> GetAllStudentsAsync()
         {
-            throw new NotImplementedException();
+            var response = await _httpClient.GetAsync($"{_config["BackendUrl"]}/api/Student");
+            response.EnsureSuccessStatusCode();
+            var students = await response.Content.ReadFromJsonAsync<ICollection<Student>>();
+            return students;
         }
     }
 }

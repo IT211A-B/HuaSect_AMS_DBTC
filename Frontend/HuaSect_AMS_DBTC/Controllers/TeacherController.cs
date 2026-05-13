@@ -11,10 +11,15 @@ namespace HuaSect_AMS_DBTC.Controllers
     {
         private readonly ITeacherService _teacherService;
         private readonly IStudentService _studentService;
+        private readonly ICourseService _courseService;
+        private readonly IAttendanceService _attendanceService;
 
-        public TeacherController(ITeacherService teacherService)
+        public TeacherController(ITeacherService teacherService, IStudentService studentService, ICourseService courseService, IAttendanceService attendanceService)
         {
             _teacherService = teacherService;
+            _studentService = studentService;
+            _courseService = courseService;
+            _attendanceService = attendanceService;
         }
 
         [HttpGet("{id:int}/student-management")]
@@ -50,18 +55,42 @@ namespace HuaSect_AMS_DBTC.Controllers
         [HttpGet("course-list")]
         public async Task<IActionResult> CourseList()
         {
-            return View("CourseList");
+            ICollection<Student> students;
+            ICollection<Attendance> attendanceRecords;
+            ICollection<Course> courses;
+            try
+            {
+                students = await _studentService.GetAllStudentsAsync();
+                attendanceRecords = await _attendanceService.GetAllAttendanceRecordsAsync();
+                courses = await _courseService.GetAllCoursesAsync();
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            var courseListModel = new CourseListPage
+            {
+                Students = students,
+                AttendanceRecords = attendanceRecords,
+                Courses = courses,
+            };
+            return View("CourseList", courseListModel);
         }
 
         [HttpGet("edit-student")]
-        public async Task<IActionResult> EditStudent(int id)
+        public async Task<IActionResult> EditStudent()
         {
             return View("EditStudent");
         }
 
         [HttpGet("attendance-tracker")]
-        public IActionResult AttendanceTracker()
+        public IActionResult AttendanceTracker([FromQuery] int courseId, [FromQuery] int studentId)
         {
+            var attendanceTrackerModel = new AttendanceTrackerPage
+            {
+                Course = ,
+                Student = ,
+            };
             return View("AttendanceTracker");
         }
     }

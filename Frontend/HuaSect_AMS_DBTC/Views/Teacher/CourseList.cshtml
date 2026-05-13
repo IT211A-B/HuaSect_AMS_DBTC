@@ -1,4 +1,4 @@
-﻿@* @model HuaSect_AMS_DBTC.Models.TeacherDashboardViewModel *@
+﻿@model HuaSect_AMS_DBTC.Models.CourseListPage
 @{
     Layout = "~/Views/Shared/_Layout.cshtml";
     ViewData["Title"] = "Dashboard";
@@ -9,102 +9,97 @@
     @* <link rel="stylesheet" href="~/css/Student.css" /> *@
 }
 
-<div class="container">
-    <div class="filter-bar">
-        <div class="filter-group">
-            <label class="filter-label">CLASS</label>
-            <select class="filter-select">
-                <option>Information Management</option>
-            </select>
-        </div>
-        <div class="filter-group">
-            <label class="filter-label">DATE</label>
-            <select class="filter-select">
-                <option>February 15, 2026</option>
-            </select>
-        </div>
-        <button class="btn-back">Back</button>
-    </div>
-
-    <div class="table-container">
-        <div class="table-header">
-            <div class="header-pill">Roll</div>
-            <div class="header-pill">Student's Name</div>
-            <div class="header-pill">Course</div>
-            <div class="header-pill records">Records</div>
-        </div>
-
-        <div class="table-row">
-            <div class="roll-cell">6</div>
-            <div class="name-cell">Dench Mery S. Caballero</div>
-            <div class="course-cell">BSIT</div>
-            <div class="records-cell">
-                <button class="status-btn status-present active">Present</button>
-                <button class="status-btn status-late">Late</button>
-                <button class="status-btn status-absent">Absent</button>
+<form method="post" asp-page-handler="SaveAttendance">
+    <div class="container">
+        <div class="filter-bar">
+            <div class="filter-group">
+                <label class="filter-label" for="courseFilter">CLASS</label>
+                <select class="filter-select" id="courseFilter" name="SelectedCourseCode"
+                        asp-items="@(new SelectList(Model.Courses, "Code", "Name"))">
+                    <option value="">-- Select Class --</option>
+                </select>
             </div>
-        </div>
-
-        <div class="table-row">
-            <div class="roll-cell">5</div>
-            <div class="name-cell">Julia Yashika Kong</div>
-            <div class="course-cell">BSIT</div>
-            <div class="records-cell">
-                <button class="status-btn status-present">Present</button>
-                <button class="status-btn status-late active">Late</button>
-                <button class="status-btn status-absent">Absent</button>
+            <div class="filter-group">
+                <label class="filter-label" for="dateFilter">DATE</label>
+                <select class="filter-select" id="dateFilter" name="SelectedDate">
+                    <option value="">-- Select Date --</option>
+                    @foreach (var record in (Model.AttendanceRecords ?? []).Select(a =>
+                                                                                a.Date.Date).Distinct().OrderBy(d => d))
+                    {
+                        <option value="@record.ToString("yyyy-MM-dd")">@record.ToString("MMMM d, yyyy")</option>
+                    }
+                </select>
             </div>
+            <button type="button" class="btn-back" onclick="history.back()">Back</button>
         </div>
 
-        <div class="table-row">
-            <div class="roll-cell">4</div>
-            <div class="name-cell">Maverick Tajenlangit</div>
-            <div class="course-cell">BSIT</div>
-            <div class="records-cell">
-                <button class="status-btn status-present active">Present</button>
-                <button class="status-btn status-late">Late</button>
-                <button class="status-btn status-absent">Absent</button>
+        <div class="table-container">
+            <div class="table-header">
+                <div class="header-pill">Roll</div>
+                <div class="header-pill">Student's Name</div>
+                <div class="header-pill">Course</div>
+                <div class="header-pill records">Records</div>
             </div>
-        </div>
 
-        <div class="table-row">
-            <div class="roll-cell">3</div>
-            <div class="name-cell">Leon S. Kennedy</div>
-            <div class="course-cell">BSIT</div>
-            <div class="records-cell">
-                <button class="status-btn status-present">Present</button>
-                <button class="status-btn status-late active">Late</button>
-                <button class="status-btn status-absent">Absent</button>
+            @if (Model.Students?.Any() == true)
+            {
+                int rollNumber = Model.Students.Count(); // Start roll from total count downward (matches your HTML)
+                
+                @foreach (var student in Model.Students.OrderByDescending(s => s.Name)) // Adjust sort as needed
+                {
+                    // Find existing attendance for this student + selected date (if any)
+                    var currentAttendance = Model.AttendanceRecords?
+                        .FirstOrDefault(a => a.Date.Date == DateTime.Today);
+                    
+                    <div class="table-row">
+                        <div class="roll-cell">@(rollNumber--)</div>
+                        <div class="name-cell">@student.Name</div>
+                        <div class="course-cell">@student.Field</div>
+                        <div class="records-cell">
+                            <!-- Hidden input to bind student identifier for posting -->
+                            <input type="hidden" name="AttendanceUpdates[@(rollNumber)].StudentName" value="@student.Name" />
+                            
+                            <!-- Present Button -->
+                            <button type="button"
+                                    class="status-btn status-present @(currentAttendance?.Status == "Present" ? "active" : "")"
+                                    onclick="selectStatus(this, '@(rollNumber)', 'Present')">
+                                Present
+                            </button>
+                            
+                            <!-- Late Button -->
+                            <button type="button"
+                                    class="status-btn status-late @(currentAttendance?.Status == "Late" ? "active" : "")"
+                                    onclick="selectStatus(this, '@(rollNumber)', 'Late')">
+                                Late
+                            </button>
+                            
+                            <!-- Absent Button -->
+                            <button type="button"
+                                    class="status-btn status-absent @(currentAttendance?.Status == "Absent" ? "active" : "")"
+                                    onclick="selectStatus(this, '@(rollNumber)', 'Absent')">
+                                Absent
+                            </button>
+                            
+                            <!-- Hidden field to store selected status for this student -->
+                            <input type="hidden" name="AttendanceUpdates[@(rollNumber)].Status" class="status-value"
+                                   value="@(currentAttendance?.Status ?? "Present")" />
+                        </div>
+                    </div>
+                }
+            }
+            else
+            {
+                <div class="table-row">
+                    <div class="col-12 text-center text-muted py-4">No students found for this class.</div>
+                </div>
+            }
+
+            <div class="save-container">
+                <button type="submit" class="btn-save">Save</button>
             </div>
-        </div>
-
-        <div class="table-row">
-            <div class="roll-cell">2</div>
-            <div class="name-cell">Ada A. Wong</div>
-            <div class="course-cell">ME</div>
-            <div class="records-cell">
-                <button class="status-btn status-present active">Present</button>
-                <button class="status-btn status-late">Late</button>
-                <button class="status-btn status-absent">Absent</button>
-            </div>
-        </div>
-
-        <div class="table-row">
-            <div class="roll-cell">1</div>
-            <div class="name-cell">Mikhael Rosos Santos</div>
-            <div class="course-cell">BSIT</div>
-            <div class="records-cell">
-                <button class="status-btn status-present">Present</button>
-                <button class="status-btn status-late">Late</button>
-                <button class="status-btn status-absent active">Absent</button>
-            </div>
-        </div>
-
-        <div class="save-container">
-            <button class="btn-save">Save</button>
         </div>
     </div>
-</div>
+</form>
 
 @section Scripts {
     @* <script src="~/js/LogIn.js"></script> *@
