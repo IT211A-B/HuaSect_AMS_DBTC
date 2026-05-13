@@ -1,4 +1,4 @@
-﻿@model HuaSect_AMS_DBTC.Models.LogInModel
+﻿@* @model HuaSect_AMS_DBTC.Models.LogInModel *@
 
 @{
     ViewData["Title"] = "Login";
@@ -25,7 +25,7 @@
         <form asp-controller="LogIn" asp-action="Login" method="post">
             @Html.AntiForgeryToken()
 
-            <input type="hidden" id="SelectedRole" asp-for="Role" value="student" />
+            @* <input type="hidden" id="SelectedRole" asp-for="Role" value="student" />
 
             <div class="input-group">
                 <input asp-for="Username" class="form-control" placeholder="email / username" required />
@@ -35,7 +35,7 @@
             <div class="input-group">
                 <input asp-for="Password" type="password" class="form-control" placeholder="password" required />
                 <span asp-validation-for="Password" class="text-danger"></span>
-            </div>
+            </div> *@
 
             <button type="submit" class="btn-login">LOGIN</button>
         </form>
@@ -53,5 +53,5 @@
 </div>
 
 @section Scripts {
-    <script src="~/js/LogIn.js"></script>
+    @* <script src="~/js/LogIn.js"></script> *@
 }

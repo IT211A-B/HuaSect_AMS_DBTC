@@ -5,7 +5,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HuaSect_AMS_DBTC.Controllers
 {
-    
+
     [Route("[controller]")]
     public class TeacherController : Controller
     {
@@ -14,12 +14,11 @@ namespace HuaSect_AMS_DBTC.Controllers
         public TeacherController(ITeacherService teacherService)
         {
             _teacherService = teacherService;
-        }        
+        }
 
         [HttpGet("student-management")]
         public async Task<IActionResult> StudentManagement()
         {
-
             return View("StudentManagement");
         }
 
@@ -42,7 +41,7 @@ namespace HuaSect_AMS_DBTC.Controllers
         }
 
         [HttpGet("attendance-tracker")]
-        public IActionResult Reports()
+        public IActionResult AttendanceTracker()
         {
             return View("AttendanceTracker");
         }

@@ -10,15 +10,5 @@ namespace HuaSect_AMS_DBTC.Controllers
         {
             return View("LogInView");
         }
-
-        [HttpPost]
-        public IActionResult Login(LogInModel model)
-        {
-            if (ModelState.IsValid)
-            {
-                return RedirectToAction("Dashboard");
-            }
-            return View("Index", model);
-        }
     }
 }

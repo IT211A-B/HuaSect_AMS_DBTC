@@ -8,9 +8,7 @@ builder.Services.AddControllersWithViews();
 builder.Services.AddHttpClient(); 
 
 builder.Services.AddScoped<IAuthService, AuthService>();
-builder.Services.AddScoped<ICourseService, CourseService>();
 builder.Services.AddScoped<IStudentService, StudentService>();
-builder.Services.AddScoped<IAttendanceService, AttendanceService>();
 builder.Services.AddScoped<ITeacherService, TeacherService>();
 
 builder.Services.AddAuthentication("Cookies")

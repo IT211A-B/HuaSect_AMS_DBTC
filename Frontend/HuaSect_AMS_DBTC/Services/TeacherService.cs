@@ -13,42 +13,42 @@ namespace HuaSect_AMS_DBTC.Services
             _config = config;
         }
 
-        public async Task<AttendanceHistoryViewModel?> GetAttendanceAsync(int teacherId, int courseId)
-        {
-            throw new NotImplementedException();
-        }
+        // public async Task<AttendanceHistoryViewModel?> GetAttendanceAsync(int teacherId, int courseId)
+        // {
+        //     throw new NotImplementedException();
+        // }
 
-        public async Task<TeacherDashboardViewModel?> GetDashboardAsync(int teacherId)
-        {
-            var teacherResponse = await _httpClient.GetAsync($"{_config["BackendUrl"]}/api/Teacher/{teacherId}");
+        // public async Task<TeacherDashboardViewModel?> GetDashboardAsync(int teacherId)
+        // {
+        //     var teacherResponse = await _httpClient.GetAsync($"{_config["BackendUrl"]}/api/Teacher/{teacherId}");
 
-            teacherResponse.EnsureSuccessStatusCode();
+        //     teacherResponse.EnsureSuccessStatusCode();
 
-            var teacher = await teacherResponse.Content.ReadFromJsonAsync<Teacher>();
-            if (teacher is null)
-                throw new Exception("Error: teacher not found");
+        //     var teacher = await teacherResponse.Content.ReadFromJsonAsync<Teacher>();
+        //     if (teacher is null)
+        //         throw new Exception("Error: teacher not found");
 
-            var coursesResponse = await _httpClient.GetAsync($"{_config["BackendUrl"]}/api/Course");
-            coursesResponse.EnsureSuccessStatusCode();
-            var courses = ((await coursesResponse.Content.ReadFromJsonAsync<IEnumerable<CourseCardViewModel>>()) ?? []).ToList();
+        //     var coursesResponse = await _httpClient.GetAsync($"{_config["BackendUrl"]}/api/Course");
+        //     coursesResponse.EnsureSuccessStatusCode();
+        //     var courses = ((await coursesResponse.Content.ReadFromJsonAsync<IEnumerable<CourseCardViewModel>>()) ?? []).ToList();
 
-            return new TeacherDashboardViewModel
-            {
-                Teacher = teacher,
-                Courses = courses,
-                CoursesToday = 0, // dont know what to do with this
-            };
-        }
+        //     return new TeacherDashboardViewModel
+        //     {
+        //         Teacher = teacher,
+        //         Courses = courses,
+        //         CoursesToday = 0, // dont know what to do with this
+        //     };
+        // }
 
-        public async Task<Teacher?> GetTeacherAsync(int teacherId)
-        {
-            var response = await _httpClient.GetAsync($"{_config["BackendUrl"]}/api/Teacher/{teacherId}");
+        // public async Task<Teacher?> GetTeacherAsync(int teacherId)
+        // {
+        //     var response = await _httpClient.GetAsync($"{_config["BackendUrl"]}/api/Teacher/{teacherId}");
 
-            response.EnsureSuccessStatusCode();
+        //     response.EnsureSuccessStatusCode();
 
-            var teacher = await response.Content.ReadFromJsonAsync<Teacher>();
+        //     var teacher = await response.Content.ReadFromJsonAsync<Teacher>();
 
-            return teacher;
-        }
+        //     return teacher;
+        // }
     }
 }
