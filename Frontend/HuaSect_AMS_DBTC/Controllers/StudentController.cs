@@ -1,9 +1,11 @@
 ﻿using HuaSect_AMS_DBTC.Models;
 using HuaSect_AMS_DBTC.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace HuaSect_AMS_DBTC.Controllers
 {
+    [Authorize("Student")]
     [Route("[controller]")]
     public class StudentController : Controller
     {

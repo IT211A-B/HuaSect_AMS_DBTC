@@ -3,6 +3,6 @@ namespace HuaSect_AMS_DBTC.Services
 {
     public interface IAuthService
     {
-        Task LoginAsync(LogInModel model);
+        Task<IEnumerable<string>> LoginAsync(LogInModel model);
     }
 }

@@ -1,11 +1,13 @@
+using System.Text;
 using HuaSect_AMS_DBTC.Services;
-using Microsoft.AspNetCore.Cors.Infrastructure;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllersWithViews();
 
-builder.Services.AddHttpClient(); 
+builder.Services.AddHttpClient();
 
 builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IStudentService, StudentService>();
@@ -14,10 +16,28 @@ builder.Services.AddScoped<ICourseService, CourseService>();
 builder.Services.AddScoped<IAttendanceService, AttendanceService>();
 
 builder.Services.AddAuthentication("Cookies")
-    .AddCookie("Cookies", options =>
+    .AddJwtBearer(options =>
     {
-        options.LoginPath = "/LogIn/Index";
-        options.LogoutPath = "/LogIn/Logout";
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidIssuer = builder.Configuration["BackendUrl"],
+            ValidateAudience = false, // Set to true if you have an Audience defined
+            ValidateIssuerSigningKey = true,
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtKey"])),
+            RoleClaimType = "role" // Ensure this matches your JWT payload key
+        };
+        
+        // This tells MVC to look for the token in the Cookie header 
+        // since the browser sends it there
+        options.Events = new JwtBearerEvents
+        {
+            OnMessageReceived = context =>
+            {
+                context.Token = context.Request.Cookies["YourCookieName"];
+                return Task.CompletedTask;
+            }
+        };
     });
 
 builder.Services.AddAuthorization();

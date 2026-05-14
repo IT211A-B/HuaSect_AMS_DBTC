@@ -13,10 +13,12 @@ namespace HuaSect_AMS_DBTC.Services
             _config = config;
         }
 
-        public async Task LoginAsync(LogInModel model)
+        public async Task<IEnumerable<string>> LoginAsync(LogInModel model)
         {
             var response = await _httpClient.PostAsJsonAsync($"{_config["BackendUrl"]}/api/Auth/login", model);
             response.EnsureSuccessStatusCode();
+            response.Headers.TryGetValues("Set-Cookie", out var cookies);
+            return cookies;
         }
     }
 }

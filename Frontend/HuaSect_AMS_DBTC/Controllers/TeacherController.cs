@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 namespace HuaSect_AMS_DBTC.Controllers
 {
 
+    [Authorize("Teacher")]
     [Route("[controller]")]
     public class TeacherController : Controller
     {
