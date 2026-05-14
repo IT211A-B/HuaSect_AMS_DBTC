@@ -32,7 +32,7 @@ namespace HuaSect_AMS_DBTC.Controllers
             {
                 Courses = courses,
             };
-            return View("StudentDashboard");
+            return View("StudentDashboard", studentDashboardModel);
         }
 
         [HttpGet("attendance-profile")]

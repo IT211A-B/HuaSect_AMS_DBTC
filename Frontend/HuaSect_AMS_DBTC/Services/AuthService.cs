@@ -12,5 +12,11 @@ namespace HuaSect_AMS_DBTC.Services
             _httpClient = httpClient;
             _config = config;
         }
+
+        public async Task LoginAsync(LogInModel model)
+        {
+            var response = await _httpClient.PostAsJsonAsync($"{_config["BackendUrl"]}/api/Auth/login", model);
+            response.EnsureSuccessStatusCode();
+        }
     }
 }
