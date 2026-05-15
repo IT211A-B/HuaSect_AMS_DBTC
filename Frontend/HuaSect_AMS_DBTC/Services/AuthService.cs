@@ -27,13 +27,13 @@ namespace HuaSect_AMS_DBTC.Services
             return token;
         }
 
-        public Task<LogInResponseModel> RegisterStudentAsync(LogInModel model)
+        public Task<LogInResponseModel> RegisterStudentAsync(RegisterStudentModel model)
         {
             var response = await _httpClient.PostAsJsonAsync($"{_config["BackendUrl"]}/api/Auth/register/student", model);
             response.EnsureSuccessStatusCode();
         }
 
-        public Task<LogInResponseModel> RegisterTeacherAsync(LogInModel model)
+        public Task<LogInResponseModel> RegisterTeacherAsync(RegisterTeacherModel model)
         {
             var response = await _httpClient.PostAsJsonAsync($"{_config["BackendUrl"]}/api/Auth/register/teacher", model);
             response.EnsureSuccessStatusCode();
