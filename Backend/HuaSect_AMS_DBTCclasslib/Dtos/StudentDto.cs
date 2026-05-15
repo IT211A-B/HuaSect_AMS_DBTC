@@ -1,4 +1,4 @@
-﻿namespace HuaSect_AMS_DBTCclasslib.Dtos;
+namespace HuaSect_AMS_DBTCclasslib.Dtos;
 
 public class CreateStudentDto
 {

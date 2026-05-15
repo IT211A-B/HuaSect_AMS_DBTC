@@ -1,4 +1,4 @@
-﻿namespace HuaSect_AMS_DBTCclasslib;
+namespace HuaSect_AMS_DBTCclasslib;
 
 public class CreateTeacherDto
 {
