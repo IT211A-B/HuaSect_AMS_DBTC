@@ -16,16 +16,20 @@ public class Attendance
 
     public bool Status { get; set; }
 
-    public Attendance(DateTime date, bool status)
+    public Attendance() { }
+
+    public Attendance(DateTime date, bool status, Course course)
     {
         Date = date;
         Status = status;
+        Course = course;
     }
 
-    public void Update(int id, DateTime date, bool status)
+    public void Update(int id, DateTime date, bool status, Course course)
     {
         ID = id;
         Date = date;
         Status = status;
+        Course = course;
     }
 }

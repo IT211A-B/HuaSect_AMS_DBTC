@@ -12,12 +12,19 @@ public class StudentProfile
 
     public int YearLevel { get; set; }
 
-    public Course Course { get; set; } = new Course("", "", "", 0);
+    public ICollection<Course> Courses { get; set; } = [];
 
     public StudentProfile(string studentNumber, int yearLevel)
     {
         StudentNumber = studentNumber;
         YearLevel = yearLevel;
+    }
+
+    public StudentProfile(string studentNumber, int yearLevel, ApplicationUser user)
+    {
+        StudentNumber = studentNumber;
+        YearLevel = yearLevel;
+        User = user;
     }
 
     public void Update(int id, string studentNumber, int yearLevel)

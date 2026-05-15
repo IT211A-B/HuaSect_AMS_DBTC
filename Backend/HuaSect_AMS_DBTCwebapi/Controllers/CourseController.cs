@@ -1,5 +1,5 @@
 using HuaSect_AMS_DBTC.Service;
-using HuaSect_AMS_DBTCclasslib;
+using HuaSect_AMS_DBTCclasslib.Dtos;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.JsonPatch;
 using Microsoft.AspNetCore.Mvc;
@@ -38,7 +38,7 @@ namespace HuaSect_AMS_DBTC.Controllers
         public async Task<IActionResult> GetCourse(int id)
         {
             var course = await _courseService.GetCourseByIdAsync(id);
-            return course == null ? NotFound($"Course with id = {id} not found") : Ok(course);
+            return course is null ? NotFound($"Course with id = {id} not found") : Ok(course);
         }
 
         [HttpPost("create")]
@@ -81,7 +81,7 @@ namespace HuaSect_AMS_DBTC.Controllers
             if (patchDoc == null) return BadRequest("Patch document cannot be null");
 
             var existingCourse = await _courseService.GetCourseByIdAsync(id);
-            if (existingCourse == null)
+            if (existingCourse is null)
                 return NotFound($"Course with id = {id} not found");
 
             var dtoToPatch = new UpdateCourseDto { ID = existingCourse.ID };

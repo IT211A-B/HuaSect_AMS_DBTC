@@ -25,6 +25,8 @@ namespace HuaSect_AMS_DBTC.Repository
             return (totalRecords, data);
         }
 
+        public async Task<List<Attendance>> GetAllByStudentAsync(int id) => await _context.Attendance.Where(a => a.StudentProfile.ID == id).ToListAsync();
+
         public async Task<Attendance?> GetByIdAsync(int id) => await _context.Attendance.FirstOrDefaultAsync(c => c.ID == id);
 
         public async Task<Attendance> AddAsync(Attendance attendance)

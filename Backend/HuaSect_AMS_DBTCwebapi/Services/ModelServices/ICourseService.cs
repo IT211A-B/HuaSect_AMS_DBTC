@@ -1,4 +1,5 @@
-using HuaSect_AMS_DBTCclasslib;
+using HuaSect_AMS_DBTCclasslib.Dtos;
+using HuaSect_AMS_DBTCclasslib.Models;
 using HuaSect_AMS_DBTCclasslib.Helpers;
 
 namespace HuaSect_AMS_DBTC.Service

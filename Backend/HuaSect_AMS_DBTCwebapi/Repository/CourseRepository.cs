@@ -1,6 +1,6 @@
 using Microsoft.EntityFrameworkCore;
 using HuaSect_AMS_DBTCclasslib.DbCtx;
-using HuaSect_AMS_DBTCclasslib;
+using HuaSect_AMS_DBTCclasslib.Models;
 
 namespace HuaSect_AMS_DBTC.Repository
 {

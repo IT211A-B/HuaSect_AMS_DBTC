@@ -31,6 +31,14 @@ namespace HuaSect_AMS_DBTC.Controllers
             return Ok(result);
         }
 
+        [HttpGet("student/{id:int}")]
+        [Authorize(Roles = "Teacher,Admin,Student")]
+        public async Task<IActionResult> GetStudentAttendanceRecords(int id)
+        {
+            var attendanceRecords = await _attendanceService.GetAllStudentAttendanceRecordsAsync(id);
+            return Ok(attendanceRecords);
+        }
+
         [HttpGet("{id:int}")]
         [Authorize(Roles = "Teacher,Admin,Student")]
         [ProducesResponseType(StatusCodes.Status200OK)]

@@ -1,4 +1,3 @@
-
 using HuaSect_AMS_DBTCclasslib.DbCtx;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
@@ -11,8 +10,16 @@ using HuaSect_AMS_DBTC.Repository;
 using System.Threading.RateLimiting;
 using HuaSect_AMS_DBTCclasslib;
 using HuaSect_AMS_DBTCclasslib.Interfaces;
+using HuaSect_AMS_DBTCclasslib.Models;
+using HuaSect_AMS_DBTC.Hubs;
+using HuaSect_AMS_DBTC;
+using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
+if (builder.Environment.IsDevelopment() || builder.Environment.IsEnvironment("Staging"))
+{
+    builder.Configuration.AddUserSecrets<Program>();
+}
 
 // Add services to the container.
 // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
@@ -20,9 +27,8 @@ builder.Services.AddSingleton<IEncryptionService>(sp =>
 {
     var config = sp.GetRequiredService<IConfiguration>();
     var key = config["Encryption:Key"] ?? throw new InvalidOperationException("Encryption key not configured");
-    var iv = config["Encryption:IV"] ?? throw new InvalidOperationException("Encryption IV not configured");
 
-    return new AesEncryptionService(key, iv);
+    return new AesEncryptionService(key);
 });
 builder.Services.AddDbContext<ApplicationDatabaseCtx>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("DefaultConnection")));
 
@@ -53,7 +59,8 @@ builder.Services.AddAuthentication(options =>
         ValidIssuer = builder.Configuration["Jwt:Issuer"],
         ValidAudience = builder.Configuration["Jwt:Audience"],
         IssuerSigningKey = new SymmetricSecurityKey(
-            Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!))
+            Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!)),
+        RoleClaimType = ClaimTypes.Role
     };
 });
 
@@ -63,7 +70,10 @@ builder.Services.AddControllers().AddNewtonsoftJson();
 
 builder.Services.AddEndpointsApiExplorer();
 
-builder.Services.AddOpenApi();
+builder.Services.AddOpenApi(options =>
+{
+    options.AddDocumentTransformer<BearerSecuritySchemeTransformer>();
+});
 
 builder.Services.AddScoped<ICourseRepository, CourseRepository>();
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
@@ -74,9 +84,12 @@ builder.Services.AddScoped<ICourseService, CourseService>();
 builder.Services.AddScoped<IStudentService, StudentService>();
 builder.Services.AddScoped<ITeacherService, TeacherService>();
 builder.Services.AddScoped<IAttendanceService, AttendanceService>();
-builder.Services.AddTransient<IEmailSender<ApplicationUser>, NoOpEmailSender>();
+builder.Services.AddTransient<IEmailSender<ApplicationUser>, EmailSenderService>();
 builder.Services.AddScoped<IdentitySeederService>();
+builder.Services.Configure<EmailSettings>(
+    builder.Configuration.GetSection("EmailSettings"));
 
+builder.Services.AddSignalR();
 
 builder.Services.AddRateLimiter(options =>
 {
@@ -115,6 +128,9 @@ app.UseRateLimiter();
 app.MapGet("/health", () => Results.Ok(new { status = "healthy", timestamp = DateTime.UtcNow }))
    .AllowAnonymous();
 app.MapControllers();
+app.UseWebSockets();
+app.MapHub<QrScanHub>("/qr-scan-hub");
+app.MapHub<NotificationHub>("/notifications");
 
 using (var scope = app.Services.CreateScope())
 {
@@ -139,3 +155,5 @@ using (var scope = app.Services.CreateScope())
 }
 
 app.Run();
+
+public partial class Program { };
