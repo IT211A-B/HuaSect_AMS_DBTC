@@ -6,7 +6,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HuaSect_AMS_DBTC.Controllers
 {
-    [Authorize("Admin")]
+    // [Authorize("Admin")]
     [Route("[controller]")]
     public class AdminController : Controller
     {
@@ -14,10 +14,10 @@ namespace HuaSect_AMS_DBTC.Controllers
         {
         }
 
-        [HttpGet]
-        public IActionResult Login()
+        [HttpGet("user-management")]
+        public IActionResult UserManagement()
         {
-            return View("LogInView");
+            return View("UserManagementView");
         }
     }
 }

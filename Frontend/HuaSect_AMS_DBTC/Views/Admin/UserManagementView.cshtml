@@ -1,0 +1,117 @@
+@model HuaSect_AMS_DBTC.Models.LogInModel
+
+@{
+    ViewData["Title"] = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Head {
+    @* <link rel="stylesheet" href="~/css/navbar.css" /> *@
+}
+
+<div class="user-management-container">
+    <section class="stats-grid">
+        <div class="stat-card">
+            <h3>Total Students</h3>
+            <p class="stat-value">6</p>
+        </div>
+        <div class="stat-card">
+            <h3>Subjects</h3>
+            <p class="stat-value">3</p>
+        </div>
+        <div class="stat-card">
+            <h3>Active</h3>
+            <p class="stat-value">5</p>
+        </div>
+        <div class="stat-card">
+            <h3>Inactive</h3>
+            <p class="stat-value">1</p>
+        </div>
+    </section>
+
+    <section class="table-controls">
+        <div class="search-wrapper">
+            <span class="search-icon">🔍</span>
+            <input type="text" placeholder="Search Project...">
+        </div>
+        <button class="add-btn">Add Student</button>
+    </section>
+
+    <table class="data-table">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th>Full Name</th>
+                <th>Email Address</th>
+                <th>Status</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>Dench Mery S. Caballero</td>
+                <td>denchmery.caballero@dbtc-cebu.edu.ph</td>
+                <td class="status-active">Active</td>
+                <td>
+                    <button class="action-btn edit">Edit</button>
+                    <button class="action-btn delete">Delete</button>
+                </td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Julia Yashika Kong</td>
+                <td>juliayashika.kong@dbtc-cebu.edu.ph</td>
+                <td class="status-active">Active</td>
+                <td>
+                    <button class="action-btn edit">Edit</button>
+                    <button class="action-btn delete">Delete</button>
+                </td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Maverick Tajanlangit</td>
+                <td>maverick.tajanlangit@dbtc-cebu.edu.ph</td>
+                <td class="status-active">Active</td>
+                <td>
+                    <button class="action-btn edit">Edit</button>
+                    <button class="action-btn delete">Delete</button>
+                </td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Leon S. Kennedy</td>
+                <td>leon.kennedy@dbtc-cebu.edu.ph</td>
+                <td class="status-active">Active</td>
+                <td>
+                    <button class="action-btn edit">Edit</button>
+                    <button class="action-btn delete">Delete</button>
+                </td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>Ada A. Wong</td>
+                <td>ada.wong@dbtc-cebu.edu.ph</td>
+                <td class="status-active">Active</td>
+                <td>
+                    <button class="action-btn edit">Edit</button>
+                    <button class="action-btn delete">Delete</button>
+                </td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>Mikhael Roso Santos</td>
+                <td>mikhaelroso.santos@dbtc-cebu.edu.ph</td>
+                <td class="status-inactive">Inactive</td>
+                <td>
+                    <button class="action-btn edit">Edit</button>
+                    <button class="action-btn delete">Delete</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+@section Scripts {
+    @* <script src="~/js/LogIn.js"></script> *@
+}
