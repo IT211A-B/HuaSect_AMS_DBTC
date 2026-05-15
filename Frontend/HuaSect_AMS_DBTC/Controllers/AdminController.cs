@@ -22,6 +22,12 @@ namespace HuaSect_AMS_DBTC.Controllers
             return View("UserManagementView");
         }
 
+        [HttpPost("user-management")]
+        public IActionResult UserManagementPost()
+        {
+            return View("UserManagementView");
+        }
+
         [HttpGet("create-course")]
         public IActionResult CreateCourse()
         {
@@ -29,7 +35,7 @@ namespace HuaSect_AMS_DBTC.Controllers
         }
 
         [HttpPost("create-course")]
-        public IActionResult CreateCoursePost()
+        public IActionResult CreateCoursePost([FromBody] CreateCourseModel model)
         {
             // _courseService.CreateCourse();
             return RedirectToAction("UserManagement");

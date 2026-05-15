@@ -22,40 +22,4 @@
 
         public ICollection<Student> Students { get; set; } = [];
     }
-
-    public class Course
-    {
-        public string Name { get; set; } = string.Empty;
-
-        public string Code { get; set; } = string.Empty;
-
-        public string Schedule { get; set; } = string.Empty;
-    }
-
-    public class Attendance
-    {
-        public string Day { get; set; } = string.Empty;
-
-        public DateTime Date { get; set; }
-
-        public string Status { get; set; } = string.Empty;
-    }
-
-    public class AttendanceTrackerPage
-    {
-        public required Course Course { get; set; }
-
-        public required Student Student { get; set; }
-
-        public ICollection<Attendance> AttendanceRecords { get; set; } = [];
-    }
-
-    public class CourseListPage
-    {
-        public ICollection<Course> Courses { get; set; } = [];
-
-        public ICollection<Student> Students { get; set; } = [];
-
-        public ICollection<Attendance> AttendanceRecords { get; set; } = [];
-    }
 }
