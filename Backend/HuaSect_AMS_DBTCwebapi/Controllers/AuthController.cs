@@ -60,7 +60,7 @@ namespace HuaSect_AMS_DBTC.Controllers
                 var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
 
                 var confirmationLink = Url.Action(
-                    action: nameof(ConfirmEmail),
+                    action: _configuration["FrontendUrl"],
                     controller: "Auth",
                     values: new { userId = user.Id, token },
                     protocol: Request.Scheme
