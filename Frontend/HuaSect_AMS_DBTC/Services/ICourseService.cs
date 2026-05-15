@@ -7,5 +7,7 @@ namespace HuaSect_AMS_DBTC.Services
         Task<ICollection<Course>> GetAllCoursesAsync();
 
         Task<Course?> GetCourseByIdAsync(int id);
+
+        Task CreateCourse(CreateCourseModel model);
     }
 }

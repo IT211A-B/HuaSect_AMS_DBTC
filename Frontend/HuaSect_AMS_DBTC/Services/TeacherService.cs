@@ -13,6 +13,14 @@ namespace HuaSect_AMS_DBTC.Services
             _config = config;
         }
 
+        public async Task<ICollection<Teacher>> GetAllTeachersAsync()
+        {
+            var response = await _httpClient.GetAsync($"{_config["BackendUrl"]}/api/Teacher");
+            response.EnsureSuccessStatusCode();
+            var teachers = await response.Content.ReadFromJsonAsync<ICollection<Teacher>>();
+            return teachers;
+        }
+
         public async Task<Teacher?> GetTeacherByIdAsync(int id)
         {
             var response = await _httpClient.GetAsync($"{_config["BackendUrl"]}/api/Teacher/{id}");

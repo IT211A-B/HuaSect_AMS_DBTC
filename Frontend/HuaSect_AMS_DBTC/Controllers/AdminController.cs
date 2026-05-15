@@ -11,14 +11,33 @@ namespace HuaSect_AMS_DBTC.Controllers
     public class AdminController : Controller
     {
         private readonly ICourseService _courseService;
-        public AdminController(ICourseService courseService)
+        private readonly IStudentService _studentService;
+        private readonly ITeacherService _teacherService;
+        public AdminController(ICourseService courseService, IStudentService studentService, ITeacherService teacherService)
         {
             _courseService = courseService;
+            _studentService = studentService;
+            _teacherService = teacherService;
         }
 
         [HttpGet("user-management")]
-        public IActionResult UserManagement()
+        public async Task<IActionResult> UserManagement()
         {
+            ICollection<Student> students;
+            ICollection<Teacher> teachers;
+            try
+            {
+               students = await _studentService.GetAllStudentsAsync();
+               teachers = await _teacherService.GetAllTeachersAsync();
+            } catch (Exception ex)
+            {
+                return BadRequest(ex.Message);
+            }
+            var userManagementPage = new UserManagementPage
+            {
+                Students = students,
+                Teachers = teachers,
+            };
             return View("UserManagementView");
         }
 
@@ -37,7 +56,7 @@ namespace HuaSect_AMS_DBTC.Controllers
         [HttpPost("create-course")]
         public IActionResult CreateCoursePost([FromBody] CreateCourseModel model)
         {
-            // _courseService.CreateCourse();
+            _courseService.CreateCourse(model);
             return RedirectToAction("UserManagement");
         }
     }

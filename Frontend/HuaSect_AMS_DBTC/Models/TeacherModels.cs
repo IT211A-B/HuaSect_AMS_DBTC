@@ -1,4 +1,6 @@
-﻿namespace HuaSect_AMS_DBTC.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace HuaSect_AMS_DBTC.Models
 {
     public class Teacher
     {
@@ -7,19 +9,42 @@
         public string LastName { get; set; } = string.Empty;
     }
 
-    public class Student
+    public class RegisterTeacherModel
     {
-        public string Name { get; set; } = string.Empty;
+        [Required(ErrorMessage = "First name is required.")]
+        [Display(Name = "First Name")]
+        public string FirstName { get; set; }
 
-        public int Year { get; set; }
+        [Required(ErrorMessage = "Last name is required.")]
+        [Display(Name = "Last Name")]
+        public string LastName { get; set; }
 
-        public string Field { get; set; } = string.Empty;
-    }
+        // Optional field
+        [Display(Name = "Middle Name")]
+        public string? MiddleName { get; set; }
 
-    public class StudentManagementPage
-    {
-        public required Teacher Teacher { get; set; }
+        // Optional field
+        [Display(Name = "Suffix")]
+        public string? Suffix { get; set; }
 
-        public ICollection<Student> Students { get; set; } = [];
+        [Required(ErrorMessage = "Email is required.")]
+        [EmailAddress(ErrorMessage = "Invalid email address.")]
+        [Display(Name = "Email")]
+        public string Email { get; set; }
+
+        [Required(ErrorMessage = "Password is required.")]
+        [StringLength(100, ErrorMessage = "The {0} must be at least {2} characters long.", MinimumLength = 6)]
+        [DataType(DataType.Password)]
+        [Display(Name = "Password")]
+        public string Password { get; set; }
+
+        [DataType(DataType.Password)]
+        [Display(Name = "Confirm Password")]
+        [Compare("Password", ErrorMessage = "The password and confirmation password do not match.")]
+        public string ConfirmPassword { get; set; }
+
+        [Required(ErrorMessage = "Department is required.")]
+        [Display(Name = "Department")]
+        public string Department { get; set; }
     }
 }

@@ -13,6 +13,12 @@ namespace HuaSect_AMS_DBTC.Services
             _config = config;
         }
 
+        public async Task CreateCourse(CreateCourseModel model)
+        {
+            var response = await _httpClient.PostAsJsonAsync($"{_config["BackendUrl"]}/api/Course", model);
+            response.EnsureSuccessStatusCode();
+        }
+
         public async Task<ICollection<Course>> GetAllCoursesAsync()
         {
             var response = await _httpClient.GetAsync($"{_config["BackendUrl"]}/api/Course");
