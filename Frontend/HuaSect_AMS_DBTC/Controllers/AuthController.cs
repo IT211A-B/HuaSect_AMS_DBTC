@@ -64,9 +64,9 @@ namespace HuaSect_AMS_DBTC.Controllers
         }
 
         [HttpPost("register-student")]
-        public IActionResult RegisterStudentPost()
+        public async Task<IActionResult> RegisterStudentPost([FromBody] RegisterStudentModel model)
         {
-            // _authService.RegisterStudent();
+            await _authService.RegisterStudentAsync(model);
             return RedirectToAction("Login");
         }
 
@@ -77,17 +77,17 @@ namespace HuaSect_AMS_DBTC.Controllers
         }
 
         [HttpPost("register-teacher")]
-        public IActionResult RegisterTeacherPost()
+        public async Task<IActionResult> RegisterTeacherPost([FromBody] RegisterTeacherModel model)
         {
-            // _authService.RegisterTeacher();
+            await _authService.RegisterTeacherAsync(model);
             return RedirectToAction("Login");
         }
 
         [HttpGet("confirm-email")]
-        public IActionResult ConfirmEmail()
+        public IActionResult ConfirmEmail([FromQuery] string userId, [FromQuery] string token)
         {
-            _authService.
-            return Ok();
+            _authService.ConfirmEmailAsync(userId, token);
+            return RedirectToAction("Login");
         }
     }
 }

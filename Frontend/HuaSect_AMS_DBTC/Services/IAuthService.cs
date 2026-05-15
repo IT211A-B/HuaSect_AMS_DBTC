@@ -5,10 +5,10 @@ namespace HuaSect_AMS_DBTC.Services
     {
         Task<LogInResponseModel> LoginAsync(LogInModel model);
 
-        Task<LogInResponseModel> RegisterStudentAsync(RegisterStudentModel model);
+        Task RegisterStudentAsync(RegisterStudentModel model);
 
-        Task<LogInResponseModel> RegisterTeacherAsync(RegisterTeacherModel model);
+        Task RegisterTeacherAsync(RegisterTeacherModel model);
 
-        Task<LogInResponseModel> ConfirmEmailAsync(LogInModel model);
+        Task ConfirmEmailAsync(string userId, string token);
     }
 }

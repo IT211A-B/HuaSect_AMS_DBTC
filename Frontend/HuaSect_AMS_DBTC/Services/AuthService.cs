@@ -13,9 +13,9 @@ namespace HuaSect_AMS_DBTC.Services
             _config = config;
         }
 
-        public Task<LogInResponseModel> ConfirmEmailAsync(LogInModel model)
+        public async Task ConfirmEmailAsync(string userId, string token)
         {
-            var response = await _httpClient.PostAsJsonAsync($"{_config["BackendUrl"]}/api/Auth/confirmEmail?", model);
+            var response = await _httpClient.GetAsync($"{_config["BackendUrl"]}/api/Auth/confirmEmail?userId={userId}&token={token}");
             response.EnsureSuccessStatusCode();
         }
 
@@ -27,13 +27,13 @@ namespace HuaSect_AMS_DBTC.Services
             return token;
         }
 
-        public Task<LogInResponseModel> RegisterStudentAsync(RegisterStudentModel model)
+        public async Task RegisterStudentAsync(RegisterStudentModel model)
         {
             var response = await _httpClient.PostAsJsonAsync($"{_config["BackendUrl"]}/api/Auth/register/student", model);
             response.EnsureSuccessStatusCode();
         }
 
-        public Task<LogInResponseModel> RegisterTeacherAsync(RegisterTeacherModel model)
+        public async Task RegisterTeacherAsync(RegisterTeacherModel model)
         {
             var response = await _httpClient.PostAsJsonAsync($"{_config["BackendUrl"]}/api/Auth/register/teacher", model);
             response.EnsureSuccessStatusCode();

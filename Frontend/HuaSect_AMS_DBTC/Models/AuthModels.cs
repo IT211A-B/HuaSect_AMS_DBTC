@@ -17,6 +17,12 @@ namespace HuaSect_AMS_DBTC.Models
         public string Role { get; set; } = "student"; // Matches your hidden input's default value
     }
 
+
+    public class LogInResponseModel
+    {
+        public string Token { get; set; }
+    }
+
     public class RegisterStudentModel
     {
         [Required(ErrorMessage = "First name is required.")]
