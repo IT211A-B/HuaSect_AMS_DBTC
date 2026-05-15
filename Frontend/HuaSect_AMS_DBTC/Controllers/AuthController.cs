@@ -26,13 +26,14 @@ namespace HuaSect_AMS_DBTC.Controllers
         {
             if (!ModelState.IsValid)
                 return View(model); // Re-renders with validation errors
-            
+
             List<string> cookies;
 
             try
             {
                 cookies = (await _authService.LoginAsync(model)).ToList();
-            } catch (Exception ex)
+            }
+            catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
@@ -45,7 +46,8 @@ namespace HuaSect_AMS_DBTC.Controllers
             if (model.Role == "student")
             {
                 return RedirectToAction("StudentDashboard", "Student");
-            } else
+            }
+            else
             {
                 return RedirectToAction("StudentManagement", "Teacher");
             }
@@ -55,6 +57,12 @@ namespace HuaSect_AMS_DBTC.Controllers
         public IActionResult Register()
         {
             return View("RegisterView");
+        }
+
+        [HttpGet("confirm-email")]
+        public IActionResult ConfirmEmail()
+        {
+            return Ok();
         }
     }
 }

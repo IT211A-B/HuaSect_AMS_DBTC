@@ -10,13 +10,28 @@ namespace HuaSect_AMS_DBTC.Controllers
     [Route("[controller]")]
     public class AdminController : Controller
     {
-        public AdminController(IAuthService authService)
+        private readonly ICourseService _courseService;
+        public AdminController(ICourseService courseService)
         {
+            _courseService = courseService;
         }
 
         [HttpGet("user-management")]
         public IActionResult UserManagement()
         {
+            return View("UserManagementView");
+        }
+
+        [HttpGet("create-course")]
+        public IActionResult CreateCourse()
+        {
+            return View("UserManagementView");
+        }
+
+        [HttpPost("create-course")]
+        public IActionResult CreateCoursePost()
+        {
+            
             return View("UserManagementView");
         }
     }
