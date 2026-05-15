@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using System.Text;
 using HuaSect_AMS_DBTC.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -21,20 +22,25 @@ builder.Services.AddAuthentication("Cookies")
         options.TokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuer = true,
-            ValidIssuer = builder.Configuration["BackendUrl"],
-            ValidateAudience = false, // Set to true if you have an Audience defined
+            ValidateAudience = true,
+            ValidateLifetime = true,
             ValidateIssuerSigningKey = true,
-            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["JwtKey"])),
-            RoleClaimType = "role" // Ensure this matches your JWT payload key
+            ValidIssuer = builder.Configuration["Jwt:Issuer"],
+            ValidAudience = builder.Configuration["Jwt:Audience"],
+            IssuerSigningKey = new SymmetricSecurityKey(
+                Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"])),
+            RoleClaimType = ClaimTypes.Role
         };
         
-        // This tells MVC to look for the token in the Cookie header 
-        // since the browser sends it there
         options.Events = new JwtBearerEvents
         {
             OnMessageReceived = context =>
             {
-                context.Token = context.Request.Cookies["YourCookieName"];
+                // Try to get token from HttpOnly cookie
+                if (context.Request.Cookies.TryGetValue("AuthToken", out var token))
+                {
+                    context.Token = token;
+                }
                 return Task.CompletedTask;
             }
         };

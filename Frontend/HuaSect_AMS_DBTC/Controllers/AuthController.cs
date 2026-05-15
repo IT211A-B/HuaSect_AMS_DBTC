@@ -24,25 +24,29 @@ namespace HuaSect_AMS_DBTC.Controllers
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LogInModel model)
         {
+            // todo need to check if user email confirmed
             if (!ModelState.IsValid)
                 return View(model); // Re-renders with validation errors
 
             List<string> cookies;
+            LogInResponseModel token;
 
             try
             {
-                cookies = (await _authService.LoginAsync(model)).ToList();
+                token = await _authService.LoginAsync(model);
             }
             catch (Exception ex)
             {
                 return BadRequest(ex.Message);
             }
-
-            foreach (var cookie in cookies)
+            Response.Cookies.Append("AuthToken", token.Token, new CookieOptions
             {
-                // 3. Forward the cookie to the User's Browser
-                Response.Headers.Append("Set-Cookie", cookie);
-            }
+                HttpOnly = true,
+                Secure = true,
+                SameSite = SameSiteMode.Strict,
+                MaxAge = TimeSpan.FromMinutes(15),
+                Path="/"
+            });
             if (model.Role == "student")
             {
                 return RedirectToAction("StudentDashboard", "Student");
@@ -53,15 +57,36 @@ namespace HuaSect_AMS_DBTC.Controllers
             }
         }
 
-        [HttpGet("register")]
-        public IActionResult Register()
+        [HttpGet("register-student")]
+        public IActionResult RegisterStudent()
         {
-            return View("RegisterView");
+            return View("RegisterStudentView");
+        }
+
+        [HttpPost("register-student")]
+        public IActionResult RegisterStudentPost()
+        {
+            // _authService.RegisterStudent();
+            return RedirectToAction("Login");
+        }
+
+        [HttpGet("register-teacher")]
+        public IActionResult RegisterTeacher()
+        {
+            return View("RegisterTeacherView");
+        }
+
+        [HttpPost("register-teacher")]
+        public IActionResult RegisterTeacherPost()
+        {
+            // _authService.RegisterTeacher();
+            return RedirectToAction("Login");
         }
 
         [HttpGet("confirm-email")]
         public IActionResult ConfirmEmail()
         {
+            _authService.
             return Ok();
         }
     }

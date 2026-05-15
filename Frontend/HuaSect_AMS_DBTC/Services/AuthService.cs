@@ -13,12 +13,30 @@ namespace HuaSect_AMS_DBTC.Services
             _config = config;
         }
 
-        public async Task<IEnumerable<string>> LoginAsync(LogInModel model)
+        public Task<LogInResponseModel> ConfirmEmailAsync(LogInModel model)
+        {
+            var response = await _httpClient.PostAsJsonAsync($"{_config["BackendUrl"]}/api/Auth/confirmEmail?", model);
+            response.EnsureSuccessStatusCode();
+        }
+
+        public async Task<LogInResponseModel> LoginAsync(LogInModel model)
         {
             var response = await _httpClient.PostAsJsonAsync($"{_config["BackendUrl"]}/api/Auth/login", model);
             response.EnsureSuccessStatusCode();
-            response.Headers.TryGetValues("Set-Cookie", out var cookies);
-            return cookies;
+            var token = await response.Content.ReadFromJsonAsync<LogInResponseModel>();
+            return token;
+        }
+
+        public Task<LogInResponseModel> RegisterStudentAsync(LogInModel model)
+        {
+            var response = await _httpClient.PostAsJsonAsync($"{_config["BackendUrl"]}/api/Auth/register/student", model);
+            response.EnsureSuccessStatusCode();
+        }
+
+        public Task<LogInResponseModel> RegisterTeacherAsync(LogInModel model)
+        {
+            var response = await _httpClient.PostAsJsonAsync($"{_config["BackendUrl"]}/api/Auth/register/teacher", model);
+            response.EnsureSuccessStatusCode();
         }
     }
 }

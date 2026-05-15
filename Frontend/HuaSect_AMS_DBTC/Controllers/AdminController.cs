@@ -25,14 +25,14 @@ namespace HuaSect_AMS_DBTC.Controllers
         [HttpGet("create-course")]
         public IActionResult CreateCourse()
         {
-            return View("UserManagementView");
+            return View("CreateCoure");
         }
 
         [HttpPost("create-course")]
         public IActionResult CreateCoursePost()
         {
-            
-            return View("UserManagementView");
+            // _courseService.CreateCourse();
+            return RedirectToAction("UserManagement");
         }
     }
 }
