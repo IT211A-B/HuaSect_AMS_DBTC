@@ -5,17 +5,17 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace HuaSect_AMS_DBTC.Controllers
 {
-    public class LogInController : Controller
+    public class AuthController : Controller
     {
         private readonly IAuthService _authService;
 
-        public LogInController(IAuthService authService)
+        public AuthController(IAuthService authService)
         {
             _authService = authService;
         }
 
         [HttpGet]
-        public IActionResult Index()
+        public IActionResult Login()
         {
             return View("LogInView");
         }
@@ -49,6 +49,12 @@ namespace HuaSect_AMS_DBTC.Controllers
             {
                 return RedirectToAction("StudentManagement", "Teacher");
             }
+        }
+
+        [HttpGet("register")]
+        public IActionResult Register()
+        {
+            return View("RegisterView");
         }
     }
 }

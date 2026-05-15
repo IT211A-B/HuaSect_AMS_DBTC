@@ -1,0 +1,52 @@
+﻿@model HuaSect_AMS_DBTC.Models.LogInModel
+
+@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Head {
+    <link rel="stylesheet" href="~/css/navbar.css" />
+}
+
+<div class="background-wrapper">
+        <div class="container">
+            <h1>Create an Account</h1>
+            
+            <button class="google-btn">
+                <img src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google Logo">
+                Continue with Google
+            </button>
+
+            <div class="separator">
+                <span>OR</span>
+            </div>
+
+            <form>
+                <div class="input-group">
+                    <label>Email or Phone</label>
+                    <input type="text" required>
+                </div>
+
+                <div class="input-group">
+                    <label>Password</label>
+                    <input type="password" required>
+                </div>
+
+                <div class="input-group">
+                    <label>Full Name</label>
+                    <input type="text" required>
+                </div>
+
+                <button type="submit" class="continue-btn">Continue</button>
+            </form>
+
+            <p class="footer-text">
+                Already have an account? <a href="#">Register</a>
+            </p>
+        </div>
+    </div>
+
+@section Scripts {
+    @* <script src="~/js/LogIn.js"></script> *@
+}
