@@ -12,6 +12,8 @@ using HuaSect_AMS_DBTCclasslib;
 using HuaSect_AMS_DBTCclasslib.Interfaces;
 using HuaSect_AMS_DBTCclasslib.Models;
 using HuaSect_AMS_DBTC.Hubs;
+using HuaSect_AMS_DBTC;
+using System.Security.Claims;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -53,7 +55,8 @@ builder.Services.AddAuthentication(options =>
         ValidIssuer = builder.Configuration["Jwt:Issuer"],
         ValidAudience = builder.Configuration["Jwt:Audience"],
         IssuerSigningKey = new SymmetricSecurityKey(
-            Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!))
+            Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!)),
+        RoleClaimType = ClaimTypes.Role
     };
 });
 
@@ -63,7 +66,10 @@ builder.Services.AddControllers().AddNewtonsoftJson();
 
 builder.Services.AddEndpointsApiExplorer();
 
-builder.Services.AddOpenApi();
+builder.Services.AddOpenApi(options =>
+{
+    options.AddDocumentTransformer<BearerSecuritySchemeTransformer>();
+});
 
 builder.Services.AddScoped<ICourseRepository, CourseRepository>();
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();

@@ -8,6 +8,7 @@ using System.Text;
 using HuaSect_AMS_DBTCclasslib;
 using HuaSect_AMS_DBTC.Service;
 using HuaSect_AMS_DBTCclasslib.Dtos;
+using System.Threading.Tasks;
 
 namespace HuaSect_AMS_DBTC.Controllers
 {
@@ -55,6 +56,7 @@ namespace HuaSect_AMS_DBTC.Controllers
 
             if (result.Succeeded)
             {
+                await _userManager.AddToRoleAsync(user, "Teacher");
                 var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
 
                 var confirmationLink = Url.Action(
@@ -99,6 +101,7 @@ namespace HuaSect_AMS_DBTC.Controllers
 
             if (result.Succeeded)
             {
+                await _userManager.AddToRoleAsync(user, "Student");
                 var token = await _userManager.GenerateEmailConfirmationTokenAsync(user);
 
                 var confirmationLink = Url.Action(
@@ -137,7 +140,7 @@ namespace HuaSect_AMS_DBTC.Controllers
 
             if (result.Succeeded)
             {
-                var token = GenerateJwtToken(user);
+                var token = await GenerateJwtToken(user);
                 return Ok(new { Token = token });
             }
 
@@ -167,7 +170,7 @@ namespace HuaSect_AMS_DBTC.Controllers
             return BadRequest("Email confirmation failed");
         }
 
-        private string GenerateJwtToken(ApplicationUser user)
+        private async Task<string> GenerateJwtToken(ApplicationUser user)
         {
             var claims = new List<Claim>
             {
@@ -176,7 +179,7 @@ namespace HuaSect_AMS_DBTC.Controllers
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 
-            var roles = _userManager.GetRolesAsync(user).Result;
+            var roles = await _userManager.GetRolesAsync(user);
             foreach (var role in roles)
             {
                 claims.Add(new Claim(ClaimTypes.Role, role));

@@ -22,7 +22,7 @@ public class EmailSenderService : IEmailSender<ApplicationUser>
         emailMsg.From.Add(new MailboxAddress(_settings.SenderName, _settings.SenderEmail));
         emailMsg.To.Add(MailboxAddress.Parse(user.Email ?? ""));
         emailMsg.Subject = "Email Confirmation";
-        emailMsg.Body = new TextPart("html") { Text = email };
+        emailMsg.Body = new TextPart("html") { Text = $"{email} {confirmationLink}" };
 
         using var smtp = new SmtpClient();
         await smtp.ConnectAsync(_settings.SmtpServer, _settings.Port, MailKit.Security.SecureSocketOptions.StartTls);
