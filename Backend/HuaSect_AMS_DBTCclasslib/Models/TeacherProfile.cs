@@ -15,6 +15,12 @@ public class TeacherProfile
         Department = department;
     }
 
+    public TeacherProfile(string department, ApplicationUser user)
+    {
+        Department = department;
+        User = user;
+    }
+
     public void Update(int id, string department)
     {
         ID = id;

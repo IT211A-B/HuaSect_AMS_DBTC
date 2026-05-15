@@ -33,9 +33,9 @@ namespace HuaSect_AMS_DBTC.Service
 
         public async Task<TeacherProfile?> GetTeacherByIdAsync(int id) => await _repository.GetByIdAsync(id);
 
-        public async Task<NewlyCreateTeacherDto> CreateTeacherAsync(CreateTeacherDto dto)
+        public async Task<NewlyCreateTeacherDto> CreateTeacherAsync(CreateTeacherDto dto, ApplicationUser user)
         {
-            var newTeacher = new TeacherProfile(dto.Department);
+            var newTeacher = new TeacherProfile(dto.Department, user);
             var newlyCreatedTeacher = await _repository.AddAsync(newTeacher);
             await _repository.SaveChangesAsync();
 

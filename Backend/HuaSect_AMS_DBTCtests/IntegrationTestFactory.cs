@@ -1,9 +1,11 @@
 using System.Security.Claims;
 using HuaSect_AMS_DBTC.Service;
+using HuaSect_AMS_DBTCclasslib;
 using HuaSect_AMS_DBTCclasslib.DbCtx;
 using HuaSect_AMS_DBTCclasslib.Interfaces;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc.Testing;
 using Microsoft.AspNetCore.TestHost;
 using Microsoft.EntityFrameworkCore;
@@ -81,8 +83,8 @@ public class IntegrationTestFactory : WebApplicationFactory<Program>
             services.AddSingleton<IEncryptionService>(
                 new AesEncryptionService(testEncryptionKey));
 
-            services.RemoveAll<IEmailSender>();
-            services.AddTransient<IEmailService, EmailSenderService>();
+            services.RemoveAll<IEmailSender<ApplicationUser>>();
+            services.AddTransient<IEmailSender<ApplicationUser>, EmailSenderService>();
 
             RemoveAllHostedServices(services);
         });

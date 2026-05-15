@@ -65,7 +65,7 @@ namespace HuaSect_AMS_DBTC.Controllers
                 ) ?? "";
                 await _emailSender.SendConfirmationLinkAsync(user, user.Email, confirmationLink);
 
-                var teacher = await _teacherService.CreateTeacherAsync(model);
+                var teacher = await _teacherService.CreateTeacherAsync(model, user);
 
                 return CreatedAtAction(nameof(RegisterTeacher), new { id = user.Id }, new
                 {
@@ -89,6 +89,10 @@ namespace HuaSect_AMS_DBTC.Controllers
             {
                 UserName = model.Email,
                 Email = model.Email,
+                FirstName = model.FirstName,
+                LastName = model.LastName,
+                MiddleName = model.MiddleName,
+                Suffix = model.Suffix
             };
 
             var result = await _userManager.CreateAsync(user, model.Password);
@@ -103,10 +107,11 @@ namespace HuaSect_AMS_DBTC.Controllers
                     values: new { userId = user.Id, token },
                     protocol: Request.Scheme
                 ) ?? "";
+                Console.WriteLine(user.Id);
 
                 await _emailSender.SendConfirmationLinkAsync(user, user.Email, confirmationLink);
 
-                var student = await _studentService.CreateStudentAsync(model);
+                var student = await _studentService.CreateStudentAsync(model, user);
 
                 return CreatedAtAction(nameof(RegisterStudent), new { id = user.Id }, new
                 {

@@ -25,7 +25,7 @@ namespace HuaSect_AMS_DBTC.Repository
             return (totalRecords, data);
         }
 
-        public async Task<List<StudentProfile>> GetAllByCourseAsync(int id) => await _context.StudentProfile.Where(s => s.Course.ID == id).AsNoTracking().ToListAsync();
+        public async Task<List<StudentProfile>> GetAllByCourseAsync(int id) => await _context.StudentProfile.Where(s => s.Courses.Any(c => c.ID == id)).AsNoTracking().ToListAsync();
 
         public async Task<StudentProfile?> GetByIdAsync(int id) => await _context.StudentProfile.FirstOrDefaultAsync(s => s.ID == id);
 

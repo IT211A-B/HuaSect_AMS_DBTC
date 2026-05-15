@@ -35,12 +35,11 @@ namespace HuaSect_AMS_DBTC.Service
 
         public async Task<StudentProfile?> GetStudentByIdAsync(int id) => await _repository.GetByIdAsync(id);
 
-        public async Task<NewlyCreateStudentDto> CreateStudentAsync(CreateStudentDto dto)
+        public async Task<NewlyCreateStudentDto> CreateStudentAsync(CreateStudentDto dto, ApplicationUser user)
         {
-            var newStudent = new StudentProfile(dto.StudentNumber, dto.YearLevel);
+            var newStudent = new StudentProfile(dto.StudentNumber, dto.YearLevel, user);
             await _repository.AddAsync(newStudent);
             await _repository.SaveChangesAsync();
-            
 
             return new NewlyCreateStudentDto(newStudent.ID, newStudent.YearLevel);
         }
