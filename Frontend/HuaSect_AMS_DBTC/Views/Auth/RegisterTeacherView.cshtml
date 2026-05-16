@@ -1,0 +1,78 @@
+﻿@model HuaSect_AMS_DBTC.Models.RegisterTeacherModel
+
+@{
+    ViewData["Title"] = "Register";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Head {
+    <link rel="stylesheet" href="~/css/navbar.css" />
+}
+
+<div class="background-wrapper">
+    <div class="container">
+        <h1>Create an Account</h1>
+
+        <form asp-action="RegisterTeacher" method="post">
+            <div class="form-row">
+                <div class="input-group">
+                    <label asp-for="FirstName"></label>
+                    <input asp-for="FirstName" />
+                    <span asp-validation-for="FirstName" class="text-danger"></span>
+                </div>
+                <div class="input-group">
+                    <label asp-for="LastName"></label>
+                    <input asp-for="LastName" />
+                    <span asp-validation-for="LastName" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="form-row">
+                <div class="input-group">
+                    <label asp-for="MiddleName"></label>
+                    <input asp-for="MiddleName" />
+                    <span asp-validation-for="MiddleName" class="text-danger"></span>
+                </div>
+                <div class="input-group suffix-group">
+                    <label asp-for="Suffix"></label>
+                    <input asp-for="Suffix" />
+                    <span asp-validation-for="Suffix" class="text-danger"></span>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label asp-for="Email"></label>
+                <input asp-for="Email" />
+                <span asp-validation-for="Email" class="text-danger"></span>
+            </div>
+
+            <div class="input-group">
+                <label asp-for="Password"></label>
+                <input asp-for="Password" />
+                <span asp-validation-for="Password" class="text-danger"></span>
+            </div>
+
+            <div class="input-group">
+                <label asp-for="ConfirmPassword"></label>
+                <input asp-for="ConfirmPassword" />
+                <span asp-validation-for="ConfirmPassword" class="text-danger"></span>
+            </div>
+
+            <div class="input-group">
+                <label asp-for="Department"></label>
+                <input asp-for="Department" />
+                <span asp-validation-for="Department" class="text-danger"></span>
+            </div>
+
+            <button type="submit" class="continue-btn">Continue</button>
+        </form>
+
+        <p class="footer-text">
+            Already have an account? <a href="#">Login</a>
+        </p>
+    </div>
+</div>
+
+@section Scripts {
+    @* <script src="~/js/LogIn.js"></script> *@
+}

@@ -1,0 +1,145 @@
+﻿.background-wrapper {
+    position: relative;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1;
+}
+
+/* Card Container */
+.container {
+    background: rgba(43, 45, 49, 0.85); /* Slightly darker solid translucent gray */
+    width: 100%;
+    max-width: 540px;
+    padding: 45px 50px;
+    border-radius: 30px;
+    border: 1px solid rgba(255, 255, 255, 0.7); /* Distinct white border */
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+    text-align: center;
+    color: #ffffff;
+    z-index: 10;
+}
+
+/* Heading */
+h1 {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 30px;
+    letter-spacing: 0.5px;
+}
+
+/* Buttons Base */
+button {
+    width: 100%;
+    background: transparent;
+    color: #ffffff;
+    font-size: 1rem;
+    padding: 12px;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+/* Google Button */
+.google-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    border: 1.5px solid rgba(255, 255, 255, 0.7);
+    font-weight: 500;
+}
+
+.google-btn img {
+    width: 20px;
+    height: 20px;
+}
+
+.google-btn:hover {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+/* Separator ("OR") */
+.separator {
+    display: flex;
+    align-items: center;
+    text-align: center;
+    margin: 25px 0;
+    color: #ffffff;
+    font-size: 0.85rem;
+    font-weight: bold;
+}
+
+.separator::before,
+.separator::after {
+    content: '';
+    flex: 1;
+    border-bottom: 1.5px solid rgba(255, 255, 255, 0.5);
+}
+
+.separator:not(:empty)::before { margin-right: 15px; }
+.separator:not(:empty)::after { margin-left: 15px; }
+
+/* Input Form Groups */
+.input-group {
+    text-align: left;
+    margin-bottom: 18px;
+}
+
+.input-group label {
+    display: block;
+    font-size: 0.9rem;
+    margin-bottom: 8px;
+    color: #ffffff;
+    font-weight: 500;
+}
+
+.input-group input {
+    width: 100%;
+    padding: 12px;
+    background: rgba(30, 30, 30, 0.4); 
+    border: 1.5px solid rgba(255, 255, 255, 0.6);
+    border-radius: 6px;
+    color: #ffffff;
+    font-size: 1rem;
+    outline: none;
+    transition: border-color 0.2s;
+}
+
+.input-group input:focus {
+    border-color: #ffffff;
+    background: rgba(30, 30, 30, 0.6);
+}
+
+/* Submit/Continue Button */
+.continue-btn {
+    border: 1.5px solid rgba(255, 255, 255, 0.8);
+    background: rgba(40, 40, 40, 0.5);
+    font-weight: 600;
+    margin-top: 10px;
+    padding: 14px;
+    border-radius: 12px;
+}
+
+.continue-btn:hover {
+    background: rgba(255, 255, 255, 0.2);
+}
+
+/* Footer / Registration Link */
+.footer-text {
+    margin-top: 25px;
+    font-size: 0.8rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.footer-text a {
+    color: #4da3ff;
+    text-decoration: none;
+    margin-left: 4px;
+}
+
+.footer-text a:hover {
+    text-decoration: underline;
+}

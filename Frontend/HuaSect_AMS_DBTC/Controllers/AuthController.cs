@@ -20,7 +20,7 @@ namespace HuaSect_AMS_DBTC.Controllers
             return View("LogInView");
         }
 
-        [HttpPost]
+        [HttpPost("Login")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LogInModel model)
         {
@@ -66,7 +66,7 @@ namespace HuaSect_AMS_DBTC.Controllers
         public async Task<IActionResult> RegisterStudentPost([FromBody] RegisterStudentModel model)
         {
             await _authService.RegisterStudentAsync(model);
-            return RedirectToAction("Login");
+            return RedirectToAction("Index");
         }
 
         [HttpGet("register-teacher")]
@@ -79,7 +79,7 @@ namespace HuaSect_AMS_DBTC.Controllers
         public async Task<IActionResult> RegisterTeacherPost([FromBody] RegisterTeacherModel model)
         {
             await _authService.RegisterTeacherAsync(model);
-            return RedirectToAction("Login");
+            return RedirectToAction("Index");
         }
 
         [HttpGet("confirm-email")]
