@@ -2,6 +2,7 @@
 using HuaSect_AMS_DBTC.Models;
 using HuaSect_AMS_DBTC.Services;
 using Microsoft.AspNetCore.Mvc;
+using QRCoder;
 
 namespace HuaSect_AMS_DBTC.Controllers
 {
@@ -44,7 +45,7 @@ namespace HuaSect_AMS_DBTC.Controllers
                 Secure = true,
                 SameSite = SameSiteMode.Strict,
                 MaxAge = TimeSpan.FromMinutes(15),
-                Path="/"
+                Path = "/"
             });
             if (model.Role == "student")
             {
@@ -87,6 +88,31 @@ namespace HuaSect_AMS_DBTC.Controllers
         {
             _authService.ConfirmEmailAsync(userId, token);
             return RedirectToAction("Login");
+        }
+
+        [HttpGet("qr-scan")]
+        public IActionResult QrScan()
+        {
+            var model = new QrCodeViewModel();
+
+            // 1. Initialize the QR Code generator
+            using (QRCodeGenerator qrGenerator = new QRCodeGenerator())
+            {
+                // 2. Create the QR code data using the payload text and error correction level (Q/M/H)
+                using (QRCodeData qrCodeData = qrGenerator.CreateQrCode(model.PayloadText, QRCodeGenerator.ECCLevel.Q))
+                {
+                    // 3. Render the data as a PNG byte array
+                    using (PngByteQRCode qrCode = new PngByteQRCode(qrCodeData))
+                    {
+                        byte[] qrCodeBytes = qrCode.GetGraphic(20); // 20 is the pixel size per module
+
+                        // 4. Convert to Base64 string for the HTML img tag
+                        model.QrCodeImageBase64 = Convert.ToBase64String(qrCodeBytes);
+                    }
+                }
+            }
+
+            return View("QrScanView", model);
         }
     }
 }

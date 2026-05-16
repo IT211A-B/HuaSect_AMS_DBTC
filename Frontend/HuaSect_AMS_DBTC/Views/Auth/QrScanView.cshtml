@@ -1,0 +1,37 @@
+@model HuaSect_AMS_DBTC.Models.QrCodeViewModel
+
+@{
+    ViewData["Title"] = "QR Code Generator";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+@section Head {
+    <link rel="stylesheet" href="~/css/navbar.css" />
+}
+
+<div class="text-center mt-5">
+    <h2>Your Generated QR Code</h2>
+    <p class="text-muted">Scanning this will take you to: <strong>@Model.PayloadText</strong></p>
+
+    <div class="my-4">
+        @if (!string.IsNullOrEmpty(Model.QrCodeImageBase64))
+        {
+            <!-- The magic happens here -->
+            <img src="data:image/png;base64,@Model.QrCodeImageBase64" 
+                 alt="Generated QR Code" 
+                 style="width: 250px; height: 250px; border: 1px solid #dee2e6; padding: 10px; border-radius: 8px;" />
+        }
+        else
+        {
+            <p class="text-danger">Failed to generate QR Code.</p>
+        }
+    </div>
+
+    <div>
+        <a asp-action="Index" class="btn btn-secondary">Back to Home</a>
+    </div>
+</div>
+
+@section Scripts {
+    @* <script src="~/js/LogIn.js"></script> *@
+}
