@@ -13,23 +13,30 @@ namespace HuaSect_AMS_DBTC.Services
             _config = config;
         }
 
-        public async Task CreateCourse(CreateCourseModel model)
+        public async Task CreateCourse(CreateCourseModel model, string jwtCookie)
         {
-            var response = await _httpClient.PostAsJsonAsync($"{_config["BackendUrl"]}/api/Course", model);
+            var request = new HttpRequestMessage(HttpMethod.Post, $"{_config["BackendUrl"]}/api/Course");
+            request.Headers.Add("authorization", $"Bearer {jwtCookie}");
+            request.Content = JsonContent.Create(model);
+            var response = await _httpClient.SendAsync(request);
             response.EnsureSuccessStatusCode();
         }
 
-        public async Task<ICollection<Course>> GetAllCoursesAsync()
+        public async Task<ICollection<Course>> GetAllCoursesAsync(string jwtCookie)
         {
-            var response = await _httpClient.GetAsync($"{_config["BackendUrl"]}/api/Course");
+            var request = new HttpRequestMessage(HttpMethod.Get, $"{_config["BackendUrl"]}/api/Course");
+            request.Headers.Add("authorization", $"Bearer {jwtCookie}");
+            var response = await _httpClient.SendAsync(request);
             response.EnsureSuccessStatusCode();
             var courses = await response.Content.ReadFromJsonAsync<ICollection<Course>>();
             return courses;
         }
 
-        public async Task<Course?> GetCourseByIdAsync(int id)
+        public async Task<Course?> GetCourseByIdAsync(int id, string jwtCookie)
         {
-            var response = await _httpClient.GetAsync($"{_config["BackendUrl"]}/api/Course/{id}");
+            var request = new HttpRequestMessage(HttpMethod.Get, $"{_config["BackendUrl"]}/api/Course/{id}");
+            request.Headers.Add("authorization", $"Bearer {jwtCookie}");
+            var response = await _httpClient.SendAsync(request);
             response.EnsureSuccessStatusCode();
             var course = await response.Content.ReadFromJsonAsync<Course>();
             return course;

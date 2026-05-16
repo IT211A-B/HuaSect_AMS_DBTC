@@ -23,12 +23,13 @@ namespace HuaSect_AMS_DBTC.Controllers
         [HttpGet("user-management")]
         public async Task<IActionResult> UserManagement()
         {
+            var userCookie = Request.Cookies["AuthToken"];
             ICollection<Student> students;
             ICollection<Teacher> teachers;
             try
             {
-               students = await _studentService.GetAllStudentsAsync();
-               teachers = await _teacherService.GetAllTeachersAsync();
+               students = await _studentService.GetAllStudentsAsync(userCookie);
+               teachers = await _teacherService.GetAllTeachersAsync(userCookie);
             } catch (Exception ex)
             {
                 return BadRequest(ex.Message);
@@ -56,7 +57,8 @@ namespace HuaSect_AMS_DBTC.Controllers
         [HttpPost("create-course")]
         public IActionResult CreateCoursePost([FromBody] CreateCourseModel model)
         {
-            _courseService.CreateCourse(model);
+            var userCookie = Request.Cookies["AuthToken"];
+            _courseService.CreateCourse(model, userCookie);
             return RedirectToAction("UserManagement");
         }
     }

@@ -13,17 +13,21 @@ namespace HuaSect_AMS_DBTC.Services
             _config = config;
         }
 
-        public async Task<ICollection<Attendance>> GetAllAttendanceRecordsAsync()
+        public async Task<ICollection<Attendance>> GetAllAttendanceRecordsAsync(string jwtCookie)
         {
-            var response = await _httpClient.GetAsync($"{_config["BackendUrl"]}/api/Attendance");
+            var request = new HttpRequestMessage(HttpMethod.Get, $"{_config["BackendUrl"]}/api/Attendance");
+            request.Headers.Add("authorization", $"Bearer {jwtCookie}");
+            var response = await _httpClient.SendAsync(request);
             response.EnsureSuccessStatusCode();
             var attendanceRecords = await response.Content.ReadFromJsonAsync<ICollection<Attendance>>();
             return attendanceRecords;
         }
 
-        public async Task<ICollection<Attendance>> GetStudentAttendanceRecordsAsync(int studentId)
+        public async Task<ICollection<Attendance>> GetStudentAttendanceRecordsAsync(int studentId, string jwtCookie)
         {
-            var response = await _httpClient.GetAsync($"{_config["BackendUrl"]}/api/Attendance?studentId={studentId}");
+            var request = new HttpRequestMessage(HttpMethod.Get, $"{_config["BackendUrl"]}/api/Attendance?studentId={studentId}");
+            request.Headers.Add("authorization", $"Bearer {jwtCookie}");
+            var response = await _httpClient.SendAsync(request);
             response.EnsureSuccessStatusCode();
             var attendanceRecords = await response.Content.ReadFromJsonAsync<ICollection<Attendance>>();
             return attendanceRecords;

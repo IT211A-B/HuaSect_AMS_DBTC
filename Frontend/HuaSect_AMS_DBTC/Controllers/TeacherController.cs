@@ -28,10 +28,11 @@ namespace HuaSect_AMS_DBTC.Controllers
         {
             Teacher? teacher;
             ICollection<Student> students;
+            var userCookie = Request.Cookies["AuthToken"];
             try
             {
-                teacher = await _teacherService.GetTeacherByIdAsync(id);
-                students = await _studentService.GetAllStudentsAsync();
+                teacher = await _teacherService.GetTeacherByIdAsync(id, userCookie);
+                students = await _studentService.GetAllStudentsAsync(userCookie);
             }
             catch (Exception ex)
             {
@@ -59,11 +60,12 @@ namespace HuaSect_AMS_DBTC.Controllers
             ICollection<Student> students;
             ICollection<Attendance> attendanceRecords;
             ICollection<Course> courses;
+            var userCookie = Request.Cookies["AuthToken"];
             try
             {
-                students = await _studentService.GetAllStudentsAsync();
-                attendanceRecords = await _attendanceService.GetAllAttendanceRecordsAsync();
-                courses = await _courseService.GetAllCoursesAsync();
+                students = await _studentService.GetAllStudentsAsync(userCookie);
+                attendanceRecords = await _attendanceService.GetAllAttendanceRecordsAsync(userCookie);
+                courses = await _courseService.GetAllCoursesAsync(userCookie);
             }
             catch (Exception ex)
             {
@@ -90,11 +92,12 @@ namespace HuaSect_AMS_DBTC.Controllers
             Student? student;
             Course? course;
             ICollection<Attendance> attendanceRecords;
+            var userCookie = Request.Cookies["AuthToken"];
             try
             {
-                student = await _studentService.GetStudentByIdAsync(studentId);
-                course = await _courseService.GetCourseByIdAsync(courseId);
-                attendanceRecords = await _attendanceService.GetStudentAttendanceRecordsAsync(studentId);
+                student = await _studentService.GetStudentByIdAsync(studentId, userCookie);
+                course = await _courseService.GetCourseByIdAsync(courseId, userCookie);
+                attendanceRecords = await _attendanceService.GetStudentAttendanceRecordsAsync(studentId, userCookie);
             }
             catch (Exception ex)
             {

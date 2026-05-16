@@ -3,8 +3,8 @@ namespace HuaSect_AMS_DBTC.Services
 {
     public interface IStudentService
     {
-        Task<ICollection<Student>> GetAllStudentsAsync();
+        Task<ICollection<Student>> GetAllStudentsAsync(string jwtCookie);
 
-        Task<Student?> GetStudentByIdAsync(int id);
+        Task<Student?> GetStudentByIdAsync(int id, string jwtCookie);
     }
 }

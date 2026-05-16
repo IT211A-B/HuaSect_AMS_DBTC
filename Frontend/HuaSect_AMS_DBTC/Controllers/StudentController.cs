@@ -22,9 +22,10 @@ namespace HuaSect_AMS_DBTC.Controllers
         public async Task<IActionResult> StudentDashboard()
         {
             ICollection<Course> courses;
+            var userCookie = Request.Cookies["AuthToken"];
             try
             {
-                courses = await _courseService.GetAllCoursesAsync();
+                courses = await _courseService.GetAllCoursesAsync(userCookie);
             }
             catch (Exception ex)
             {
@@ -42,10 +43,11 @@ namespace HuaSect_AMS_DBTC.Controllers
         {
             Course? course;
             ICollection<Attendance> attendanceRecords;
+            var userCookie = Request.Cookies["AuthToken"];
             try
             {
-                course = await _courseService.GetCourseByIdAsync(courseId);
-                attendanceRecords = await _attendanceService.GetStudentAttendanceRecordsAsync(studentId);
+                course = await _courseService.GetCourseByIdAsync(courseId, userCookie);
+                attendanceRecords = await _attendanceService.GetStudentAttendanceRecordsAsync(studentId, userCookie);
             }
             catch (Exception ex)
             {

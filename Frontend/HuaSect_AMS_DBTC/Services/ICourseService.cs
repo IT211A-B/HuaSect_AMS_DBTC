@@ -4,10 +4,10 @@ namespace HuaSect_AMS_DBTC.Services
 {
     public interface ICourseService
     {
-        Task<ICollection<Course>> GetAllCoursesAsync();
+        Task<ICollection<Course>> GetAllCoursesAsync(string jwtCookie);
 
-        Task<Course?> GetCourseByIdAsync(int id);
+        Task<Course?> GetCourseByIdAsync(int id, string jwtCookie);
 
-        Task CreateCourse(CreateCourseModel model);
+        Task CreateCourse(CreateCourseModel model, string jwtCookie);
     }
 }

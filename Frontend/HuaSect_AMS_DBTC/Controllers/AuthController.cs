@@ -28,7 +28,6 @@ namespace HuaSect_AMS_DBTC.Controllers
             if (!ModelState.IsValid)
                 return View(model); // Re-renders with validation errors
 
-            List<string> cookies;
             LogInResponseModel token;
 
             try
